@@ -41,8 +41,7 @@ const Home = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex items-center gap-4 mb-8"
           >
-            <div className="flex items-center gap-4 mb-8">
-              <ThemedAvatar size="sm" />
+            <ThemedAvatar size="sm" />
             <div>
               <p className="font-mono text-xs text-secondary tracking-wider">
                 {isPony ? "✨ Hello World! ✨" : "> SYSTEM.IDENTIFY"}
