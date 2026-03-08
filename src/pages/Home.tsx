@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import heroBg from "@/assets/hero-bg.jpg";
+import avatar from "@/assets/avatar.jpg";
 
 const Home = () => {
   const heroRef = useRef(null);
@@ -20,99 +21,107 @@ const Home = () => {
     <PageTransition>
       {/* Hero */}
       <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
-        <motion.div
-          style={{ y: bgY }}
-          className="absolute inset-0 opacity-20"
-        >
+        <motion.div style={{ y: bgY }} className="absolute inset-0 opacity-30">
           <img src={heroBg} alt="" className="w-full h-full object-cover" />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/80 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
+        <div className="absolute inset-0 scanlines pointer-events-none" />
 
         <motion.div
           style={{ y: textY, opacity }}
           className="container relative z-10 mx-auto px-6 py-32"
         >
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="font-mono text-primary mb-6 text-sm md:text-base"
+            className="flex items-center gap-4 mb-8"
           >
-            Hi, my name is
-          </motion.p>
+            <div className="w-14 h-14 rounded-sm overflow-hidden border border-neon-cyan/40 box-glow-cyan">
+              <img src={avatar} alt="Vadym Kolomiiets" className="w-full h-full object-cover" />
+            </div>
+            <div>
+              <p className="font-mono text-xs text-neon-magenta tracking-wider">SYSTEM.IDENTIFY</p>
+              <p className="font-mono text-sm text-primary">Frontend Developer</p>
+            </div>
+          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-4"
+            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-foreground mb-2 tracking-wider"
           >
-            Vadym Kolomiiets
+            <span className="text-primary text-glow-cyan">VADYM</span>
           </motion.h1>
-
-          <motion.h2
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-3xl md:text-5xl lg:text-6xl font-bold text-muted-foreground mb-8"
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-neon-magenta text-glow-magenta mb-8 tracking-wider"
           >
-            I build web experiences.
-          </motion.h2>
+            KOLOMIIETS
+          </motion.h1>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="max-w-xl text-muted-foreground text-lg mb-12 leading-relaxed"
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="max-w-xl mb-12"
           >
-            Frontend developer with 5+ years of experience, specializing in building interactive,
-            performant web applications using React, TypeScript, and modern technologies.
-          </motion.p>
+            <div className="cyber-border bg-card/50 backdrop-blur-sm p-5">
+              <p className="font-mono text-xs text-neon-magenta mb-2 tracking-wider">{'>'} PROFILE.DESC</p>
+              <p className="text-muted-foreground text-base leading-relaxed font-body">
+                Frontend developer with 5+ years of experience. Building interactive,
+                performant web applications with React, TypeScript, and cutting-edge technologies.
+              </p>
+            </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.0 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
             className="flex flex-wrap gap-4"
           >
             <Link
               to="/projects"
-              className="inline-flex items-center gap-2 font-mono text-sm border-2 border-primary text-primary px-8 py-3 rounded hover:bg-primary/10 transition-all box-glow"
+              className="inline-flex items-center gap-2 font-mono text-xs tracking-wider cyber-border bg-neon-cyan/10 text-primary px-8 py-3 hover:bg-neon-cyan/20 transition-all box-glow-cyan"
             >
-              View My Work <ArrowRight size={16} />
+              VIEW_PROJECTS <ArrowRight size={14} />
             </Link>
             <Link
               to="/contact"
-              className="font-mono text-sm bg-primary text-primary-foreground px-8 py-3 rounded hover:bg-primary/90 transition-all font-semibold"
+              className="inline-flex items-center gap-2 font-mono text-xs tracking-wider cyber-border bg-neon-magenta/10 text-secondary px-8 py-3 hover:bg-neon-magenta/20 transition-all box-glow-magenta"
             >
-              Contact Me
+              JACK_IN
             </Link>
           </motion.div>
         </motion.div>
 
-        {/* Terminal card with parallax */}
+        {/* Terminal card */}
         <Parallax speed={-0.3} className="hidden lg:block absolute right-12 xl:right-24 top-1/2 -translate-y-1/2 w-[420px]">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 1.2 }}
           >
-            <div className="bg-surface border border-border rounded-lg overflow-hidden border-glow">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
-                <div className="w-3 h-3 rounded-full bg-destructive/80" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <div className="w-3 h-3 rounded-full bg-primary/80" />
-                <span className="ml-2 font-mono text-xs text-muted-foreground">terminal</span>
+            <div className="cyber-border bg-card/80 backdrop-blur-sm overflow-hidden box-glow-cyan">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-neon-cyan/20">
+                <div className="w-2.5 h-2.5 bg-destructive" />
+                <div className="w-2.5 h-2.5 bg-neon-yellow" />
+                <div className="w-2.5 h-2.5 bg-primary" />
+                <span className="ml-2 font-mono text-[10px] text-muted-foreground tracking-wider">TERMINAL://VK</span>
               </div>
-              <div className="p-5 font-mono text-sm leading-7">
-                <p><span className="text-primary">const</span> <span className="text-foreground">developer</span> = {"{"}</p>
+              <div className="p-5 font-mono text-sm leading-7 scanlines">
+                <p><span className="text-neon-magenta">const</span> <span className="text-foreground">dev</span> = {"{"}</p>
                 <p className="ml-4"><span className="text-muted-foreground">name:</span> <span className="text-primary">'Vadym Kolomiiets'</span>,</p>
-                <p className="ml-4"><span className="text-muted-foreground">role:</span> <span className="text-primary">'Frontend Developer'</span>,</p>
-                <p className="ml-4"><span className="text-muted-foreground">skills:</span> [<span className="text-primary">'React'</span>, <span className="text-primary">'TypeScript'</span>],</p>
-                <p className="ml-4"><span className="text-muted-foreground">available:</span> <span className="text-primary">true</span>,</p>
+                <p className="ml-4"><span className="text-muted-foreground">role:</span> <span className="text-neon-magenta">'Frontend Dev'</span>,</p>
+                <p className="ml-4"><span className="text-muted-foreground">stack:</span> [<span className="text-primary">'React'</span>, <span className="text-neon-magenta">'TS'</span>],</p>
+                <p className="ml-4"><span className="text-muted-foreground">status:</span> <span className="text-neon-yellow">ONLINE</span>,</p>
                 <p>{"}"};</p>
-                <p className="mt-2 text-muted-foreground">
-                  <span className="text-primary animate-pulse">▊</span>
+                <p className="mt-2">
+                  <span className="text-primary animate-pulse">█</span>
                 </p>
               </div>
             </div>
@@ -120,9 +129,10 @@ const Home = () => {
         </Parallax>
       </section>
 
-      {/* Quick skills section */}
-      <section className="py-24 bg-surface/50">
-        <div className="container mx-auto px-6">
+      {/* Services */}
+      <section className="py-24 relative">
+        <div className="absolute inset-0 scanlines pointer-events-none opacity-30" />
+        <div className="container mx-auto px-6 relative z-10">
           <Parallax speed={-0.15}>
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -131,16 +141,19 @@ const Home = () => {
               transition={{ duration: 0.6 }}
               className="text-center mb-16"
             >
-              <p className="font-mono text-primary text-sm mb-4">What I do</p>
-              <h2 className="text-3xl md:text-4xl font-bold">Crafting Digital Experiences</h2>
+              <p className="font-mono text-xs text-neon-magenta mb-3 tracking-wider">{'>'} SERVICES.LIST</p>
+              <h2 className="text-3xl md:text-4xl font-display font-bold tracking-wider">
+                <span className="text-primary text-glow-cyan">DIGITAL</span>{" "}
+                <span className="text-foreground">ARSENAL</span>
+              </h2>
             </motion.div>
           </Parallax>
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { title: "Frontend Development", desc: "Building responsive, accessible interfaces with React, TypeScript, and modern CSS." },
-              { title: "UI/UX Implementation", desc: "Translating designs into pixel-perfect, interactive web experiences." },
-              { title: "Performance Optimization", desc: "Ensuring fast load times, smooth animations, and optimal user experience." },
+              { title: "FRONTEND_DEV", desc: "Building responsive, accessible interfaces with React, TypeScript, and modern CSS architectures." },
+              { title: "UI/UX_IMPL", desc: "Translating designs into pixel-perfect, interactive web experiences with smooth animations." },
+              { title: "PERF_OPT", desc: "Ensuring blazing-fast load times, buttery animations, and optimal user experience." },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
@@ -148,10 +161,11 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 * i }}
-                className="bg-card border border-border rounded-lg p-8 hover:border-primary/40 transition-all duration-500 border-glow group"
+                className="cyber-border bg-card/50 p-8 hover:bg-card/80 transition-all duration-500 box-glow-cyan group"
               >
-                <h3 className="font-mono text-primary text-sm font-semibold mb-3">{`// ${item.title}`}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="font-mono text-xs text-neon-magenta tracking-wider mb-1">MODULE.0{i + 1}</h3>
+                <h4 className="font-display text-sm text-primary mb-3 tracking-wider group-hover:text-glow-cyan">{item.title}</h4>
+                <p className="text-muted-foreground text-sm leading-relaxed font-body">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -165,9 +179,9 @@ const Home = () => {
           >
             <Link
               to="/about"
-              className="inline-flex items-center gap-2 font-mono text-sm text-primary hover:underline"
+              className="inline-flex items-center gap-2 font-mono text-xs text-primary hover:text-neon-magenta transition-colors tracking-wider"
             >
-              Learn more about me <ArrowRight size={14} />
+              LEARN_MORE <ArrowRight size={12} />
             </Link>
           </motion.div>
         </div>

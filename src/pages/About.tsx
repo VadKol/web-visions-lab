@@ -1,30 +1,32 @@
 import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
+import avatar from "@/assets/avatar.jpg";
 
 const skills = [
-  { category: "Frontend", items: ["React", "TypeScript", "Next.js", "Vue.js", "Tailwind CSS", "SCSS"] },
-  { category: "Tools", items: ["Git", "Webpack", "Vite", "Docker", "Figma", "Storybook"] },
-  { category: "Backend", items: ["Node.js", "Express", "GraphQL", "REST API", "PostgreSQL", "MongoDB"] },
-  { category: "Other", items: ["CI/CD", "Testing", "Agile", "Performance", "SEO", "Accessibility"] },
+  { category: "FRONTEND", items: ["React", "TypeScript", "Next.js", "Vue.js", "Tailwind CSS", "SCSS"] },
+  { category: "TOOLS", items: ["Git", "Webpack", "Vite", "Docker", "Figma", "Storybook"] },
+  { category: "BACKEND", items: ["Node.js", "Express", "GraphQL", "REST API", "PostgreSQL", "MongoDB"] },
+  { category: "OTHER", items: ["CI/CD", "Testing", "Agile", "Performance", "SEO", "A11y"] },
 ];
 
 const About = () => {
   return (
     <PageTransition>
       <div className="pt-24 pb-16">
-        {/* Hero header */}
-        <section className="py-16 md:py-24">
-          <div className="container mx-auto px-6">
+        <section className="py-16 md:py-24 relative">
+          <div className="absolute inset-0 scanlines pointer-events-none opacity-20" />
+          <div className="container mx-auto px-6 relative z-10">
             <Parallax speed={-0.1}>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <p className="font-mono text-primary text-sm mb-4">01. About Me</p>
-                <h1 className="text-4xl md:text-6xl font-bold mb-8">
-                  A passionate <span className="text-primary">frontend</span> developer
+                <p className="font-mono text-xs text-neon-magenta mb-3 tracking-wider">{'>'} PROFILE.LOAD</p>
+                <h1 className="text-4xl md:text-6xl font-display font-bold mb-8 tracking-wider">
+                  <span className="text-primary text-glow-cyan">ABOUT</span>{" "}
+                  <span className="text-foreground">ME</span>
                 </h1>
               </motion.div>
             </Parallax>
@@ -34,21 +36,26 @@ const About = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="md:col-span-3 space-y-5 text-muted-foreground leading-relaxed"
+                className="md:col-span-3 space-y-5"
               >
-                <p>
-                  Hello! My name is Alex, and I love creating things that live on the internet.
-                  My passion for web development started back in 2019, when I decided to try building
-                  my first website — and it completely changed my understanding of technology.
-                </p>
-                <p>
-                  Today I have experience working with various companies: from startups to large product teams.
-                  My focus is building accessible, inclusive, and performant web applications.
-                </p>
-                <p>
-                  When I'm not coding, you'll find me exploring new technologies, contributing to open-source
-                  projects, or enjoying a good cup of coffee while reading tech blogs.
-                </p>
+                <div className="cyber-border bg-card/50 p-6">
+                  <p className="font-mono text-xs text-neon-magenta mb-3 tracking-wider">{'>'} BIO.READ</p>
+                  <div className="space-y-4 text-muted-foreground leading-relaxed font-body text-base">
+                    <p>
+                      Hello! My name is <span className="text-primary">Vadym</span>, and I craft digital experiences
+                      that push the boundaries of the web. My journey into development started in 2019,
+                      when a single line of code changed everything.
+                    </p>
+                    <p>
+                      Today I work with teams ranging from ambitious startups to enterprise-scale products.
+                      My focus: building accessible, performant, and visually striking web applications.
+                    </p>
+                    <p>
+                      When I'm offline, I explore emerging tech, contribute to open-source,
+                      and fuel my coding sessions with industrial amounts of coffee.
+                    </p>
+                  </div>
+                </div>
               </motion.div>
 
               <motion.div
@@ -58,12 +65,18 @@ const About = () => {
                 className="md:col-span-2 flex justify-center"
               >
                 <div className="relative group">
-                  <div className="w-64 h-64 md:w-72 md:h-72 rounded-lg bg-surface border-2 border-primary/30 overflow-hidden relative z-10 group-hover:border-primary transition-colors duration-500">
-                    <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                      <span className="font-mono text-6xl text-primary/60">VK</span>
-                    </div>
+                  <div className="w-64 h-64 md:w-72 md:h-72 overflow-hidden relative z-10 cyber-border box-glow-cyan">
+                    <img
+                      src={avatar}
+                      alt="Vadym Kolomiiets"
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                    />
+                    <div className="absolute inset-0 bg-neon-cyan/10 group-hover:bg-transparent transition-colors duration-500" />
                   </div>
-                  <div className="absolute top-4 left-4 w-64 h-64 md:w-72 md:h-72 rounded-lg border-2 border-primary/40 -z-0 group-hover:top-3 group-hover:left-3 transition-all duration-500" />
+                  <div
+                    className="absolute top-3 left-3 w-64 h-64 md:w-72 md:h-72 border border-neon-magenta/30 -z-0 group-hover:top-2 group-hover:left-2 transition-all duration-500"
+                    style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}
+                  />
                 </div>
               </motion.div>
             </div>
@@ -71,8 +84,9 @@ const About = () => {
         </section>
 
         {/* Skills */}
-        <section className="py-16 bg-surface/50">
-          <div className="container mx-auto px-6">
+        <section className="py-16 relative">
+          <div className="absolute inset-0 bg-surface/30" />
+          <div className="container mx-auto px-6 relative z-10">
             <Parallax speed={-0.1}>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -80,8 +94,11 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <p className="font-mono text-primary text-sm mb-4">02. Skills</p>
-                <h2 className="text-3xl md:text-4xl font-bold mb-12">Technologies I work with</h2>
+                <p className="font-mono text-xs text-neon-magenta mb-3 tracking-wider">{'>'} SKILLS.SCAN</p>
+                <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 tracking-wider">
+                  <span className="text-primary text-glow-cyan">TECH</span>{" "}
+                  <span className="text-foreground">STACK</span>
+                </h2>
               </motion.div>
             </Parallax>
 
@@ -93,15 +110,14 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 * i }}
-                  className="bg-card border border-border rounded-lg p-6 hover:border-primary/50 transition-all duration-500 border-glow"
+                  className="cyber-border bg-card/50 p-6 hover:bg-card/80 transition-all duration-500 box-glow-cyan"
                 >
-                  <h3 className="font-mono text-primary text-sm font-semibold mb-4">
-                    {`// ${group.category}`}
-                  </h3>
+                  <h3 className="font-mono text-xs text-neon-magenta tracking-wider mb-1">MODULE.0{i + 1}</h3>
+                  <h4 className="font-display text-xs text-primary tracking-wider mb-4">{group.category}</h4>
                   <ul className="space-y-2">
                     {group.items.map((item) => (
-                      <li key={item} className="text-muted-foreground text-sm flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+                      <li key={item} className="text-muted-foreground text-sm flex items-center gap-2 font-body">
+                        <span className="w-1 h-1 bg-neon-cyan" />
                         {item}
                       </li>
                     ))}
@@ -112,7 +128,7 @@ const About = () => {
           </div>
         </section>
 
-        {/* Experience timeline */}
+        {/* Experience */}
         <section className="py-16">
           <div className="container mx-auto px-6">
             <Parallax speed={-0.1}>
@@ -122,16 +138,19 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <p className="font-mono text-primary text-sm mb-4">03. Experience</p>
-                <h2 className="text-3xl md:text-4xl font-bold mb-12">Where I've worked</h2>
+                <p className="font-mono text-xs text-neon-magenta mb-3 tracking-wider">{'>'} EXP.LOG</p>
+                <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 tracking-wider">
+                  <span className="text-primary text-glow-cyan">WORK</span>{" "}
+                  <span className="text-foreground">HISTORY</span>
+                </h2>
               </motion.div>
             </Parallax>
 
             <div className="space-y-8 max-w-3xl">
               {[
-                { role: "Senior Frontend Developer", company: "TechCorp", period: "2023 — Present", desc: "Leading the frontend team, building scalable React applications with TypeScript and Next.js." },
+                { role: "Senior Frontend Developer", company: "TechCorp", period: "2023 — Present", desc: "Leading the frontend squad, building scalable React applications with TypeScript and Next.js." },
                 { role: "Frontend Developer", company: "StartupHub", period: "2021 — 2023", desc: "Built interactive dashboards and real-time collaboration tools using React and WebSocket." },
-                { role: "Junior Developer", company: "WebAgency", period: "2019 — 2021", desc: "Developed responsive websites and landing pages for various clients using modern web technologies." },
+                { role: "Junior Developer", company: "WebAgency", period: "2019 — 2021", desc: "Developed responsive websites and landing pages for diverse clients using modern web tech." },
               ].map((job, i) => (
                 <motion.div
                   key={job.company}
@@ -139,13 +158,13 @@ const About = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 * i }}
-                  className="relative pl-8 border-l-2 border-border hover:border-primary/50 transition-colors duration-500"
+                  className="relative pl-8 border-l-2 border-neon-cyan/20 hover:border-neon-cyan/50 transition-colors duration-500"
                 >
-                  <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-primary" />
-                  <p className="font-mono text-primary text-xs mb-1">{job.period}</p>
-                  <h3 className="text-lg font-bold text-foreground">{job.role}</h3>
-                  <p className="font-mono text-sm text-primary/80 mb-2">@ {job.company}</p>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{job.desc}</p>
+                  <div className="absolute -left-[5px] top-1 w-2 h-2 bg-neon-cyan box-glow-cyan" />
+                  <p className="font-mono text-[10px] text-neon-magenta tracking-wider mb-1">{job.period}</p>
+                  <h3 className="text-lg font-display text-foreground tracking-wide">{job.role}</h3>
+                  <p className="font-mono text-xs text-primary mb-2">@ {job.company}</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed font-body">{job.desc}</p>
                 </motion.div>
               ))}
             </div>
