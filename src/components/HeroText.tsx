@@ -159,6 +159,9 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
           textShadow: "0 0 8px hsl(var(--primary)), 0 -4px 12px hsl(var(--primary) / 0.5)",
         };
       case "cyan":
+        return {
+          textShadow: "0 0 8px hsl(var(--primary)), 2px 0 hsl(var(--secondary) / 0.5), -2px 0 hsl(var(--primary) / 0.5)",
+        };
       case "green":
         return {
           textShadow: "0 0 6px hsl(var(--primary))",
