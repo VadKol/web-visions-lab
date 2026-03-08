@@ -6,6 +6,7 @@ import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import CyberRain from "@/components/CyberRain";
 import ThemedAvatar from "@/components/ThemedAvatar";
+import GlitchText from "@/components/GlitchText";
 import { useTheme } from "@/contexts/ThemeContext";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroBgPony from "@/assets/hero-bg-pony.jpg";
