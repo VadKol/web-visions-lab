@@ -47,20 +47,9 @@ const About = () => {
                     {isPony ? "💬 My Story" : "> BIO.READ"}
                   </p>
                   <div className="space-y-4 text-muted-foreground leading-relaxed font-body text-base">
-                    <p>
-                      {isPony ? "Hey there! 👋" : "Hello!"} My name is <span className="text-primary">Vadym</span>, Frontend Developer
-                      with solid experience in professional and freelance projects. Skilled in JavaScript, TypeScript,
-                      React, Node.js, database management, and API integration.
-                    </p>
-                    <p>
-                      I've worked at <span className="text-primary">Gamirare Inc.</span> building frontends with React & Next.js,
-                      at <span className="text-primary">Mate Academy</span> as a Fullstack Developer & Mentor,
-                      and as a <span className="text-primary">Freelance</span> developer delivering optimized web applications.
-                    </p>
-                    <p>
-                      I hold a Master's Degree in Computer Sciences from Kyiv National Economic University.
-                      Currently based in <span className="text-primary">Pardubice, Czech Republic</span> — open to remote work and relocation.
-                    </p>
+                    {bio.aboutParagraphs.map((p, i) => (
+                      <p key={i}>{i === 0 && (isPony ? "Hey there! 👋 " : "Hello! ")}{p}</p>
+                    ))}
                   </div>
                 </div>
               </motion.div>
