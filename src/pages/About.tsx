@@ -5,10 +5,10 @@ import ThemedAvatar from "@/components/ThemedAvatar";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const skills = [
-  { category: "FRONTEND", items: ["React", "TypeScript", "Next.js", "Vue.js", "Tailwind CSS", "SCSS"] },
-  { category: "TOOLS", items: ["Git", "Webpack", "Vite", "Docker", "Figma", "Storybook"] },
-  { category: "BACKEND", items: ["Node.js", "Express", "GraphQL", "REST API", "PostgreSQL", "MongoDB"] },
-  { category: "OTHER", items: ["CI/CD", "Testing", "Agile", "Performance", "SEO", "A11y"] },
+  { category: "FRONTEND", items: ["TypeScript / JavaScript", "React / Redux / RTK-query", "Next.js / Vue.js", "HTML5 / CSS3 / Sass / BEM", "Tailwind / Material UI / Bootstrap"] },
+  { category: "BACKEND", items: ["Node.js / Express / Nest.js", "PostgreSQL / MySQL / Prisma", "REST API / GraphQL", "WebSockets / Axios", "Docker"] },
+  { category: "TOOLS", items: ["Git / GitHub", "Webpack / Vite / NPM", "Figma", "VS Code / WebStorm", "Chrome DevTools / React DevTools"] },
+  { category: "TESTING & OTHER", items: ["Cypress / Jest", "CI/CD Pipelines", "Agile / Jira / Trello", "OOP", "English B2 / Czech B2"] },
 ];
 
 const About = () => {
