@@ -1,47 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&family=Fredoka:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
+  /* CYAN THEME (default) */
+  :root, [data-theme="cyan"] {
     --background: 240 15% 5%;
     --foreground: 190 80% 90%;
-
     --card: 240 12% 8%;
     --card-foreground: 190 80% 90%;
-
     --popover: 240 12% 8%;
     --popover-foreground: 190 80% 90%;
-
     --primary: 185 100% 50%;
     --primary-foreground: 240 15% 5%;
-
     --secondary: 320 100% 55%;
     --secondary-foreground: 240 15% 5%;
-
     --muted: 240 10% 14%;
     --muted-foreground: 200 15% 50%;
-
     --accent: 320 100% 55%;
     --accent-foreground: 240 15% 5%;
-
     --destructive: 0 90% 55%;
     --destructive-foreground: 0 0% 100%;
-
     --border: 200 30% 15%;
     --input: 200 30% 15%;
     --ring: 185 100% 50%;
-
     --radius: 0.25rem;
-
-    --neon-cyan: 185 100% 50%;
-    --neon-magenta: 320 100% 55%;
-    --neon-yellow: 55 100% 55%;
+    --neon-primary: 185 100% 50%;
+    --neon-secondary: 320 100% 55%;
+    --neon-accent: 55 100% 55%;
     --surface: 240 12% 9%;
     --glow: 185 100% 50%;
-
     --sidebar-background: 240 12% 8%;
     --sidebar-foreground: 190 80% 90%;
     --sidebar-primary: 185 100% 50%;
@@ -50,6 +40,92 @@
     --sidebar-accent-foreground: 190 80% 90%;
     --sidebar-border: 200 30% 15%;
     --sidebar-ring: 185 100% 50%;
+    --theme-mode: dark;
+  }
+
+  /* GREEN / MATRIX THEME */
+  [data-theme="green"] {
+    --background: 120 10% 4%;
+    --foreground: 120 60% 85%;
+    --card: 120 8% 7%;
+    --card-foreground: 120 60% 85%;
+    --popover: 120 8% 7%;
+    --popover-foreground: 120 60% 85%;
+    --primary: 142 72% 50%;
+    --primary-foreground: 120 10% 4%;
+    --secondary: 80 100% 50%;
+    --secondary-foreground: 120 10% 4%;
+    --muted: 120 8% 13%;
+    --muted-foreground: 120 15% 45%;
+    --accent: 80 100% 50%;
+    --accent-foreground: 120 10% 4%;
+    --destructive: 0 90% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 120 20% 13%;
+    --input: 120 20% 13%;
+    --ring: 142 72% 50%;
+    --neon-primary: 142 72% 50%;
+    --neon-secondary: 80 100% 50%;
+    --neon-accent: 60 100% 55%;
+    --surface: 120 8% 8%;
+    --glow: 142 72% 50%;
+  }
+
+  /* ORANGE / FIRE THEME */
+  [data-theme="orange"] {
+    --background: 15 15% 5%;
+    --foreground: 30 80% 88%;
+    --card: 15 12% 8%;
+    --card-foreground: 30 80% 88%;
+    --popover: 15 12% 8%;
+    --popover-foreground: 30 80% 88%;
+    --primary: 25 100% 55%;
+    --primary-foreground: 15 15% 5%;
+    --secondary: 0 100% 55%;
+    --secondary-foreground: 15 15% 5%;
+    --muted: 15 10% 14%;
+    --muted-foreground: 20 15% 48%;
+    --accent: 0 100% 55%;
+    --accent-foreground: 15 15% 5%;
+    --destructive: 0 90% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 20 25% 14%;
+    --input: 20 25% 14%;
+    --ring: 25 100% 55%;
+    --neon-primary: 25 100% 55%;
+    --neon-secondary: 0 100% 55%;
+    --neon-accent: 50 100% 55%;
+    --surface: 15 12% 9%;
+    --glow: 25 100% 55%;
+  }
+
+  /* PONY MODE 🦄 */
+  [data-theme="pony"] {
+    --background: 320 30% 95%;
+    --foreground: 280 40% 25%;
+    --card: 320 40% 97%;
+    --card-foreground: 280 40% 25%;
+    --popover: 320 40% 97%;
+    --popover-foreground: 280 40% 25%;
+    --primary: 320 80% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 280 70% 65%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 320 25% 90%;
+    --muted-foreground: 280 20% 55%;
+    --accent: 280 70% 65%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 320 30% 85%;
+    --input: 320 30% 85%;
+    --ring: 320 80% 60%;
+    --neon-primary: 320 80% 60%;
+    --neon-secondary: 280 70% 65%;
+    --neon-accent: 45 100% 65%;
+    --surface: 320 35% 93%;
+    --glow: 320 80% 60%;
+    --theme-mode: light;
   }
 }
 
@@ -65,27 +141,40 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
   }
+
+  /* Pony mode overrides fonts */
+  [data-theme="pony"] body,
+  [data-theme="pony"] {
+    font-family: 'Fredoka', sans-serif;
+  }
+
+  [data-theme="pony"] h1,
+  [data-theme="pony"] h2,
+  [data-theme="pony"] h3,
+  [data-theme="pony"] h4 {
+    font-family: 'Fredoka', sans-serif;
+  }
 }
 
 @layer utilities {
-  .text-glow-cyan {
-    text-shadow: 0 0 10px hsl(var(--neon-cyan) / 0.8), 0 0 40px hsl(var(--neon-cyan) / 0.4), 0 0 80px hsl(var(--neon-cyan) / 0.2);
+  .text-glow {
+    text-shadow: 0 0 10px hsl(var(--neon-primary) / 0.8), 0 0 40px hsl(var(--neon-primary) / 0.4), 0 0 80px hsl(var(--neon-primary) / 0.2);
   }
 
-  .text-glow-magenta {
-    text-shadow: 0 0 10px hsl(var(--neon-magenta) / 0.8), 0 0 40px hsl(var(--neon-magenta) / 0.4), 0 0 80px hsl(var(--neon-magenta) / 0.2);
+  .text-glow-secondary {
+    text-shadow: 0 0 10px hsl(var(--neon-secondary) / 0.8), 0 0 40px hsl(var(--neon-secondary) / 0.4), 0 0 80px hsl(var(--neon-secondary) / 0.2);
   }
 
-  .box-glow-cyan {
-    box-shadow: 0 0 15px hsl(var(--neon-cyan) / 0.2), 0 0 45px hsl(var(--neon-cyan) / 0.1), inset 0 0 15px hsl(var(--neon-cyan) / 0.05);
+  .box-glow {
+    box-shadow: 0 0 15px hsl(var(--neon-primary) / 0.2), 0 0 45px hsl(var(--neon-primary) / 0.1), inset 0 0 15px hsl(var(--neon-primary) / 0.05);
   }
 
-  .box-glow-magenta {
-    box-shadow: 0 0 15px hsl(var(--neon-magenta) / 0.2), 0 0 45px hsl(var(--neon-magenta) / 0.1), inset 0 0 15px hsl(var(--neon-magenta) / 0.05);
+  .box-glow-secondary {
+    box-shadow: 0 0 15px hsl(var(--neon-secondary) / 0.2), 0 0 45px hsl(var(--neon-secondary) / 0.1), inset 0 0 15px hsl(var(--neon-secondary) / 0.05);
   }
 
   .border-glow {
-    box-shadow: inset 0 0 20px hsl(var(--neon-cyan) / 0.05), 0 0 15px hsl(var(--neon-cyan) / 0.1);
+    box-shadow: inset 0 0 20px hsl(var(--neon-primary) / 0.05), 0 0 15px hsl(var(--neon-primary) / 0.1);
   }
 
   .scanlines {
@@ -93,19 +182,45 @@
       0deg,
       transparent,
       transparent 2px,
-      hsl(var(--neon-cyan) / 0.03) 2px,
-      hsl(var(--neon-cyan) / 0.03) 4px
+      hsl(var(--neon-primary) / 0.03) 2px,
+      hsl(var(--neon-primary) / 0.03) 4px
     );
   }
 
   .cyber-border {
-    border: 1px solid hsl(var(--neon-cyan) / 0.3);
+    border: 1px solid hsl(var(--neon-primary) / 0.3);
     clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
   }
 
   .cyber-border-sm {
-    border: 1px solid hsl(var(--neon-cyan) / 0.3);
+    border: 1px solid hsl(var(--neon-primary) / 0.3);
     clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+
+  /* Pony mode: round everything, no clip-path */
+  [data-theme="pony"] .cyber-border {
+    clip-path: none;
+    border-radius: 1rem;
+    border: 2px solid hsl(var(--neon-primary) / 0.4);
+  }
+
+  [data-theme="pony"] .cyber-border-sm {
+    clip-path: none;
+    border-radius: 0.75rem;
+    border: 2px solid hsl(var(--neon-primary) / 0.4);
+  }
+
+  [data-theme="pony"] .scanlines {
+    background: none;
+  }
+
+  [data-theme="pony"] .text-glow,
+  [data-theme="pony"] .text-glow-secondary {
+    text-shadow: none;
+  }
+
+  [data-theme="pony"] .box-glow {
+    box-shadow: 0 4px 20px hsl(var(--neon-primary) / 0.2);
   }
 }
 
@@ -119,35 +234,14 @@
   100% { transform: translate(0); }
 }
 
-@keyframes glitch-text {
-  0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 0); }
-  20% { clip-path: inset(92% 0 1% 0); transform: translate(2px, 0); }
-  40% { clip-path: inset(43% 0 1% 0); transform: translate(-1px, 0); }
-  60% { clip-path: inset(25% 0 58% 0); transform: translate(1px, 0); }
-  80% { clip-path: inset(54% 0 7% 0); transform: translate(-1px, 0); }
-  100% { clip-path: inset(58% 0 43% 0); transform: translate(0); }
-}
-
-@keyframes flicker {
-  0%, 100% { opacity: 1; }
-  41% { opacity: 1; }
-  42% { opacity: 0.8; }
-  43% { opacity: 1; }
-  45% { opacity: 0.3; }
-  46% { opacity: 1; }
-}
-
-@keyframes scanline-move {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
-}
-
 .glitch-hover:hover {
   animation: glitch 0.3s ease-in-out;
 }
 
-.flicker {
-  animation: flicker 4s infinite;
+[data-theme="pony"] .glitch-hover:hover {
+  animation: none;
+  transform: scale(1.05);
+  transition: transform 0.2s;
 }
 
 /* Custom scrollbar */
@@ -158,19 +252,18 @@
   background: hsl(var(--background));
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--neon-cyan) / 0.3);
+  background: hsl(var(--neon-primary) / 0.3);
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--neon-cyan) / 0.6);
+  background: hsl(var(--neon-primary) / 0.6);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Selection */
 ::selection {
-  background: hsl(var(--neon-magenta) / 0.4);
+  background: hsl(var(--neon-secondary) / 0.4);
   color: hsl(var(--foreground));
 }

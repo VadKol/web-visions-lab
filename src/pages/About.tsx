@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
+import { useTheme } from "@/contexts/ThemeContext";
+import avatarCyber from "@/assets/avatar-cyber.jpg";
 import avatar from "@/assets/avatar.jpg";
 
 const skills = [
@@ -11,11 +13,13 @@ const skills = [
 ];
 
 const About = () => {
+  const { isPony } = useTheme();
+
   return (
     <PageTransition>
       <div className="pt-24 pb-16">
         <section className="py-16 md:py-24 relative">
-          <div className="absolute inset-0 scanlines pointer-events-none opacity-20" />
+          {!isPony && <div className="absolute inset-0 scanlines pointer-events-none opacity-20" />}
           <div className="container mx-auto px-6 relative z-10">
             <Parallax speed={-0.1}>
               <motion.div
@@ -23,10 +27,12 @@ const About = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <p className="font-mono text-xs text-neon-magenta mb-3 tracking-wider">{'>'} PROFILE.LOAD</p>
-                <h1 className="text-4xl md:text-6xl font-display font-bold mb-8 tracking-wider">
-                  <span className="text-primary text-glow-cyan">ABOUT</span>{" "}
-                  <span className="text-foreground">ME</span>
+                <p className="font-mono text-xs text-secondary mb-3 tracking-wider">
+                  {isPony ? "✨ Get to know me" : "> PROFILE.LOAD"}
+                </p>
+                <h1 className="text-4xl md:text-6xl font-bold mb-8 tracking-wider">
+                  <span className="text-primary text-glow">{isPony ? "About " : "ABOUT "}</span>
+                  <span className="text-foreground">{isPony ? "Me 💖" : "ME"}</span>
                 </h1>
               </motion.div>
             </Parallax>
@@ -38,11 +44,13 @@ const About = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="md:col-span-3 space-y-5"
               >
-                <div className="cyber-border bg-card/50 p-6">
-                  <p className="font-mono text-xs text-neon-magenta mb-3 tracking-wider">{'>'} BIO.READ</p>
+                <div className={`${isPony ? "bg-card rounded-2xl border-2 border-primary/20 shadow-lg" : "cyber-border bg-card/50"} p-6`}>
+                  <p className="font-mono text-xs text-secondary mb-3 tracking-wider">
+                    {isPony ? "💬 My Story" : "> BIO.READ"}
+                  </p>
                   <div className="space-y-4 text-muted-foreground leading-relaxed font-body text-base">
                     <p>
-                      Hello! My name is <span className="text-primary">Vadym</span>, and I craft digital experiences
+                      {isPony ? "Hey there! 👋" : "Hello!"} My name is <span className="text-primary">Vadym</span>, and I craft digital experiences
                       that push the boundaries of the web. My journey into development started in 2019,
                       when a single line of code changed everything.
                     </p>
@@ -52,7 +60,7 @@ const About = () => {
                     </p>
                     <p>
                       When I'm offline, I explore emerging tech, contribute to open-source,
-                      and fuel my coding sessions with industrial amounts of coffee.
+                      and fuel my coding sessions with {isPony ? "magical unicorn juice 🦄" : "industrial amounts of coffee"}.
                     </p>
                   </div>
                 </div>
@@ -65,18 +73,20 @@ const About = () => {
                 className="md:col-span-2 flex justify-center"
               >
                 <div className="relative group">
-                  <div className="w-64 h-64 md:w-72 md:h-72 overflow-hidden relative z-10 cyber-border box-glow-cyan">
+                  <div className={`w-64 h-64 md:w-72 md:h-72 overflow-hidden relative z-10 ${isPony ? "rounded-2xl border-2 border-primary/40 shadow-xl" : "cyber-border"} box-glow`}>
                     <img
-                      src={avatar}
+                      src={isPony ? avatar : avatarCyber}
                       alt="Vadym Kolomiiets"
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                      className={`w-full h-full object-cover ${isPony ? "group-hover:scale-105" : "grayscale group-hover:grayscale-0"} transition-all duration-700`}
                     />
-                    <div className="absolute inset-0 bg-neon-cyan/10 group-hover:bg-transparent transition-colors duration-500" />
+                    {!isPony && <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500" />}
                   </div>
-                  <div
-                    className="absolute top-3 left-3 w-64 h-64 md:w-72 md:h-72 border border-neon-magenta/30 -z-0 group-hover:top-2 group-hover:left-2 transition-all duration-500"
-                    style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}
-                  />
+                  {!isPony && (
+                    <div
+                      className="absolute top-3 left-3 w-64 h-64 md:w-72 md:h-72 border border-secondary/30 -z-0 group-hover:top-2 group-hover:left-2 transition-all duration-500"
+                      style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}
+                    />
+                  )}
                 </div>
               </motion.div>
             </div>
@@ -94,10 +104,12 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <p className="font-mono text-xs text-neon-magenta mb-3 tracking-wider">{'>'} SKILLS.SCAN</p>
-                <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 tracking-wider">
-                  <span className="text-primary text-glow-cyan">TECH</span>{" "}
-                  <span className="text-foreground">STACK</span>
+                <p className="font-mono text-xs text-secondary mb-3 tracking-wider">
+                  {isPony ? "🛠️ My toolkit" : "> SKILLS.SCAN"}
+                </p>
+                <h2 className="text-3xl md:text-4xl font-bold mb-12 tracking-wider">
+                  <span className="text-primary text-glow">{isPony ? "Tech " : "TECH "}</span>
+                  <span className="text-foreground">{isPony ? "Stack 🔧" : "STACK"}</span>
                 </h2>
               </motion.div>
             </Parallax>
@@ -110,14 +122,16 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 * i }}
-                  className="cyber-border bg-card/50 p-6 hover:bg-card/80 transition-all duration-500 box-glow-cyan"
+                  className={`${isPony ? "bg-card rounded-2xl border-2 border-primary/20 shadow-lg" : "cyber-border bg-card/50 box-glow"} p-6 hover:bg-card/80 transition-all duration-500`}
                 >
-                  <h3 className="font-mono text-xs text-neon-magenta tracking-wider mb-1">MODULE.0{i + 1}</h3>
-                  <h4 className="font-display text-xs text-primary tracking-wider mb-4">{group.category}</h4>
+                  {!isPony && <h3 className="font-mono text-xs text-secondary tracking-wider mb-1">MODULE.0{i + 1}</h3>}
+                  <h4 className={`${isPony ? "text-sm font-semibold" : "font-display text-xs tracking-wider"} text-primary mb-4`}>
+                    {isPony ? group.category.charAt(0) + group.category.slice(1).toLowerCase() : group.category}
+                  </h4>
                   <ul className="space-y-2">
                     {group.items.map((item) => (
                       <li key={item} className="text-muted-foreground text-sm flex items-center gap-2 font-body">
-                        <span className="w-1 h-1 bg-neon-cyan" />
+                        <span className={`w-1 h-1 ${isPony ? "rounded-full" : ""} bg-primary`} />
                         {item}
                       </li>
                     ))}
@@ -138,10 +152,12 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <p className="font-mono text-xs text-neon-magenta mb-3 tracking-wider">{'>'} EXP.LOG</p>
-                <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 tracking-wider">
-                  <span className="text-primary text-glow-cyan">WORK</span>{" "}
-                  <span className="text-foreground">HISTORY</span>
+                <p className="font-mono text-xs text-secondary mb-3 tracking-wider">
+                  {isPony ? "📋 Experience" : "> EXP.LOG"}
+                </p>
+                <h2 className="text-3xl md:text-4xl font-bold mb-12 tracking-wider">
+                  <span className="text-primary text-glow">{isPony ? "Work " : "WORK "}</span>
+                  <span className="text-foreground">{isPony ? "History 💼" : "HISTORY"}</span>
                 </h2>
               </motion.div>
             </Parallax>
@@ -158,11 +174,11 @@ const About = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 * i }}
-                  className="relative pl-8 border-l-2 border-neon-cyan/20 hover:border-neon-cyan/50 transition-colors duration-500"
+                  className={`relative pl-8 border-l-2 ${isPony ? "border-primary/30 hover:border-primary/60" : "border-primary/20 hover:border-primary/50"} transition-colors duration-500`}
                 >
-                  <div className="absolute -left-[5px] top-1 w-2 h-2 bg-neon-cyan box-glow-cyan" />
-                  <p className="font-mono text-[10px] text-neon-magenta tracking-wider mb-1">{job.period}</p>
-                  <h3 className="text-lg font-display text-foreground tracking-wide">{job.role}</h3>
+                  <div className={`absolute -left-[5px] top-1 w-2 h-2 ${isPony ? "rounded-full" : ""} bg-primary box-glow`} />
+                  <p className="font-mono text-[10px] text-secondary tracking-wider mb-1">{job.period}</p>
+                  <h3 className="text-lg font-bold text-foreground tracking-wide">{job.role}</h3>
                   <p className="font-mono text-xs text-primary mb-2">@ {job.company}</p>
                   <p className="text-muted-foreground text-sm leading-relaxed font-body">{job.desc}</p>
                 </motion.div>
