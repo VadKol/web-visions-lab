@@ -19,7 +19,14 @@ const sizeMap = {
 const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
   const { theme, isPony } = useTheme();
 
-  const src = isPony ? avatarPony : avatarCyber;
+  const src = (() => {
+    switch (theme) {
+      case "green": return avatarMatrix;
+      case "orange": return avatarInferno;
+      case "pony": return avatarPony;
+      default: return avatarCyber;
+    }
+  })();
 
   // Theme-specific border/glow colors via CSS vars
   const containerClass = isPony
