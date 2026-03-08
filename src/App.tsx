@@ -93,7 +93,7 @@ const App = () => {
                   <ScrollToTop />
                   <KonamiEasterEgg />
                   <CommandPalette />
-                  <SoundToggle />
+                  
                   <ThemeSwitcher />
                   <Footer />
                 </BrowserRouter>
