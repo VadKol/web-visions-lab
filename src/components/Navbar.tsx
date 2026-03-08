@@ -28,8 +28,6 @@ const Navbar = () => {
   const prefetch = useCallback((href: string) => {
     routePrefetch[href]?.();
   }, []);
-  const location = useLocation();
-  const { isPony } = useTheme();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
