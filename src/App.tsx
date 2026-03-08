@@ -91,8 +91,11 @@ const App = () => {
                   </main>
                   <ScrollToTop />
                   <KonamiEasterEgg />
+                  <CommandPalette />
+                  <SoundToggle />
                   <ThemeSwitcher />
                   <Footer />
+                </BrowserRouter>
                 </BrowserRouter>
               </motion.div>
             )}
