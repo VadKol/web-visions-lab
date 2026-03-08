@@ -124,7 +124,8 @@ const Projects = () => {
                       </button>
                     </div>
                   </div>
-                </motion.div>
+                  </motion.div>
+                </TiltCard>
               ))}
             </div>
 
