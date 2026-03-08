@@ -187,7 +187,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
           animate={getAnimation(i)}
           transition={getTransition(i)}
           className="inline-block relative"
-          style={{ whiteSpace: "pre", ...getCharStyle(i) }}
+          style={{ whiteSpace: "pre", pointerEvents: "none", ...getCharStyle(i) }}
         >
           {char === " "
             ? "\u00A0"
