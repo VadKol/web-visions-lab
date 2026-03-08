@@ -1,8 +1,12 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Download, ExternalLink, FileText, X } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import ThemedAvatar from "@/components/ThemedAvatar";
 import { useTheme } from "@/contexts/ThemeContext";
+
+const RESUME_URL = "/Vadym_Kolomiiets_Resume_FE.pdf";
 
 const skills = [
   { category: "FRONTEND", items: ["TypeScript / JavaScript", "React / Redux / RTK-query", "Next.js / Vue.js", "HTML5 / CSS3 / Sass / BEM", "Tailwind / Material UI / Bootstrap"] },
@@ -13,6 +17,7 @@ const skills = [
 
 const About = () => {
   const { isPony } = useTheme();
+  const [showResume, setShowResume] = useState(false);
 
   return (
     <PageTransition>
@@ -171,7 +176,119 @@ const About = () => {
             </div>
           </div>
         </section>
+
+        {/* Resume CTA */}
+        <section className="py-16 relative">
+          <div className="absolute inset-0 bg-surface/30" />
+          <div className="container mx-auto px-6 relative z-10 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="font-mono text-xs text-secondary mb-3 tracking-wider">
+                {isPony ? "📄 My Resume" : "> RESUME.ACCESS"}
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-wider">
+                <span className="text-primary text-glow">{isPony ? "Download " : "GET "}</span>
+                <span className="text-foreground">{isPony ? "Resume 📋" : "RESUME"}</span>
+              </h2>
+              <p className="text-muted-foreground font-body mb-8 max-w-md mx-auto">
+                View or download my full resume with detailed work experience, skills, and education.
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <button
+                  onClick={() => setShowResume(true)}
+                  className={`inline-flex items-center gap-2 font-mono text-xs tracking-wider px-6 py-3 transition-all ${isPony ? "bg-primary text-primary-foreground rounded-full hover:opacity-90" : "cyber-border bg-primary/10 text-primary hover:bg-primary/20 box-glow"}`}
+                >
+                  <FileText size={14} /> {isPony ? "Preview 👀" : "PREVIEW"}
+                </button>
+                <a
+                  href={RESUME_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 font-mono text-xs tracking-wider px-6 py-3 transition-all ${isPony ? "bg-secondary text-secondary-foreground rounded-full hover:opacity-90" : "cyber-border bg-secondary/10 text-secondary hover:bg-secondary/20 box-glow-secondary"}`}
+                >
+                  <ExternalLink size={14} /> {isPony ? "Open in Tab 🔗" : "OPEN_TAB"}
+                </a>
+                <a
+                  href={RESUME_URL}
+                  download="Vadym_Kolomiiets_Resume_FE.pdf"
+                  className={`inline-flex items-center gap-2 font-mono text-xs tracking-wider px-6 py-3 transition-all ${isPony ? "bg-card border-2 border-primary/30 text-foreground rounded-full hover:border-primary/60" : "cyber-border bg-card/50 text-foreground hover:bg-card/80 border-glow"}`}
+                >
+                  <Download size={14} /> {isPony ? "Download 📥" : "DOWNLOAD"}
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </section>
       </div>
+
+      {/* Resume Preview Modal */}
+      <AnimatePresence>
+        {showResume && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            onClick={() => setShowResume(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              onClick={(e) => e.stopPropagation()}
+              className={`w-full max-w-4xl h-[85vh] flex flex-col ${isPony ? "rounded-2xl border-2 border-primary/30 shadow-2xl" : "cyber-border"} bg-card overflow-hidden`}
+            >
+              {/* Modal header */}
+              <div className={`flex items-center justify-between px-5 py-3 border-b ${isPony ? "border-primary/20" : "border-primary/20"}`}>
+                <div className="flex items-center gap-3">
+                  <FileText size={16} className="text-primary" />
+                  <span className="font-mono text-xs text-muted-foreground tracking-wider">
+                    {isPony ? "📄 Resume Preview" : "RESUME://PREVIEW"}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <a
+                    href={RESUME_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                    title="Open in new tab"
+                  >
+                    <ExternalLink size={16} />
+                  </a>
+                  <a
+                    href={RESUME_URL}
+                    download="Vadym_Kolomiiets_Resume_FE.pdf"
+                    className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                    title="Download"
+                  >
+                    <Download size={16} />
+                  </a>
+                  <button
+                    onClick={() => setShowResume(false)}
+                    className="p-2 text-muted-foreground hover:text-destructive transition-colors"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              </div>
+              {/* PDF embed */}
+              <div className="flex-1 bg-background">
+                <iframe
+                  src={RESUME_URL}
+                  className="w-full h-full border-0"
+                  title="Resume Preview"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </PageTransition>
   );
 };
