@@ -14,7 +14,7 @@ const TerminalTyping = () => {
   const [started, setStarted] = useState(false);
 
   const lines: TerminalLine[] = [
-    ...terminalLines.map((t) => ({ text: t })),
+    ...getTerminalLines(isPony).map((t) => ({ text: t })),
     { text: `  status: ${isPony ? "'SPARKLY ✨'" : "'ONLINE'"},` },
     { text: "};" },
   ];
