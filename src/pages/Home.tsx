@@ -154,9 +154,9 @@ const Home = () => {
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { title: isPony ? "Frontend Magic ✨" : "FRONTEND_DEV", desc: "Building responsive, accessible interfaces with React, TypeScript, and modern CSS architectures." },
-              { title: isPony ? "Design to Code 🎨" : "UI/UX_IMPL", desc: "Translating designs into pixel-perfect, interactive web experiences with smooth animations." },
-              { title: isPony ? "Speed Boost 🚀" : "PERF_OPT", desc: "Ensuring blazing-fast load times, buttery animations, and optimal user experience." },
+              { title: isPony ? "Frontend Magic ✨" : "FRONTEND_DEV", desc: "React, Redux, Next.js, TypeScript — building responsive, accessible interfaces with modern CSS and component architectures." },
+              { title: isPony ? "Full-Stack Power 🔧" : "FULLSTACK_DEV", desc: "Node.js, Express, Nest.js, PostgreSQL, Prisma — implementing CRUD, REST/GraphQL APIs and database optimization." },
+              { title: isPony ? "Speed Boost 🚀" : "PERF_OPT", desc: "Optimizing load times by 20–30%, implementing automated testing with Cypress & Jest, reducing bugs by 40%." },
             ].map((item, i) => (
               <motion.div
                 key={i}
