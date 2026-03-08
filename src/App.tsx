@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { SoundProvider } from "@/contexts/SoundContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageLoader from "@/components/PageLoader";
@@ -13,6 +14,8 @@ import ScrollToTop from "@/components/ScrollToTop";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import CursorTrail from "@/components/CursorTrail";
 import KonamiEasterEgg from "@/components/KonamiEasterEgg";
+import CommandPalette from "@/components/CommandPalette";
+import SoundToggle from "@/components/SoundToggle";
 import useKeyboardNav from "@/hooks/useKeyboardNav";
 
 // Lazy-loaded pages
