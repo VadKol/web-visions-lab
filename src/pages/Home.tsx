@@ -117,7 +117,7 @@ const Home = () => {
               <div className="cyber-border bg-card/80 backdrop-blur-sm overflow-hidden box-glow">
                 <div className="flex items-center gap-2 px-4 py-3 border-b border-primary/20">
                   <div className="w-2.5 h-2.5 bg-destructive" />
-                  <div className="w-2.5 h-2.5 bg-neon-yellow" />
+                  <div className="w-2.5 h-2.5 bg-neon-accent" />
                   <div className="w-2.5 h-2.5 bg-primary" />
                   <span className="ml-2 font-mono text-[10px] text-muted-foreground tracking-wider">TERMINAL://VK</span>
                 </div>
