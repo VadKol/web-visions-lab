@@ -93,8 +93,8 @@ const Contact = () => {
                   <input id="contact-name" type="text" placeholder="John Doe" className={inputClass} style={inputStyle} />
                 </div>
                 <div>
-                  <label className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">EMAIL</label>
-                  <input type="email" placeholder="john@example.com" className={inputClass} style={inputStyle} />
+                  <label htmlFor="contact-email" className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">EMAIL</label>
+                  <input id="contact-email" type="email" placeholder="john@example.com" className={inputClass} style={inputStyle} />
                 </div>
                 <div>
                   <label className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">MESSAGE</label>
