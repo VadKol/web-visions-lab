@@ -13,6 +13,7 @@ import PageLoader from "@/components/PageLoader";
 import ScrollToTop from "@/components/ScrollToTop";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import CursorTrail from "@/components/CursorTrail";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 import KonamiEasterEgg from "@/components/KonamiEasterEgg";
 import CommandPalette from "@/components/CommandPalette";
 import SoundToggle from "@/components/SoundToggle";
@@ -85,6 +86,7 @@ const App = () => {
                   <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:font-mono focus:text-sm focus:tracking-wider">
                     Skip to content
                   </a>
+                  <ScrollProgressBar />
                   <Navbar />
                   <main id="main-content">
                     <AnimatedRoutes />

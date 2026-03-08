@@ -7,6 +7,7 @@ import Parallax from "@/components/Parallax";
 import CyberRain from "@/components/CyberRain";
 import ThemedAvatar from "@/components/ThemedAvatar";
 import GlitchText from "@/components/GlitchText";
+import PixelText from "@/components/PixelText";
 import TerminalTyping from "@/components/TerminalTyping";
 import TypingRoles from "@/components/TypingRoles";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -124,7 +125,7 @@ const Home = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-2 tracking-wider ${isPony ? "text-primary" : "text-primary text-glow"}`}
           >
-            <GlitchText>{isPony ? "Vadym ✨" : "VADYM"}</GlitchText>
+            <PixelText>{isPony ? "Vadym ✨" : "VADYM"}</PixelText>
           </motion.h1>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -132,7 +133,7 @@ const Home = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
             className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-wider ${isPony ? "text-secondary" : "text-secondary text-glow-secondary"}`}
           >
-            <GlitchText>{isPony ? "Kolomiiets 🦄" : "KOLOMIIETS"}</GlitchText>
+            <PixelText>{isPony ? "Kolomiiets 🦄" : "KOLOMIIETS"}</PixelText>
           </motion.h1>
 
           <motion.div
