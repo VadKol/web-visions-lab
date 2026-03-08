@@ -102,6 +102,7 @@ const App = () => {
           </AnimatePresence>
         </TooltipProvider>
       </QueryClientProvider>
+      </SoundProvider>
     </ThemeProvider>
   );
 };
