@@ -75,6 +75,7 @@ const App = () => {
                 transition={{ duration: 0.5 }}
               >
                 <BrowserRouter>
+                  <ScrollToTopOnNav />
                   <CursorTrail />
                   <Navbar />
                   <AnimatedRoutes />
