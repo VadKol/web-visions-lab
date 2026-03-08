@@ -18,7 +18,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
   const [scatter, setScatter] = useState<
     { dx: number; dy: number; rot: number; replacement: string }[]
   >([]);
-  const [displayChars, setDisplayChars] = useState<string[]>(children.split(""));
+  const [displayChars, setDisplayChars] = useState<string[]>(Array.from(children));
 
   const onEnter = useCallback(() => {
     setScatter(
