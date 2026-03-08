@@ -42,7 +42,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
     if (!hovered || (theme !== "cyan" && theme !== "green")) return;
     const interval = setInterval(() => {
       setDisplayChars(
-        children.split("").map((ch) =>
+        Array.from(children).map((ch) =>
           ch === " " ? " " : Math.random() > 0.3 ? randomChar(matrixChars) : ch
         )
       );
