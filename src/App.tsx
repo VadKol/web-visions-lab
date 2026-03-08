@@ -13,6 +13,7 @@ import PageLoader from "@/components/PageLoader";
 import ScrollToTop from "@/components/ScrollToTop";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import CursorTrail from "@/components/CursorTrail";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 import KonamiEasterEgg from "@/components/KonamiEasterEgg";
 import CommandPalette from "@/components/CommandPalette";
 import SoundToggle from "@/components/SoundToggle";
