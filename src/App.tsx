@@ -12,6 +12,7 @@ import PageLoader from "@/components/PageLoader";
 import ScrollToTop from "@/components/ScrollToTop";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import CursorTrail from "@/components/CursorTrail";
+import KonamiEasterEgg from "@/components/KonamiEasterEgg";
 import useKeyboardNav from "@/hooks/useKeyboardNav";
 
 // Lazy-loaded pages
@@ -85,6 +86,7 @@ const App = () => {
                     <AnimatedRoutes />
                   </main>
                   <ScrollToTop />
+                  <KonamiEasterEgg />
                   <ThemeSwitcher />
                   <Footer />
                 </BrowserRouter>
