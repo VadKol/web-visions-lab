@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
@@ -12,6 +12,25 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { personal, bio, services } from "@/data/portfolio";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroBgPony from "@/assets/hero-bg-pony.jpg";
+
+const getGreeting = (isPony: boolean): string => {
+  const hour = new Date().getHours();
+  const day = new Date().getDay();
+
+  if (isPony) {
+    if (day === 0 || day === 6) return "✨ Weekend vibes! ✨";
+    if (hour >= 5 && hour < 12) return "✨ Good morning! ✨";
+    if (hour >= 12 && hour < 18) return "☀️ Good afternoon! ✨";
+    if (hour >= 18 && hour < 22) return "🌙 Good evening! ✨";
+    return "🦉 Night owl? Me too! ✨";
+  }
+
+  if (day === 0 || day === 6) return "> WEEKEND_MODE.ACTIVE";
+  if (hour >= 5 && hour < 12) return "> GOOD_MORNING.INIT";
+  if (hour >= 12 && hour < 18) return "> GOOD_AFTERNOON.RUN";
+  if (hour >= 18 && hour < 22) return "> GOOD_EVENING.EXEC";
+  return "> NIGHT_OWL.DETECTED";
+};
 
 const Home = () => {
   const heroRef = useRef(null);
