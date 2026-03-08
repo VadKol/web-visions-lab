@@ -95,7 +95,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
         return {
           duration: hovered ? 0.6 : 0.3,
           delay: hovered ? i * 0.03 : i * 0.01,
-          ease: hovered ? "easeIn" : "easeOut",
+          ease: hovered ? "easeIn" as const : "easeOut" as const,
         };
       case "orange":
         return {
