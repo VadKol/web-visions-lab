@@ -5,6 +5,7 @@ import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
 import { projects } from "@/data/portfolio";
+import TiltCard from "@/components/TiltCard";
 
 const PROJECTS_PER_PAGE = 3;
 
@@ -44,14 +45,14 @@ const Projects = () => {
 
             <div className="mt-16 space-y-12">
               {currentProjects.map((project, i) => (
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.1 * i }}
-                  className={`group grid md:grid-cols-2 gap-0 overflow-hidden transition-all duration-500 ${isPony ? "bg-card rounded-2xl border-2 border-primary/20 shadow-lg hover:shadow-xl" : "cyber-border bg-card/50 hover:bg-card/80 box-glow"}`}
-                >
+                <TiltCard key={project.title}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1 * i }}
+                    className={`group grid md:grid-cols-2 gap-0 overflow-hidden transition-all duration-500 ${isPony ? "bg-card rounded-2xl border-2 border-primary/20 shadow-lg hover:shadow-xl" : "cyber-border bg-card/50 hover:bg-card/80 box-glow"}`}
+                  >
                   <div
                     className="relative aspect-video md:aspect-auto overflow-hidden cursor-pointer"
                     onClick={() => setPreviewImage(project.image)}
@@ -123,7 +124,8 @@ const Projects = () => {
                       </button>
                     </div>
                   </div>
-                </motion.div>
+                  </motion.div>
+                </TiltCard>
               ))}
             </div>
 
