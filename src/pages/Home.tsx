@@ -49,7 +49,7 @@ const Home = () => {
               <p className="font-mono text-xs text-secondary tracking-wider">
                 {isPony ? "✨ Hello World! ✨" : "> SYSTEM.IDENTIFY"}
               </p>
-              <p className="font-mono text-sm text-primary">{personal.role}</p>
+              <p className="font-mono text-sm text-primary">{isPony ? personal.rolePony : personal.role}</p>
             </div>
           </motion.div>
 

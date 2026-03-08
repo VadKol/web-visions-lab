@@ -13,6 +13,7 @@ export const personal = {
   lastName: "Kolomiiets",
   initials: "VK",
   role: "Frontend Developer",
+  rolePony: "Фронтенд Феєчка ✨",
   location: "Pardubice, Czech Republic",
   locationShort: "Pardubice, CZ",
   email: "kolomiietsvad@gmail.com",
@@ -125,7 +126,7 @@ export const education = [
 export const services = [
   {
     titleCyber: "FRONTEND_DEV",
-    titlePony: "Frontend Magic ✨",
+    titlePony: "Фронтенд Магія ✨",
     desc: "React, Redux, Next.js, TypeScript — building responsive, accessible interfaces with modern CSS and component architectures.",
   },
   {
