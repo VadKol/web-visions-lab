@@ -35,6 +35,7 @@ const getGreeting = (isPony: boolean): string => {
 const Home = () => {
   const heroRef = useRef(null);
   const { isPony } = useTheme();
+  const greeting = useMemo(() => getGreeting(isPony), [isPony]);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
