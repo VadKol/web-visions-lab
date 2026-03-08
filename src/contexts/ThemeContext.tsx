@@ -32,15 +32,16 @@ export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setThemeState] = useState<ThemeId>(() => {
-    if (typeof window !== "undefined") {
+    try {
       return (localStorage.getItem("vk-theme") as ThemeId) || "cyan";
+    } catch {
+      return "cyan";
     }
-    return "cyan";
   });
 
   const setTheme = (t: ThemeId) => {
     setThemeState(t);
-    localStorage.setItem("vk-theme", t);
+    try { localStorage.setItem("vk-theme", t); } catch {}
   };
 
   useEffect(() => {
