@@ -97,8 +97,8 @@ const Contact = () => {
                   <input id="contact-email" type="email" placeholder="john@example.com" className={inputClass} style={inputStyle} />
                 </div>
                 <div>
-                  <label className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">MESSAGE</label>
-                  <textarea rows={5} placeholder="Tell me about your project..." className={`${inputClass} resize-none`} style={inputStyle} />
+                  <label htmlFor="contact-message" className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">MESSAGE</label>
+                  <textarea id="contact-message" rows={5} placeholder="Tell me about your project..." className={`${inputClass} resize-none`} style={inputStyle} />
                 </div>
                 <button
                   type="submit"

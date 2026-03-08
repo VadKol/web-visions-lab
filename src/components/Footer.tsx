@@ -13,11 +13,11 @@ const Footer = () => {
         </p>
         <div className="flex items-center gap-4">
           {[
-            { icon: Github, href: "#" },
-            { icon: Linkedin, href: "#" },
-            { icon: Mail, href: "mailto:hello@example.com" },
-          ].map(({ icon: Icon, href }, i) => (
-            <a key={i} href={href} className={`text-muted-foreground hover:text-primary transition-colors ${isPony ? "" : "glitch-hover"}`}>
+            { icon: Github, href: "#", label: "GitHub" },
+            { icon: Linkedin, href: "#", label: "LinkedIn" },
+            { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+          ].map(({ icon: Icon, href, label }, i) => (
+            <a key={i} href={href} aria-label={label} className={`text-muted-foreground hover:text-primary transition-colors ${isPony ? "" : "glitch-hover"}`}>
               <Icon size={14} />
             </a>
           ))}
