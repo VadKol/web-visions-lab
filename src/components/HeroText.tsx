@@ -18,11 +18,11 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
   const [scatter, setScatter] = useState<
     { dx: number; dy: number; rot: number; replacement: string }[]
   >([]);
-  const [displayChars, setDisplayChars] = useState<string[]>(children.split(""));
+  const [displayChars, setDisplayChars] = useState<string[]>(Array.from(children));
 
   const onEnter = useCallback(() => {
     setScatter(
-      children.split("").map(() => ({
+      Array.from(children).map(() => ({
         dx: (Math.random() - 0.5) * 80,
         dy: (Math.random() - 0.5) * 60,
         rot: (Math.random() - 0.5) * 120,
@@ -34,7 +34,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
 
   const onLeave = useCallback(() => {
     setHovered(false);
-    setDisplayChars(children.split(""));
+    setDisplayChars(Array.from(children));
   }, [children]);
 
   // Matrix mode: cycle random characters while hovered
@@ -42,7 +42,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
     if (!hovered || (theme !== "cyan" && theme !== "green")) return;
     const interval = setInterval(() => {
       setDisplayChars(
-        children.split("").map((ch) =>
+        Array.from(children).map((ch) =>
           ch === " " ? " " : Math.random() > 0.3 ? randomChar(matrixChars) : ch
         )
       );
@@ -132,7 +132,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
     }
   };
 
-  const chars = children.split("");
+  const chars = Array.from(children);
   const showMatrix = hovered && (theme === "cyan" || theme === "green");
 
   return (

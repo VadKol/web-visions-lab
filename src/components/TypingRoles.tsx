@@ -27,18 +27,20 @@ const TypingRoles = () => {
 
   useEffect(() => {
     const current = roles[index % roles.length];
+    const currentChars = Array.from(current);
+    const displayedChars = Array.from(displayed);
 
     if (!deleting) {
-      if (displayed.length < current.length) {
-        const t = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 80);
+      if (displayedChars.length < currentChars.length) {
+        const t = setTimeout(() => setDisplayed(currentChars.slice(0, displayedChars.length + 1).join("")), 80);
         return () => clearTimeout(t);
       } else {
         const t = setTimeout(() => setDeleting(true), 2000);
         return () => clearTimeout(t);
       }
     } else {
-      if (displayed.length > 0) {
-        const t = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 40);
+      if (displayedChars.length > 0) {
+        const t = setTimeout(() => setDisplayed(currentChars.slice(0, displayedChars.length - 1).join("")), 40);
         return () => clearTimeout(t);
       } else {
         setDeleting(false);
