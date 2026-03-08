@@ -60,7 +60,7 @@ const About = () => {
                 <div className="relative group">
                   <div className="w-64 h-64 md:w-72 md:h-72 rounded-lg bg-surface border-2 border-primary/30 overflow-hidden relative z-10 group-hover:border-primary transition-colors duration-500">
                     <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                      <span className="font-mono text-6xl text-primary/60">AK</span>
+                      <span className="font-mono text-6xl text-primary/60">VK</span>
                     </div>
                   </div>
                   <div className="absolute top-4 left-4 w-64 h-64 md:w-72 md:h-72 rounded-lg border-2 border-primary/40 -z-0 group-hover:top-3 group-hover:left-3 transition-all duration-500" />
