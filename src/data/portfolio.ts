@@ -126,7 +126,7 @@ export const education = [
 export const services = [
   {
     titleCyber: "FRONTEND_DEV",
-    titlePony: "Frontend Magic ✨",
+    titlePony: "Фронтенд Магія ✨",
     desc: "React, Redux, Next.js, TypeScript — building responsive, accessible interfaces with modern CSS and component architectures.",
   },
   {
