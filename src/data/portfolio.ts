@@ -77,7 +77,7 @@ export const skills = [
       "CI/CD Pipelines",
       "Agile / Jira / Trello",
       "OOP",
-      "English B2 / Czech B2",
+      "English B2 / Czech B2 / Ukrainian C2",
     ],
   },
 ];
