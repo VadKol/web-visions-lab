@@ -13,6 +13,7 @@ export const personal = {
   lastName: "Kolomiiets",
   initials: "VK",
   role: "Frontend Developer",
+  rolePony: "Фронтенд Феєчка ✨",
   location: "Pardubice, Czech Republic",
   locationShort: "Pardubice, CZ",
   email: "kolomiietsvad@gmail.com",
