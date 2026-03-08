@@ -22,7 +22,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
 
   const onEnter = useCallback(() => {
     setScatter(
-      children.split("").map(() => ({
+      Array.from(children).map(() => ({
         dx: (Math.random() - 0.5) * 80,
         dy: (Math.random() - 0.5) * 60,
         rot: (Math.random() - 0.5) * 120,
