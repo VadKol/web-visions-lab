@@ -46,6 +46,17 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
+    // Update favicon
+    const faviconMap: Record<ThemeId, string> = {
+      cyan: "/favicon-cyan.png",
+      green: "/favicon-green.png",
+      orange: "/favicon-orange.png",
+      pony: "/favicon-pony.png",
+    };
+    const link = document.querySelector<HTMLLinkElement>("link[rel='icon']");
+    if (link) {
+      link.href = faviconMap[theme];
+    }
   }, [theme]);
 
   return (
