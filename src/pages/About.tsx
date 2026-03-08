@@ -177,10 +177,7 @@ const About = () => {
             </Parallax>
 
             <div className="grid md:grid-cols-2 gap-6 max-w-3xl">
-              {[
-                { degree: "Master's Degree", field: "Computer Sciences", school: "Kyiv National Economic University", period: "2020 — 2022", note: "Nostrified in Czech Republic" },
-                { degree: "Bachelor's Degree", field: "Computer Sciences", school: "Kyiv National Economic University", period: "2016 — 2020", note: "Nostrified in Czech Republic" },
-              ].map((edu, i) => (
+              {education.map((edu, i) => (
                 <motion.div
                   key={edu.degree}
                   initial={{ opacity: 0, y: 30 }}
