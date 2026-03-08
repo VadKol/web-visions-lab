@@ -172,7 +172,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
   };
 
   const chars = Array.from(children);
-  const showMatrix = hovered && (theme === "cyan" || theme === "green");
+  const showAltChars = hovered && (theme === "cyan" || theme === "green");
 
   return (
     <span
