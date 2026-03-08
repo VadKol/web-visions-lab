@@ -21,9 +21,9 @@ export default {
       colors: {
         surface: "hsl(var(--surface))",
         glow: "hsl(var(--glow))",
-        "neon-cyan": "hsl(var(--neon-cyan))",
-        "neon-magenta": "hsl(var(--neon-magenta))",
-        "neon-yellow": "hsl(var(--neon-yellow))",
+        "neon-primary": "hsl(var(--neon-primary))",
+        "neon-secondary": "hsl(var(--neon-secondary))",
+        "neon-accent": "hsl(var(--neon-accent))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
