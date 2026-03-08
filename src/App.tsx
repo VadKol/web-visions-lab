@@ -86,6 +86,7 @@ const App = () => {
                     <AnimatedRoutes />
                   </main>
                   <ScrollToTop />
+                  <KonamiEasterEgg />
                   <ThemeSwitcher />
                   <Footer />
                 </BrowserRouter>
