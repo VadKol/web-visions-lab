@@ -8,6 +8,7 @@ import CyberRain from "@/components/CyberRain";
 import ThemedAvatar from "@/components/ThemedAvatar";
 import GlitchText from "@/components/GlitchText";
 import TerminalTyping from "@/components/TerminalTyping";
+import TypingRoles from "@/components/TypingRoles";
 import { useTheme } from "@/contexts/ThemeContext";
 import { personal, bio, services } from "@/data/portfolio";
 import heroBg from "@/assets/hero-bg.jpg";
