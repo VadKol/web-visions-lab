@@ -61,6 +61,7 @@ const App = () => {
               <BrowserRouter>
                 <Navbar />
                 <AnimatedRoutes />
+                <ScrollToTop />
                 <Footer />
               </BrowserRouter>
             </motion.div>
