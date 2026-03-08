@@ -23,6 +23,14 @@ const NotFound = lazy(() => import("@/pages/NotFound"));
 
 const queryClient = new QueryClient();
 
+const ScrollToTopOnNav = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
 const AnimatedRoutes = () => {
   const location = useLocation();
   useKeyboardNav();
@@ -67,6 +75,7 @@ const App = () => {
                 transition={{ duration: 0.5 }}
               >
                 <BrowserRouter>
+                  <ScrollToTopOnNav />
                   <CursorTrail />
                   <Navbar />
                   <AnimatedRoutes />
