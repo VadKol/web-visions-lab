@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
+import CyberRain from "@/components/CyberRain";
+import ThemedAvatar from "@/components/ThemedAvatar";
 import { useTheme } from "@/contexts/ThemeContext";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroBgPony from "@/assets/hero-bg-pony.jpg";
-import avatarCyber from "@/assets/avatar-cyber.jpg";
-import avatar from "@/assets/avatar.jpg";
 
 const Home = () => {
   const heroRef = useRef(null);
