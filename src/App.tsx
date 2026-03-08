@@ -65,7 +65,6 @@ const App = () => {
 
   return (
     <ThemeProvider>
-      <SoundProvider>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
