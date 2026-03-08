@@ -57,7 +57,7 @@ const Navbar = () => {
         }`}
       >
         <div className="container mx-auto flex items-center justify-between py-4 px-6">
-          <Link to="/" className={`font-display text-sm font-bold text-primary tracking-widest ${isPony ? "" : "text-glow"}`}>
+          <Link to="/" aria-label="Home — Vadym Kolomiiets" className={`font-display text-sm font-bold text-primary tracking-widest ${isPony ? "" : "text-glow"}`}>
             {isPony ? "✨ VK" : "VK://DEV"}
           </Link>
           <div className="hidden md:flex items-center gap-8">
