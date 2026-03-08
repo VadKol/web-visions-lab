@@ -39,6 +39,11 @@ const Navbar = () => {
     setMobileOpen(false);
   }, [location]);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
   return (
     <>
       <motion.nav
