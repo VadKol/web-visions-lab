@@ -34,7 +34,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
 
   const onLeave = useCallback(() => {
     setHovered(false);
-    setDisplayChars(children.split(""));
+    setDisplayChars(Array.from(children));
   }, [children]);
 
   // Matrix mode: cycle random characters while hovered
