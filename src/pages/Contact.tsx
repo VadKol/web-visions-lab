@@ -50,10 +50,10 @@ const Contact = () => {
                   {isPony ? "📬 Find me here" : "> CHANNELS.LIST"}
                 </div>
                 {[
-                  { icon: Mail, label: "EMAIL", value: "hello@vadymkolomiiets.dev", href: "mailto:hello@vadymkolomiiets.dev" },
-                  { icon: Github, label: "GITHUB", value: "github.com/vadymkolomiiets", href: "#" },
-                  { icon: Linkedin, label: "LINKEDIN", value: "linkedin.com/in/vadymkolomiiets", href: "#" },
-                  { icon: MapPin, label: "LOCATION", value: "Kyiv, Ukraine", href: undefined },
+                  { icon: Mail, label: "EMAIL", value: "kolomiietsvad@gmail.com", href: "mailto:kolomiietsvad@gmail.com" },
+                  { icon: Github, label: "GITHUB", value: "github.com/vadymkolomiiets", href: "https://github.com/vadymkolomiiets" },
+                  { icon: Linkedin, label: "LINKEDIN", value: "linkedin.com/in/vadymkolomiiets", href: "https://linkedin.com/in/vadymkolomiiets" },
+                  { icon: MapPin, label: "LOCATION", value: "Pardubice, Czech Republic", href: undefined },
                 ].map((item, i) => (
                   <motion.div
                     key={item.label}

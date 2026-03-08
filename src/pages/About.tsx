@@ -5,10 +5,10 @@ import ThemedAvatar from "@/components/ThemedAvatar";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const skills = [
-  { category: "FRONTEND", items: ["React", "TypeScript", "Next.js", "Vue.js", "Tailwind CSS", "SCSS"] },
-  { category: "TOOLS", items: ["Git", "Webpack", "Vite", "Docker", "Figma", "Storybook"] },
-  { category: "BACKEND", items: ["Node.js", "Express", "GraphQL", "REST API", "PostgreSQL", "MongoDB"] },
-  { category: "OTHER", items: ["CI/CD", "Testing", "Agile", "Performance", "SEO", "A11y"] },
+  { category: "FRONTEND", items: ["TypeScript / JavaScript", "React / Redux / RTK-query", "Next.js / Vue.js", "HTML5 / CSS3 / Sass / BEM", "Tailwind / Material UI / Bootstrap"] },
+  { category: "BACKEND", items: ["Node.js / Express / Nest.js", "PostgreSQL / MySQL / Prisma", "REST API / GraphQL", "WebSockets / Axios", "Docker"] },
+  { category: "TOOLS", items: ["Git / GitHub", "Webpack / Vite / NPM", "Figma", "VS Code / WebStorm", "Chrome DevTools / React DevTools"] },
+  { category: "TESTING & OTHER", items: ["Cypress / Jest", "CI/CD Pipelines", "Agile / Jira / Trello", "OOP", "English B2 / Czech B2"] },
 ];
 
 const About = () => {
@@ -49,17 +49,18 @@ const About = () => {
                   </p>
                   <div className="space-y-4 text-muted-foreground leading-relaxed font-body text-base">
                     <p>
-                      {isPony ? "Hey there! 👋" : "Hello!"} My name is <span className="text-primary">Vadym</span>, and I craft digital experiences
-                      that push the boundaries of the web. My journey into development started in 2019,
-                      when a single line of code changed everything.
+                      {isPony ? "Hey there! 👋" : "Hello!"} My name is <span className="text-primary">Vadym</span>, Frontend Developer
+                      with solid experience in professional and freelance projects. Skilled in JavaScript, TypeScript,
+                      React, Node.js, database management, and API integration.
                     </p>
                     <p>
-                      Today I work with teams ranging from ambitious startups to enterprise-scale products.
-                      My focus: building accessible, performant, and visually striking web applications.
+                      I've worked at <span className="text-primary">Gamirare Inc.</span> building frontends with React & Next.js,
+                      at <span className="text-primary">Mate Academy</span> as a Fullstack Developer & Mentor,
+                      and as a <span className="text-primary">Freelance</span> developer delivering optimized web applications.
                     </p>
                     <p>
-                      When I'm offline, I explore emerging tech, contribute to open-source,
-                      and fuel my coding sessions with {isPony ? "magical unicorn juice 🦄" : "industrial amounts of coffee"}.
+                      I hold a Master's Degree in Computer Sciences from Kyiv National Economic University.
+                      Currently based in <span className="text-primary">Pardubice, Czech Republic</span> — open to remote work and relocation.
                     </p>
                   </div>
                 </div>
@@ -148,9 +149,9 @@ const About = () => {
 
             <div className="space-y-8 max-w-3xl">
               {[
-                { role: "Senior Frontend Developer", company: "TechCorp", period: "2023 — Present", desc: "Leading the frontend squad, building scalable React applications with TypeScript and Next.js." },
-                { role: "Frontend Developer", company: "StartupHub", period: "2021 — 2023", desc: "Built interactive dashboards and real-time collaboration tools using React and WebSocket." },
-                { role: "Junior Developer", company: "WebAgency", period: "2019 — 2021", desc: "Developed responsive websites and landing pages for diverse clients using modern web tech." },
+                { role: "Frontend / Full-Stack Developer", company: "Freelance", period: "2024 — 2026", desc: "Developed web applications using JavaScript, React, and Node.js. Optimized app functionality, reducing load times by 20–30%. Implemented automated testing, reducing bugs by 40%." },
+                { role: "Fullstack Developer / Mentor", company: "Mate Academy", period: "2023 — 2024", desc: "Developed web apps with React & Node.js, implemented CRUD and API integrations. Mentored junior developers. Optimized load times by 20–30%." },
+                { role: "Fullstack Developer", company: "Gamirare Inc.", period: "2022 — 2023", desc: "Built frontend with React & Next.js, backend with Node.js. Worked with MySQL & PostgreSQL. Integrated REST/GraphQL APIs. Optimized DB performance, reducing page loads by 30%. Implemented OAuth2 authentication." },
               ].map((job, i) => (
                 <motion.div
                   key={job.company}

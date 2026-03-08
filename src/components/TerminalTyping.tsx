@@ -15,8 +15,9 @@ const TerminalTyping = () => {
   const lines: TerminalLine[] = [
     { text: "const dev = {" },
     { text: `  name: 'Vadym Kolomiiets',` },
-    { text: `  role: 'Frontend Dev',` },
-    { text: `  stack: ['React', 'TS'],` },
+    { text: `  role: 'Frontend Developer',` },
+    { text: `  stack: ['React', 'TS', 'Node'],` },
+    { text: `  location: 'Pardubice, CZ',` },
     { text: `  status: ${isPony ? "'SPARKLY ✨'" : "'ONLINE'"},` },
     { text: "};" },
   ];

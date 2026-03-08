@@ -80,8 +80,9 @@ const Home = () => {
                 {isPony ? "💖 About me" : "> PROFILE.DESC"}
               </p>
               <p className="text-muted-foreground text-base leading-relaxed font-body">
-                Frontend developer with 5+ years of experience. Building interactive,
-                performant web applications with React, TypeScript, and cutting-edge technologies.
+                Frontend Developer with solid experience in professional and freelance projects.
+                Skilled in JavaScript, TypeScript, React, Node.js, database management, and API integration.
+                Proactive and detail-oriented, delivering clean, maintainable code.
               </p>
             </div>
           </motion.div>
@@ -153,9 +154,9 @@ const Home = () => {
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { title: isPony ? "Frontend Magic ✨" : "FRONTEND_DEV", desc: "Building responsive, accessible interfaces with React, TypeScript, and modern CSS architectures." },
-              { title: isPony ? "Design to Code 🎨" : "UI/UX_IMPL", desc: "Translating designs into pixel-perfect, interactive web experiences with smooth animations." },
-              { title: isPony ? "Speed Boost 🚀" : "PERF_OPT", desc: "Ensuring blazing-fast load times, buttery animations, and optimal user experience." },
+              { title: isPony ? "Frontend Magic ✨" : "FRONTEND_DEV", desc: "React, Redux, Next.js, TypeScript — building responsive, accessible interfaces with modern CSS and component architectures." },
+              { title: isPony ? "Full-Stack Power 🔧" : "FULLSTACK_DEV", desc: "Node.js, Express, Nest.js, PostgreSQL, Prisma — implementing CRUD, REST/GraphQL APIs and database optimization." },
+              { title: isPony ? "Speed Boost 🚀" : "PERF_OPT", desc: "Optimizing load times by 20–30%, implementing automated testing with Cypress & Jest, reducing bugs by 40%." },
             ].map((item, i) => (
               <motion.div
                 key={i}
