@@ -5,15 +5,9 @@ import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import ThemedAvatar from "@/components/ThemedAvatar";
 import { useTheme } from "@/contexts/ThemeContext";
+import { personal, bio, skills, experience, education } from "@/data/portfolio";
 
-const RESUME_URL = "/Vadym_Kolomiiets_Resume_FE.pdf";
-
-const skills = [
-  { category: "FRONTEND", items: ["TypeScript / JavaScript", "React / Redux / RTK-query", "Next.js / Vue.js", "HTML5 / CSS3 / Sass / BEM", "Tailwind / Material UI / Bootstrap"] },
-  { category: "BACKEND", items: ["Node.js / Express / Nest.js", "PostgreSQL / MySQL / Prisma", "REST API / GraphQL", "WebSockets / Axios", "Docker"] },
-  { category: "TOOLS", items: ["Git / GitHub", "Webpack / Vite / NPM", "Figma", "VS Code / WebStorm", "Chrome DevTools / React DevTools"] },
-  { category: "TESTING & OTHER", items: ["Cypress / Jest", "CI/CD Pipelines", "Agile / Jira / Trello", "OOP", "English B2 / Czech B2"] },
-];
+const RESUME_URL = personal.resumeUrl;
 
 const About = () => {
   const { isPony } = useTheme();
