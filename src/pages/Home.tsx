@@ -47,7 +47,7 @@ const Home = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-4"
           >
-            Alex Koval
+            Vadym Kolomiiets
           </motion.h1>
 
           <motion.h2
