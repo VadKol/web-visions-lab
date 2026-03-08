@@ -89,8 +89,8 @@ const Contact = () => {
                   {isPony ? "✏️ Write to me" : "> MESSAGE.COMPOSE"}
                 </div>
                 <div>
-                  <label className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">NAME</label>
-                  <input type="text" placeholder="John Doe" className={inputClass} style={inputStyle} />
+                  <label htmlFor="contact-name" className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">NAME</label>
+                  <input id="contact-name" type="text" placeholder="John Doe" className={inputClass} style={inputStyle} />
                 </div>
                 <div>
                   <label className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">EMAIL</label>
