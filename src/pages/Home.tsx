@@ -99,7 +99,7 @@ const Home = () => {
         <CyberRain />
 
         <motion.div
-          style={{ y: textY, opacity }}
+          style={{ y: textY, opacity, x: useTransform(springX, v => v * -0.5) }}
           className="container relative z-10 mx-auto px-6 py-32"
         >
           <motion.div
