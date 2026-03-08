@@ -96,7 +96,6 @@ const App = () => {
                   <ThemeSwitcher />
                   <Footer />
                 </BrowserRouter>
-                </BrowserRouter>
               </motion.div>
             )}
           </AnimatePresence>
