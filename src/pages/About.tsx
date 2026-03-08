@@ -71,22 +71,7 @@ const About = () => {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="md:col-span-2 flex justify-center"
               >
-                <div className="relative group">
-                  <div className={`w-64 h-64 md:w-72 md:h-72 overflow-hidden relative z-10 ${isPony ? "rounded-2xl border-2 border-primary/40 shadow-xl" : "cyber-border"} box-glow`}>
-                    <img
-                      src={isPony ? avatar : avatarCyber}
-                      alt="Vadym Kolomiiets"
-                      className={`w-full h-full object-cover ${isPony ? "group-hover:scale-105" : "grayscale group-hover:grayscale-0"} transition-all duration-700`}
-                    />
-                    {!isPony && <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500" />}
-                  </div>
-                  {!isPony && (
-                    <div
-                      className="absolute top-3 left-3 w-64 h-64 md:w-72 md:h-72 border border-secondary/30 -z-0 group-hover:top-2 group-hover:left-2 transition-all duration-500"
-                      style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}
-                    />
-                  )}
-                </div>
+                <ThemedAvatar size="lg" />
               </motion.div>
             </div>
           </div>
