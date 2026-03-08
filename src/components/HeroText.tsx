@@ -101,7 +101,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
         return {
           duration: hovered ? 0.5 : 0.3,
           delay: hovered ? i * 0.02 : i * 0.01,
-          ease: hovered ? [0.4, 0, 1, 1] : "easeOut",
+          ease: hovered ? [0.4, 0, 1, 1] as const : "easeOut" as const,
         };
       case "pony":
       default:
