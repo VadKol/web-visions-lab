@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
 import avatarCyber from "@/assets/avatar-cyber.jpg";
+import avatarMatrix from "@/assets/avatar-matrix.jpg";
+import avatarInferno from "@/assets/avatar-inferno.jpg";
 import avatarPony from "@/assets/avatar-pony.jpg";
-import avatar from "@/assets/avatar.jpg";
 
 interface ThemedAvatarProps {
   size?: "sm" | "md" | "lg";
