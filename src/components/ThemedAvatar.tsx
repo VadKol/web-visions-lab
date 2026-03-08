@@ -51,11 +51,11 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
       {/* Animated glow ring */}
       {theme === "orange" && (
         <motion.div
-          className={`absolute inset-[-4px] z-0 ${size === "sm" ? "" : "inset-[-6px]"}`}
+          className={`absolute z-0 ${size === "sm" ? "inset-[-20px]" : "inset-[-28px]"}`}
           style={{
             background: `conic-gradient(from 0deg, hsl(var(--neon-primary) / 0.9), transparent, hsl(var(--neon-secondary) / 0.9), transparent, hsl(var(--neon-primary) / 0.9))`,
-            clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
-            filter: "blur(4px)",
+            clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
+            filter: "blur(5px)",
           }}
           animate={{ 
             rotate: [0, 360],
