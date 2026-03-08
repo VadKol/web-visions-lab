@@ -118,7 +118,7 @@ const Projects = () => {
                       <a href={project.live} className="inline-flex items-center gap-2 font-mono text-[10px] text-muted-foreground hover:text-secondary transition-colors tracking-wider">
                         <ExternalLink size={14} /> {isPony ? "Live" : "LIVE"}
                       </a>
-                      <button onClick={() => setPreviewImage(project.image)} className="inline-flex items-center gap-2 font-mono text-[10px] text-muted-foreground hover:text-primary transition-colors tracking-wider">
+                      <button onClick={() => setPreviewImage(project.image)} aria-label={`Preview ${project.title}`} className="inline-flex items-center gap-2 font-mono text-[10px] text-muted-foreground hover:text-primary transition-colors tracking-wider">
                         <Eye size={14} /> {isPony ? "Preview" : "PREVIEW"}
                       </button>
                     </div>
