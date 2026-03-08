@@ -136,11 +136,7 @@ const About = () => {
             </Parallax>
 
             <div className="space-y-8 max-w-3xl">
-              {[
-                { role: "Frontend / Full-Stack Developer", company: "Freelance", period: "2024 — 2026", desc: "Developed web applications using JavaScript, React, and Node.js. Optimized app functionality, reducing load times by 20–30%. Implemented automated testing, reducing bugs by 40%." },
-                { role: "Fullstack Developer / Mentor", company: "Mate Academy", period: "2023 — 2024", desc: "Developed web apps with React & Node.js, implemented CRUD and API integrations. Mentored junior developers. Optimized load times by 20–30%." },
-                { role: "Fullstack Developer", company: "Gamirare Inc.", period: "2022 — 2023", desc: "Built frontend with React & Next.js, backend with Node.js. Worked with MySQL & PostgreSQL. Integrated REST/GraphQL APIs. Optimized DB performance, reducing page loads by 30%. Implemented OAuth2 authentication." },
-              ].map((job, i) => (
+              {experience.map((job, i) => (
                 <motion.div
                   key={job.company}
                   initial={{ opacity: 0, x: -30 }}
