@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
+import { terminalLines } from "@/data/portfolio";
 
 interface TerminalLine {
   text: string;
@@ -13,11 +14,7 @@ const TerminalTyping = () => {
   const [started, setStarted] = useState(false);
 
   const lines: TerminalLine[] = [
-    { text: "const dev = {" },
-    { text: `  name: 'Vadym Kolomiiets',` },
-    { text: `  role: 'Frontend Developer',` },
-    { text: `  stack: ['React', 'TS', 'Node'],` },
-    { text: `  location: 'Pardubice, CZ',` },
+    ...terminalLines.map((t) => ({ text: t })),
     { text: `  status: ${isPony ? "'SPARKLY ✨'" : "'ONLINE'"},` },
     { text: "};" },
   ];

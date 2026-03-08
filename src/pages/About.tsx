@@ -5,15 +5,9 @@ import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import ThemedAvatar from "@/components/ThemedAvatar";
 import { useTheme } from "@/contexts/ThemeContext";
+import { personal, bio, skills, experience, education } from "@/data/portfolio";
 
-const RESUME_URL = "/Vadym_Kolomiiets_Resume_FE.pdf";
-
-const skills = [
-  { category: "FRONTEND", items: ["TypeScript / JavaScript", "React / Redux / RTK-query", "Next.js / Vue.js", "HTML5 / CSS3 / Sass / BEM", "Tailwind / Material UI / Bootstrap"] },
-  { category: "BACKEND", items: ["Node.js / Express / Nest.js", "PostgreSQL / MySQL / Prisma", "REST API / GraphQL", "WebSockets / Axios", "Docker"] },
-  { category: "TOOLS", items: ["Git / GitHub", "Webpack / Vite / NPM", "Figma", "VS Code / WebStorm", "Chrome DevTools / React DevTools"] },
-  { category: "TESTING & OTHER", items: ["Cypress / Jest", "CI/CD Pipelines", "Agile / Jira / Trello", "OOP", "English B2 / Czech B2"] },
-];
+const RESUME_URL = personal.resumeUrl;
 
 const About = () => {
   const { isPony } = useTheme();
@@ -53,20 +47,9 @@ const About = () => {
                     {isPony ? "💬 My Story" : "> BIO.READ"}
                   </p>
                   <div className="space-y-4 text-muted-foreground leading-relaxed font-body text-base">
-                    <p>
-                      {isPony ? "Hey there! 👋" : "Hello!"} My name is <span className="text-primary">Vadym</span>, Frontend Developer
-                      with solid experience in professional and freelance projects. Skilled in JavaScript, TypeScript,
-                      React, Node.js, database management, and API integration.
-                    </p>
-                    <p>
-                      I've worked at <span className="text-primary">Gamirare Inc.</span> building frontends with React & Next.js,
-                      at <span className="text-primary">Mate Academy</span> as a Fullstack Developer & Mentor,
-                      and as a <span className="text-primary">Freelance</span> developer delivering optimized web applications.
-                    </p>
-                    <p>
-                      I hold a Master's Degree in Computer Sciences from Kyiv National Economic University.
-                      Currently based in <span className="text-primary">Pardubice, Czech Republic</span> — open to remote work and relocation.
-                    </p>
+                    {bio.aboutParagraphs.map((p, i) => (
+                      <p key={i}>{i === 0 && (isPony ? "Hey there! 👋 " : "Hello! ")}{p}</p>
+                    ))}
                   </div>
                 </div>
               </motion.div>
@@ -153,11 +136,7 @@ const About = () => {
             </Parallax>
 
             <div className="space-y-8 max-w-3xl">
-              {[
-                { role: "Frontend / Full-Stack Developer", company: "Freelance", period: "2024 — 2026", desc: "Developed web applications using JavaScript, React, and Node.js. Optimized app functionality, reducing load times by 20–30%. Implemented automated testing, reducing bugs by 40%." },
-                { role: "Fullstack Developer / Mentor", company: "Mate Academy", period: "2023 — 2024", desc: "Developed web apps with React & Node.js, implemented CRUD and API integrations. Mentored junior developers. Optimized load times by 20–30%." },
-                { role: "Fullstack Developer", company: "Gamirare Inc.", period: "2022 — 2023", desc: "Built frontend with React & Next.js, backend with Node.js. Worked with MySQL & PostgreSQL. Integrated REST/GraphQL APIs. Optimized DB performance, reducing page loads by 30%. Implemented OAuth2 authentication." },
-              ].map((job, i) => (
+              {experience.map((job, i) => (
                 <motion.div
                   key={job.company}
                   initial={{ opacity: 0, x: -30 }}
@@ -198,10 +177,7 @@ const About = () => {
             </Parallax>
 
             <div className="grid md:grid-cols-2 gap-6 max-w-3xl">
-              {[
-                { degree: "Master's Degree", field: "Computer Sciences", school: "Kyiv National Economic University", period: "2020 — 2022", note: "Nostrified in Czech Republic" },
-                { degree: "Bachelor's Degree", field: "Computer Sciences", school: "Kyiv National Economic University", period: "2016 — 2020", note: "Nostrified in Czech Republic" },
-              ].map((edu, i) => (
+              {education.map((edu, i) => (
                 <motion.div
                   key={edu.degree}
                   initial={{ opacity: 0, y: 30 }}

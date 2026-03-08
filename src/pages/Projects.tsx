@@ -4,36 +4,7 @@ import { ExternalLink, Github, X, Eye } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
-import projectEcommerce from "@/assets/project-ecommerce.jpg";
-import projectTaskapp from "@/assets/project-taskapp.jpg";
-import projectWeather from "@/assets/project-weather.jpg";
-
-const projects = [
-  {
-    title: "E-Commerce Platform",
-    description: "Full-featured online store with cart, checkout, and admin panel. Built with Next.js and Stripe API for seamless payment processing.",
-    tech: ["Next.js", "TypeScript", "Stripe", "PostgreSQL"],
-    github: "#",
-    live: "#",
-    image: projectEcommerce,
-  },
-  {
-    title: "Task Management App",
-    description: "Kanban board for task management with drag & drop, real-time updates, and team collaboration features.",
-    tech: ["React", "Socket.io", "Node.js", "MongoDB"],
-    github: "#",
-    live: "#",
-    image: projectTaskapp,
-  },
-  {
-    title: "Weather Dashboard",
-    description: "Interactive weather dashboard with data visualization, geolocation, and 7-day forecast with beautiful charts.",
-    tech: ["React", "D3.js", "OpenWeather API", "Tailwind"],
-    github: "#",
-    live: "#",
-    image: projectWeather,
-  },
-];
+import { projects } from "@/data/portfolio";
 
 const Projects = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);

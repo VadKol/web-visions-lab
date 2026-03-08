@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Mail, Github, Linkedin, MapPin, Send } from "lucide-react";
+import { personal } from "@/data/portfolio";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -50,10 +51,10 @@ const Contact = () => {
                   {isPony ? "📬 Find me here" : "> CHANNELS.LIST"}
                 </div>
                 {[
-                  { icon: Mail, label: "EMAIL", value: "kolomiietsvad@gmail.com", href: "mailto:kolomiietsvad@gmail.com" },
-                  { icon: Github, label: "GITHUB", value: "github.com/vadymkolomiiets", href: "https://github.com/vadymkolomiiets" },
-                  { icon: Linkedin, label: "LINKEDIN", value: "linkedin.com/in/vadymkolomiiets", href: "https://linkedin.com/in/vadymkolomiiets" },
-                  { icon: MapPin, label: "LOCATION", value: "Pardubice, Czech Republic", href: undefined },
+                  { icon: Mail, label: "EMAIL", value: personal.email, href: `mailto:${personal.email}` },
+                  { icon: Github, label: "GITHUB", value: personal.githubLabel, href: personal.github },
+                  { icon: Linkedin, label: "LINKEDIN", value: personal.linkedinLabel, href: personal.linkedin },
+                  { icon: MapPin, label: "LOCATION", value: personal.location, href: undefined },
                 ].map((item, i) => (
                   <motion.div
                     key={item.label}
