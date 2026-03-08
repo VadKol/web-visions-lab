@@ -20,6 +20,7 @@ const queryClient = new QueryClient();
 
 const AnimatedRoutes = () => {
   const location = useLocation();
+  useKeyboardNav();
 
   return (
     <AnimatePresence mode="wait">
