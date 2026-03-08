@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
-import { terminalLines } from "@/data/portfolio";
+import { getTerminalLines } from "@/data/portfolio";
 
 interface TerminalLine {
   text: string;
