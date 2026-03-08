@@ -177,7 +177,53 @@ const About = () => {
           </div>
         </section>
 
-        {/* Resume CTA */}
+        {/* Education */}
+        <section className="py-16 relative">
+          <div className="container mx-auto px-6">
+            <Parallax speed={-0.1}>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <p className="font-mono text-xs text-secondary mb-3 tracking-wider">
+                  {isPony ? "🎓 Education" : "> EDU.LOG"}
+                </p>
+                <h2 className="text-3xl md:text-4xl font-bold mb-12 tracking-wider">
+                  <span className="text-primary text-glow">{isPony ? "Education " : "EDU "}</span>
+                  <span className="text-foreground">{isPony ? "🎓" : "HISTORY"}</span>
+                </h2>
+              </motion.div>
+            </Parallax>
+
+            <div className="grid md:grid-cols-2 gap-6 max-w-3xl">
+              {[
+                { degree: "Master's Degree", field: "Computer Sciences", school: "Kyiv National Economic University", period: "2020 — 2022", note: "Nostrified in Czech Republic" },
+                { degree: "Bachelor's Degree", field: "Computer Sciences", school: "Kyiv National Economic University", period: "2016 — 2020", note: "Nostrified in Czech Republic" },
+              ].map((edu, i) => (
+                <motion.div
+                  key={edu.degree}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.1 * i }}
+                  className={`${isPony ? "bg-card rounded-2xl border-2 border-primary/20 shadow-lg" : "cyber-border bg-card/50 box-glow"} p-6 hover:bg-card/80 transition-all duration-500`}
+                >
+                  {!isPony && <p className="font-mono text-[10px] text-secondary tracking-wider mb-2">RECORD.0{i + 1}</p>}
+                  <p className="font-mono text-[10px] text-muted-foreground tracking-wider mb-1">{edu.period}</p>
+                  <h3 className="text-lg font-bold text-foreground tracking-wide">{edu.degree}</h3>
+                  <p className="text-primary font-mono text-xs mb-1">{edu.field}</p>
+                  <p className="text-muted-foreground text-sm font-body">{edu.school}</p>
+                  <p className={`mt-2 text-xs font-mono ${isPony ? "text-secondary" : "text-neon-accent"}`}>
+                    {isPony ? "✅ " : "▸ "}{edu.note}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="py-16 relative">
           <div className="absolute inset-0 bg-surface/30" />
           <div className="container mx-auto px-6 relative z-10 text-center">
