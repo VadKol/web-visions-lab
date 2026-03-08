@@ -5,7 +5,7 @@ const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "Ar
 
 const KonamiEasterEgg = () => {
   const [triggered, setTriggered] = useState(false);
-  const [progress, setProgress] = useState<number[]>([]);
+  const [progress, setProgress] = useState<string[]>([]);
 
   const handleKey = useCallback(
     (e: KeyboardEvent) => {
