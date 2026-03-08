@@ -49,13 +49,16 @@ const Navbar = () => {
               >
                 <Link
                   to={link.href}
-                  className={`font-mono text-sm transition-colors ${
+                  className={`font-mono text-sm transition-colors group/link ${
                     location.pathname === link.href
                       ? "text-primary"
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  <span className="text-primary mr-1">0{i + 1}.</span>
+                  <span className="text-primary mr-1">
+                    <kbd className="text-[10px] px-1 py-0.5 rounded border border-primary/30 bg-primary/5 mr-1 opacity-0 group-hover/link:opacity-100 transition-opacity">{i + 1}</kbd>
+                    0{i + 1}.
+                  </span>
                   {link.label}
                 </Link>
               </motion.div>
