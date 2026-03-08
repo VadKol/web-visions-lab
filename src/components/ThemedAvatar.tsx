@@ -49,7 +49,41 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
       transition={{ type: "spring", stiffness: 300 }}
     >
       {/* Animated glow ring */}
-      {!isPony && (
+      {theme === "orange" && (
+        <motion.div
+          className={`absolute inset-[-4px] z-0 ${size === "sm" ? "" : "inset-[-6px]"}`}
+          style={{
+            background: `conic-gradient(from 0deg, hsl(var(--neon-primary) / 0.9), transparent, hsl(var(--neon-secondary) / 0.9), transparent, hsl(var(--neon-primary) / 0.9))`,
+            clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
+            filter: "blur(4px)",
+          }}
+          animate={{ 
+            rotate: [0, 360],
+            scale: [1, 1.15, 0.95, 1.1, 1],
+            opacity: [0.7, 1, 0.8, 1, 0.7]
+          }}
+          transition={{ 
+            rotate: { duration: 3, repeat: Infinity, ease: "linear" },
+            scale: { duration: 0.4, repeat: Infinity, ease: "easeInOut" },
+            opacity: { duration: 0.2, repeat: Infinity, ease: "easeInOut" }
+          }}
+        />
+      )}
+
+      {theme === "green" && (
+        <motion.div
+          className={`absolute inset-[-3px] z-0 ${size === "sm" ? "" : "inset-[-4px]"}`}
+          style={{
+            background: `linear-gradient(180deg, transparent 0%, hsl(var(--neon-primary) / 0.8) 50%, transparent 100%)`,
+            clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
+            filter: "blur(2px)",
+          }}
+          animate={{ y: ["-100%", "100%"] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+        />
+      )}
+
+      {!isPony && theme !== "orange" && theme !== "green" && (
         <motion.div
           className={`absolute inset-[-3px] z-0 ${size === "sm" ? "" : "inset-[-4px]"}`}
           style={{
