@@ -23,11 +23,11 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
   const onEnter = useCallback(() => {
     setScatter(
       Array.from(children).map(() => ({
-        dx: (Math.random() - 0.5) * 80,
-        dy: (Math.random() - 0.5) * 60,
-        rot: (Math.random() - 0.5) * 120,
+        dx: (Math.random() - 0.5) * 100,
+        dy: (Math.random() - 0.5) * 100,
+        rot: (Math.random() - 0.5) * 180,
         replacement: randomChar(matrixChars),
-        scale: 1.3 + Math.random() * 0.5,
+        scale: 1.3 + Math.random() * 0.7,
       }))
     );
     setHovered(true);
