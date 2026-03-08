@@ -41,9 +41,8 @@ const Home = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex items-center gap-4 mb-8"
           >
-            <div className={`w-16 h-16 overflow-hidden ${isPony ? "rounded-full border-2 border-primary/40" : "rounded-sm border border-primary/40 cyber-border-sm"} box-glow`}>
-              <img src={isPony ? avatar : avatarCyber} alt="Vadym Kolomiiets" className="w-full h-full object-cover" />
-            </div>
+            <div className="flex items-center gap-4 mb-8">
+              <ThemedAvatar size="sm" />
             <div>
               <p className="font-mono text-xs text-secondary tracking-wider">
                 {isPony ? "✨ Hello World! ✨" : "> SYSTEM.IDENTIFY"}
