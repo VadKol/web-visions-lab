@@ -63,6 +63,7 @@ const Navbar = () => {
               >
                 <Link
                   to={link.href}
+                  onMouseEnter={() => prefetch(link.href)}
                   className={`font-mono text-xs tracking-wider transition-colors group/link ${isPony ? "" : "glitch-hover"} ${
                     location.pathname === link.href
                       ? `text-primary ${isPony ? "" : "text-glow"}`
