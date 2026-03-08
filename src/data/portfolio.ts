@@ -150,6 +150,7 @@ export const projects = [
     github: "#",
     live: "#",
     image: projectEcommerce,
+    underNDA: false,
   },
   {
     title: "Task Management App",
@@ -159,6 +160,7 @@ export const projects = [
     github: "#",
     live: "#",
     image: projectTaskapp,
+    underNDA: true,
   },
   {
     title: "Weather Dashboard",
@@ -168,6 +170,7 @@ export const projects = [
     github: "#",
     live: "#",
     image: projectWeather,
+    underNDA: false,
   },
 ];
 

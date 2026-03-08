@@ -1,14 +1,21 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, X, Eye } from "lucide-react";
+import { ExternalLink, Github, X, Eye, Lock, ChevronLeft, ChevronRight } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
 import { projects } from "@/data/portfolio";
 
+const PROJECTS_PER_PAGE = 3;
+
 const Projects = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const { isPony } = useTheme();
+
+  const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE);
+  const startIdx = (currentPage - 1) * PROJECTS_PER_PAGE;
+  const currentProjects = projects.slice(startIdx, startIdx + PROJECTS_PER_PAGE);
 
   return (
     <PageTransition>
@@ -36,7 +43,7 @@ const Projects = () => {
             </Parallax>
 
             <div className="mt-16 space-y-12">
-              {projects.map((project, i) => (
+              {currentProjects.map((project, i) => (
                 <motion.div
                   key={project.title}
                   initial={{ opacity: 0, y: 40 }}
@@ -62,15 +69,29 @@ const Projects = () => {
                     </div>
                     {!isPony && (
                       <div className="absolute top-3 left-3 font-mono text-[10px] text-secondary tracking-wider bg-background/70 px-2 py-1">
-                        PRJ.0{i + 1}
+                        PRJ.0{startIdx + i + 1}
+                      </div>
+                    )}
+                    {project.underNDA && (
+                      <div className={`absolute top-3 right-3 flex items-center gap-1 font-mono text-[10px] tracking-wider px-2 py-1 ${isPony ? "bg-destructive/80 text-destructive-foreground rounded-full" : "bg-destructive/80 text-destructive-foreground"}`}>
+                        <Lock size={10} />
+                        NDA
                       </div>
                     )}
                   </div>
 
                   <div className="p-6 md:p-8 flex flex-col justify-center">
-                    <p className="font-mono text-[10px] text-secondary tracking-wider mb-2">
-                      {isPony ? `Project ${i + 1}` : `PROJECT_${String(i + 1).padStart(2, '0')}`}
-                    </p>
+                    <div className="flex items-center gap-2 mb-2">
+                      <p className="font-mono text-[10px] text-secondary tracking-wider">
+                        {isPony ? `Project ${startIdx + i + 1}` : `PROJECT_${String(startIdx + i + 1).padStart(2, '0')}`}
+                      </p>
+                      {project.underNDA && (
+                        <span className={`inline-flex items-center gap-1 font-mono text-[10px] px-2 py-0.5 text-destructive border border-destructive/30 tracking-wider ${isPony ? "rounded-full bg-destructive/10" : "bg-destructive/10"}`}>
+                          <Lock size={8} />
+                          UNDER NDA
+                        </span>
+                      )}
+                    </div>
                     <h3 className={`text-xl md:text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors duration-300 ${isPony ? "" : "tracking-wider"}`}>
                       {isPony ? project.title : project.title.toUpperCase()}
                     </h3>
@@ -83,9 +104,15 @@ const Projects = () => {
                       ))}
                     </div>
                     <div className="flex items-center gap-4">
-                      <a href={project.github} className="inline-flex items-center gap-2 font-mono text-[10px] text-muted-foreground hover:text-primary transition-colors tracking-wider">
-                        <Github size={14} /> {isPony ? "Code" : "CODE"}
-                      </a>
+                      {project.underNDA ? (
+                        <span className="inline-flex items-center gap-2 font-mono text-[10px] text-muted-foreground/50 tracking-wider cursor-not-allowed" title="Source code is under NDA">
+                          <Lock size={14} /> {isPony ? "Code (NDA)" : "CODE [RESTRICTED]"}
+                        </span>
+                      ) : (
+                        <a href={project.github} className="inline-flex items-center gap-2 font-mono text-[10px] text-muted-foreground hover:text-primary transition-colors tracking-wider">
+                          <Github size={14} /> {isPony ? "Code" : "CODE"}
+                        </a>
+                      )}
                       <a href={project.live} className="inline-flex items-center gap-2 font-mono text-[10px] text-muted-foreground hover:text-secondary transition-colors tracking-wider">
                         <ExternalLink size={14} /> {isPony ? "Live" : "LIVE"}
                       </a>
@@ -97,6 +124,52 @@ const Projects = () => {
                 </motion.div>
               ))}
             </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mt-16 flex items-center justify-center gap-3"
+              >
+                <button
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className={`inline-flex items-center gap-1 font-mono text-xs px-4 py-2 transition-colors tracking-wider disabled:opacity-30 disabled:cursor-not-allowed ${isPony ? "bg-card border-2 border-primary/20 rounded-full text-primary hover:bg-primary/10" : "cyber-border text-primary hover:bg-primary/10"}`}
+                >
+                  <ChevronLeft size={14} />
+                  {isPony ? "Prev" : "PREV"}
+                </button>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`font-mono text-xs w-10 h-10 transition-colors tracking-wider ${
+                      page === currentPage
+                        ? isPony
+                          ? "bg-primary text-primary-foreground rounded-full"
+                          : "bg-primary text-primary-foreground"
+                        : isPony
+                          ? "bg-card border-2 border-primary/20 rounded-full text-muted-foreground hover:text-primary"
+                          : "cyber-border text-muted-foreground hover:text-primary"
+                    }`}
+                  >
+                    {String(page).padStart(2, "0")}
+                  </button>
+                ))}
+
+                <button
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className={`inline-flex items-center gap-1 font-mono text-xs px-4 py-2 transition-colors tracking-wider disabled:opacity-30 disabled:cursor-not-allowed ${isPony ? "bg-card border-2 border-primary/20 rounded-full text-primary hover:bg-primary/10" : "cyber-border text-primary hover:bg-primary/10"}`}
+                >
+                  {isPony ? "Next" : "NEXT"}
+                  <ChevronRight size={14} />
+                </button>
+              </motion.div>
+            )}
           </div>
         </section>
       </div>
