@@ -67,7 +67,7 @@ const Home = () => {
             <ThemedAvatar size="sm" />
             <div>
               <p className="font-mono text-xs text-secondary tracking-wider">
-                {isPony ? "✨ Hello World! ✨" : "> SYSTEM.IDENTIFY"}
+                {greeting}
               </p>
               <p className="font-mono text-sm text-primary">{isPony ? personal.rolePony : personal.role}</p>
             </div>
