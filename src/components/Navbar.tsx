@@ -1,8 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+
+// Prefetch map for lazy-loaded routes
+const routePrefetch: Record<string, () => Promise<unknown>> = {
+  "/": () => import("@/pages/Home"),
+  "/about": () => import("@/pages/About"),
+  "/projects": () => import("@/pages/Projects"),
+  "/contact": () => import("@/pages/Contact"),
+};
 
 const navLinks = [
   { label: "HOME", href: "/" },
@@ -16,6 +24,10 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const { isPony } = useTheme();
+
+  const prefetch = useCallback((href: string) => {
+    routePrefetch[href]?.();
+  }, []);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
@@ -51,6 +63,7 @@ const Navbar = () => {
               >
                 <Link
                   to={link.href}
+                  onMouseEnter={() => prefetch(link.href)}
                   className={`font-mono text-xs tracking-wider transition-colors group/link ${isPony ? "" : "glitch-hover"} ${
                     location.pathname === link.href
                       ? `text-primary ${isPony ? "" : "text-glow"}`

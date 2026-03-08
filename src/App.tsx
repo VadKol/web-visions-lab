@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -13,11 +13,13 @@ import ScrollToTop from "@/components/ScrollToTop";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import CursorTrail from "@/components/CursorTrail";
 import useKeyboardNav from "@/hooks/useKeyboardNav";
-import Home from "@/pages/Home";
-import About from "@/pages/About";
-import Projects from "@/pages/Projects";
-import Contact from "@/pages/Contact";
-import NotFound from "./pages/NotFound";
+
+// Lazy-loaded pages
+const Home = lazy(() => import("@/pages/Home"));
+const About = lazy(() => import("@/pages/About"));
+const Projects = lazy(() => import("@/pages/Projects"));
+const Contact = lazy(() => import("@/pages/Contact"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
 
 const queryClient = new QueryClient();
 
@@ -26,15 +28,17 @@ const AnimatedRoutes = () => {
   useKeyboardNav();
 
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </AnimatePresence>
+    <Suspense fallback={<div className="min-h-screen bg-background" />}>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AnimatePresence>
+    </Suspense>
   );
 };
 
