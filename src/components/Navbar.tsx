@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const navLinks = [
   { label: "HOME", href: "/" },
@@ -14,6 +15,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { isPony } = useTheme();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
@@ -32,12 +34,12 @@ const Navbar = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-background/90 backdrop-blur-xl border-b border-neon-cyan/20" : ""
+          scrolled ? "bg-background/90 backdrop-blur-xl border-b border-primary/20" : ""
         }`}
       >
         <div className="container mx-auto flex items-center justify-between py-4 px-6">
-          <Link to="/" className="font-display text-sm font-bold text-primary text-glow-cyan tracking-widest">
-            VK://DEV
+          <Link to="/" className={`font-display text-sm font-bold text-primary tracking-widest ${isPony ? "" : "text-glow"}`}>
+            {isPony ? "✨ VK" : "VK://DEV"}
           </Link>
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link, i) => (
@@ -49,25 +51,25 @@ const Navbar = () => {
               >
                 <Link
                   to={link.href}
-                  className={`font-mono text-xs tracking-wider transition-colors group/link glitch-hover ${
+                  className={`font-mono text-xs tracking-wider transition-colors group/link ${isPony ? "" : "glitch-hover"} ${
                     location.pathname === link.href
-                      ? "text-primary text-glow-cyan"
+                      ? `text-primary ${isPony ? "" : "text-glow"}`
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  <span className="text-neon-magenta mr-1">[</span>
-                  <kbd className="text-[9px] px-1 py-0.5 border border-neon-cyan/20 bg-neon-cyan/5 mr-1 opacity-0 group-hover/link:opacity-100 transition-opacity font-mono">{i + 1}</kbd>
-                  {link.label}
-                  <span className="text-neon-magenta ml-1">]</span>
+                  <span className="text-secondary mr-1">[</span>
+                  <kbd className="text-[9px] px-1 py-0.5 border border-primary/20 bg-primary/5 mr-1 opacity-0 group-hover/link:opacity-100 transition-opacity font-mono">{i + 1}</kbd>
+                  {isPony ? link.label.charAt(0) + link.label.slice(1).toLowerCase() : link.label}
+                  <span className="text-secondary ml-1">]</span>
                 </Link>
               </motion.div>
             ))}
           </div>
           <Link
             to="/contact"
-            className="hidden md:inline-flex font-mono text-xs tracking-wider cyber-border-sm bg-neon-cyan/5 text-primary px-5 py-2 hover:bg-neon-cyan/15 transition-colors box-glow-cyan"
+            className={`hidden md:inline-flex font-mono text-xs tracking-wider px-5 py-2 transition-colors ${isPony ? "bg-primary text-primary-foreground rounded-full hover:opacity-90" : "cyber-border-sm bg-primary/5 text-primary hover:bg-primary/15 box-glow"}`}
           >
-            JACK_IN →
+            {isPony ? "Say Hi! 👋" : "JACK_IN →"}
           </Link>
 
           <button
@@ -86,7 +88,7 @@ const Navbar = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl flex flex-col items-center justify-center gap-10 md:hidden scanlines"
+            className={`fixed inset-0 z-40 bg-background/98 backdrop-blur-xl flex flex-col items-center justify-center gap-10 md:hidden ${isPony ? "" : "scanlines"}`}
           >
             {navLinks.map((link, i) => (
               <motion.div
@@ -98,11 +100,11 @@ const Navbar = () => {
                 <Link
                   to={link.href}
                   className={`font-display text-2xl tracking-widest ${
-                    location.pathname === link.href ? "text-primary text-glow-cyan" : "text-foreground"
+                    location.pathname === link.href ? `text-primary ${isPony ? "" : "text-glow"}` : "text-foreground"
                   }`}
                 >
-                  <span className="text-neon-magenta mr-3 text-lg">{String(i + 1).padStart(2, '0')}</span>
-                  {link.label}
+                  <span className="text-secondary mr-3 text-lg">{String(i + 1).padStart(2, '0')}</span>
+                  {isPony ? link.label.charAt(0) + link.label.slice(1).toLowerCase() : link.label}
                 </Link>
               </motion.div>
             ))}
