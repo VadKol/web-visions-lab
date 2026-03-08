@@ -8,6 +8,7 @@ import CyberRain from "@/components/CyberRain";
 import ThemedAvatar from "@/components/ThemedAvatar";
 import GlitchText from "@/components/GlitchText";
 import TerminalTyping from "@/components/TerminalTyping";
+import TypingRoles from "@/components/TypingRoles";
 import { useTheme } from "@/contexts/ThemeContext";
 import { personal, bio, services } from "@/data/portfolio";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -133,6 +134,15 @@ const Home = () => {
           >
             <GlitchText>{isPony ? "Kolomiiets 🦄" : "KOLOMIIETS"}</GlitchText>
           </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="mb-8 h-8"
+          >
+            <TypingRoles />
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
