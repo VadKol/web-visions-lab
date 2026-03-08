@@ -190,7 +190,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
         >
           {char === " "
             ? "\u00A0"
-            : showMatrix
+            : showAltChars
             ? displayChars[i] || char
             : char}
         </motion.span>
