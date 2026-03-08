@@ -99,13 +99,13 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
           scale: 1,
         };
       case "orange":
-        // Inferno: rise up + scale up + fade (burning)
+        // Inferno: explosive scatter like an explosion
         return {
-          x: scatter[i].dx * 0.2,
-          y: -30 - Math.abs(scatter[i].dy) * 0.7,
-          rotate: scatter[i].rot * 0.25,
+          x: scatter[i].dx * 1.5,
+          y: scatter[i].dy * 1.8,
+          rotate: scatter[i].rot * 2,
           opacity: 0,
-          scale: scatter[i].scale,
+          scale: scatter[i].scale * 1.4,
         };
       case "pony":
       default:
