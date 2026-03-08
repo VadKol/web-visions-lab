@@ -37,17 +37,40 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
     setDisplayChars(Array.from(children));
   }, [children]);
 
-  // Matrix mode: cycle random characters while hovered
+  // Matrix/Glitch mode: cycle random characters while hovered
   useEffect(() => {
-    if (!hovered || (theme !== "cyan" && theme !== "green")) return;
-    const interval = setInterval(() => {
-      setDisplayChars(
-        Array.from(children).map((ch) =>
-          ch === " " ? " " : Math.random() > 0.3 ? randomChar(matrixChars) : ch
-        )
-      );
-    }, 80);
-    return () => clearInterval(interval);
+    if (!hovered) return;
+    if (theme === "green") {
+      const interval = setInterval(() => {
+        setDisplayChars(
+          Array.from(children).map((ch) =>
+            ch === " " ? " " : Math.random() > 0.3 ? randomChar(matrixChars) : ch
+          )
+        );
+      }, 80);
+      return () => clearInterval(interval);
+    }
+    if (theme === "cyan") {
+      // Glitch: rapid scramble then resolve back
+      let step = 0;
+      const chars = Array.from(children);
+      const interval = setInterval(() => {
+        step++;
+        setDisplayChars(
+          chars.map((ch, i) => {
+            if (ch === " ") return " ";
+            // Progressively resolve: earlier chars resolve first
+            if (step > i * 2 + 8) return ch;
+            return randomChar(glitchChars);
+          })
+        );
+        if (step > chars.length * 2 + 10) {
+          setDisplayChars(chars);
+          clearInterval(interval);
+        }
+      }, 50);
+      return () => clearInterval(interval);
+    }
   }, [hovered, theme, children]);
 
   const getAnimation = (i: number) => {
@@ -57,6 +80,14 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
 
     switch (theme) {
       case "cyan":
+        // Glitch: horizontal shake + stay in place
+        return {
+          x: (Math.random() - 0.5) * 20,
+          y: (Math.random() - 0.5) * 6,
+          rotate: (Math.random() - 0.5) * 8,
+          opacity: 0.8 + Math.random() * 0.2,
+          scale: 1,
+        };
       case "green":
         // Matrix: fall down + fade
         return {
