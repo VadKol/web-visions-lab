@@ -107,33 +107,33 @@ const Home = () => {
         </motion.div>
 
         {/* Terminal card */}
-        {!isPony && (
-          <Parallax speed={-0.3} className="hidden lg:block absolute right-12 xl:right-24 top-1/2 -translate-y-1/2 w-[420px]">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
-            >
-              <div className="cyber-border bg-card/80 backdrop-blur-sm overflow-hidden box-glow">
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-primary/20">
-                  <div className="w-2.5 h-2.5 bg-destructive" />
-                  <div className="w-2.5 h-2.5 bg-neon-accent" />
-                  <div className="w-2.5 h-2.5 bg-primary" />
-                  <span className="ml-2 font-mono text-[10px] text-muted-foreground tracking-wider">TERMINAL://VK</span>
-                </div>
-                <div className="p-5 font-mono text-sm leading-7 scanlines">
-                  <p><span className="text-secondary">const</span> <span className="text-foreground">dev</span> = {"{"}</p>
-                  <p className="ml-4"><span className="text-muted-foreground">name:</span> <span className="text-primary">'Vadym Kolomiiets'</span>,</p>
-                  <p className="ml-4"><span className="text-muted-foreground">role:</span> <span className="text-secondary">'Frontend Dev'</span>,</p>
-                  <p className="ml-4"><span className="text-muted-foreground">stack:</span> [<span className="text-primary">'React'</span>, <span className="text-secondary">'TS'</span>],</p>
-                  <p className="ml-4"><span className="text-muted-foreground">status:</span> <span className="text-neon-accent">ONLINE</span>,</p>
-                  <p>{"}"};</p>
-                  <p className="mt-2"><span className="text-primary animate-pulse">█</span></p>
-                </div>
+        <Parallax speed={-0.3} className="hidden lg:block absolute right-12 xl:right-24 top-1/2 -translate-y-1/2 w-[420px]">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+          >
+            <div className={`${isPony ? "rounded-2xl border-2 border-primary/20 shadow-xl bg-card/90" : "cyber-border bg-card/80"} backdrop-blur-sm overflow-hidden box-glow`}>
+              <div className={`flex items-center gap-2 px-4 py-3 border-b ${isPony ? "border-primary/20" : "border-primary/20"}`}>
+                <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-pink-400" : "bg-destructive"}`} />
+                <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-yellow-300" : "bg-neon-accent"}`} />
+                <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-green-400" : "bg-primary"}`} />
+                <span className="ml-2 font-mono text-[10px] text-muted-foreground tracking-wider">
+                  {isPony ? "✨ pony.js" : "TERMINAL://VK"}
+                </span>
               </div>
-            </motion.div>
-          </Parallax>
-        )}
+              <div className={`p-5 font-mono text-sm leading-7 ${isPony ? "" : "scanlines"}`}>
+                <p><span className="text-secondary">const</span> <span className="text-foreground">dev</span> = {"{"}</p>
+                <p className="ml-4"><span className="text-muted-foreground">name:</span> <span className="text-primary">'Vadym Kolomiiets'</span>,</p>
+                <p className="ml-4"><span className="text-muted-foreground">role:</span> <span className="text-secondary">'Frontend Dev'</span>,</p>
+                <p className="ml-4"><span className="text-muted-foreground">stack:</span> [<span className="text-primary">'React'</span>, <span className="text-secondary">'TS'</span>],</p>
+                <p className="ml-4"><span className="text-muted-foreground">status:</span> <span className="text-neon-accent">{isPony ? "SPARKLY ✨" : "ONLINE"}</span>,</p>
+                <p>{"}"};</p>
+                <p className="mt-2"><span className="text-primary animate-pulse">█</span></p>
+              </div>
+            </div>
+          </motion.div>
+        </Parallax>
       </section>
 
       {/* Services */}
