@@ -101,30 +101,30 @@
 
   /* PONY MODE 🦄 */
   [data-theme="pony"] {
-    --background: 320 30% 95%;
-    --foreground: 280 40% 25%;
-    --card: 320 40% 97%;
-    --card-foreground: 280 40% 25%;
-    --popover: 320 40% 97%;
-    --popover-foreground: 280 40% 25%;
-    --primary: 320 80% 60%;
+    --background: 320 25% 93%;
+    --foreground: 280 50% 15%;
+    --card: 320 30% 96%;
+    --card-foreground: 280 50% 15%;
+    --popover: 320 30% 96%;
+    --popover-foreground: 280 50% 15%;
+    --primary: 320 85% 45%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 280 70% 65%;
+    --secondary: 280 75% 50%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 320 25% 90%;
-    --muted-foreground: 280 20% 55%;
-    --accent: 280 70% 65%;
+    --muted: 320 20% 87%;
+    --muted-foreground: 280 30% 40%;
+    --accent: 280 75% 50%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 70% 55%;
+    --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border: 320 30% 85%;
-    --input: 320 30% 85%;
-    --ring: 320 80% 60%;
-    --neon-primary: 320 80% 60%;
-    --neon-secondary: 280 70% 65%;
-    --neon-accent: 45 100% 65%;
-    --surface: 320 35% 93%;
-    --glow: 320 80% 60%;
+    --border: 320 35% 78%;
+    --input: 320 35% 78%;
+    --ring: 320 85% 45%;
+    --neon-primary: 320 85% 45%;
+    --neon-secondary: 280 75% 50%;
+    --neon-accent: 45 100% 55%;
+    --surface: 320 28% 90%;
+    --glow: 320 85% 45%;
     --theme-mode: light;
   }
 }
