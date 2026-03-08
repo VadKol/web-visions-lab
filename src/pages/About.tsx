@@ -17,6 +17,7 @@ const skills = [
 
 const About = () => {
   const { isPony } = useTheme();
+  const [showResume, setShowResume] = useState(false);
 
   return (
     <PageTransition>
