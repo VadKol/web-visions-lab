@@ -122,6 +122,11 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
   const getTransition = (i: number) => {
     switch (theme) {
       case "cyan":
+        return {
+          duration: hovered ? 0.1 : 0.3,
+          delay: hovered ? i * 0.01 : i * 0.02,
+          ease: "easeOut" as const,
+        };
       case "green":
         return {
           duration: hovered ? 0.6 : 0.3,
