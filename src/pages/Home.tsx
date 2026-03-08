@@ -126,7 +126,7 @@ const Home = () => {
                   <p className="ml-4"><span className="text-muted-foreground">name:</span> <span className="text-primary">'Vadym Kolomiiets'</span>,</p>
                   <p className="ml-4"><span className="text-muted-foreground">role:</span> <span className="text-secondary">'Frontend Dev'</span>,</p>
                   <p className="ml-4"><span className="text-muted-foreground">stack:</span> [<span className="text-primary">'React'</span>, <span className="text-secondary">'TS'</span>],</p>
-                  <p className="ml-4"><span className="text-muted-foreground">status:</span> <span className="text-neon-yellow">ONLINE</span>,</p>
+                  <p className="ml-4"><span className="text-muted-foreground">status:</span> <span className="text-neon-accent">ONLINE</span>,</p>
                   <p>{"}"};</p>
                   <p className="mt-2"><span className="text-primary animate-pulse">█</span></p>
                 </div>
