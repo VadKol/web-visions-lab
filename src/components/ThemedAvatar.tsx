@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 import avatarCyber from "@/assets/avatar-cyber.jpg";
 import avatarMatrix from "@/assets/avatar-matrix.jpg";
@@ -18,6 +19,7 @@ const sizeMap = {
 
 const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
   const { theme, isPony } = useTheme();
+  const [isHovered, setIsHovered] = useState(false);
 
   const src = (() => {
     switch (theme) {
@@ -47,6 +49,8 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
       className={`relative group ${className}`}
       whileHover={{ scale: isPony ? 1.05 : 1.02 }}
       transition={{ type: "spring", stiffness: 300 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
     >
       {/* Animated glow ring */}
       {theme === "orange" && (
@@ -55,18 +59,18 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
           <motion.div
             className={`absolute z-0 ${size === "sm" ? "inset-[-16px]" : "inset-[-24px]"}`}
             style={{
-              background: `radial-gradient(ellipse 80% 100% at 50% 100%, hsl(var(--neon-primary) / 0.9) 0%, hsl(var(--neon-secondary) / 0.6) 40%, transparent 70%)`,
+              background: `radial-gradient(ellipse 80% 100% at 50% 100%, hsl(var(--neon-primary) / ${isHovered ? 1 : 0.9}) 0%, hsl(var(--neon-secondary) / ${isHovered ? 0.8 : 0.6}) 40%, transparent 70%)`,
               clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
-              filter: "blur(6px)",
+              filter: isHovered ? "blur(8px)" : "blur(6px)",
             }}
             animate={{ 
-              scaleY: [1, 1.15, 0.95, 1.1, 1.05, 0.98, 1],
-              scaleX: [1, 0.95, 1.05, 0.98, 1.02, 1],
-              opacity: [0.8, 1, 0.7, 0.9, 1, 0.75, 0.8],
-              y: [0, -3, 1, -2, 0]
+              scaleY: isHovered ? [1.1, 1.3, 1.05, 1.25, 1.15, 1.08, 1.1] : [1, 1.15, 0.95, 1.1, 1.05, 0.98, 1],
+              scaleX: isHovered ? [1.05, 1, 1.1, 1.02, 1.08, 1.05] : [1, 0.95, 1.05, 0.98, 1.02, 1],
+              opacity: isHovered ? [0.95, 1, 0.9, 1, 0.95] : [0.8, 1, 0.7, 0.9, 1, 0.75, 0.8],
+              y: isHovered ? [0, -6, 2, -4, 0] : [0, -3, 1, -2, 0]
             }}
             transition={{ 
-              duration: 0.5,
+              duration: isHovered ? 0.3 : 0.5,
               repeat: Infinity,
               ease: "easeInOut"
             }}
@@ -75,22 +79,44 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
           <motion.div
             className={`absolute z-0 ${size === "sm" ? "inset-[-10px]" : "inset-[-16px]"}`}
             style={{
-              background: `radial-gradient(ellipse 60% 80% at 50% 100%, hsl(40 100% 60% / 0.8) 0%, hsl(var(--neon-primary) / 0.5) 50%, transparent 70%)`,
+              background: `radial-gradient(ellipse 60% 80% at 50% 100%, hsl(40 100% ${isHovered ? '70%' : '60%'} / ${isHovered ? 1 : 0.8}) 0%, hsl(var(--neon-primary) / ${isHovered ? 0.7 : 0.5}) 50%, transparent 70%)`,
               clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
-              filter: "blur(4px)",
+              filter: isHovered ? "blur(5px)" : "blur(4px)",
             }}
             animate={{ 
-              scaleY: [1.1, 0.9, 1.15, 0.95, 1.1],
-              scaleX: [0.95, 1.05, 0.9, 1.1, 0.95],
-              opacity: [0.6, 0.9, 0.5, 0.85, 0.6],
-              y: [-2, 2, -1, 1, -2]
+              scaleY: isHovered ? [1.2, 1, 1.3, 1.05, 1.2] : [1.1, 0.9, 1.15, 0.95, 1.1],
+              scaleX: isHovered ? [1, 1.1, 0.95, 1.15, 1] : [0.95, 1.05, 0.9, 1.1, 0.95],
+              opacity: isHovered ? [0.85, 1, 0.8, 1, 0.85] : [0.6, 0.9, 0.5, 0.85, 0.6],
+              y: isHovered ? [-4, 3, -2, 2, -4] : [-2, 2, -1, 1, -2]
             }}
             transition={{ 
-              duration: 0.35,
+              duration: isHovered ? 0.2 : 0.35,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           />
+          {/* Extra hot core on hover */}
+          {isHovered && (
+            <motion.div
+              className={`absolute z-0 ${size === "sm" ? "inset-[-6px]" : "inset-[-10px]"}`}
+              style={{
+                background: `radial-gradient(ellipse 40% 60% at 50% 100%, hsl(50 100% 80% / 0.9) 0%, hsl(40 100% 60% / 0.4) 60%, transparent 80%)`,
+                clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
+                filter: "blur(3px)",
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ 
+                opacity: [0.7, 1, 0.8, 1, 0.7],
+                scaleY: [1.15, 0.95, 1.2, 1, 1.15],
+                y: [-3, 2, -2, 1, -3]
+              }}
+              transition={{ 
+                duration: 0.25,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          )}
         </>
       )}
 
