@@ -81,18 +81,18 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
 
     switch (theme) {
       case "cyan":
-        // Glitch: horizontal shake + stay in place
+        // Glitch: horizontal shake
         return {
-          x: (Math.random() - 0.5) * 20,
-          y: (Math.random() - 0.5) * 6,
-          rotate: (Math.random() - 0.5) * 8,
-          opacity: 0.8 + Math.random() * 0.2,
+          x: scatter[i].dx * 0.25,
+          y: scatter[i].dy * 0.1,
+          rotate: scatter[i].rot * 0.07,
+          opacity: 0.85,
           scale: 1,
         };
       case "green":
         // Matrix: fall down + fade
         return {
-          x: (Math.random() - 0.5) * 10,
+          x: scatter[i].dx * 0.12,
           y: 40 + i * 3,
           rotate: 0,
           opacity: 0,
