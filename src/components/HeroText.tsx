@@ -8,7 +8,7 @@ interface HeroTextProps {
 }
 
 const matrixChars = "01アイウエオカキクケコサシスセソ";
-const fireChars = "🔥💥✦*";
+const glitchChars = "!@#$%^&*()_+-=[]{}|;:',.<>?/~`░▒▓█▀▄▐▌";
 
 const randomChar = (pool: string) => pool[Math.floor(Math.random() * pool.length)];
 
