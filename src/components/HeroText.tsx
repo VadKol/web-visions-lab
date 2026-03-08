@@ -16,7 +16,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
   const { theme } = useTheme();
   const [hovered, setHovered] = useState(false);
   const [scatter, setScatter] = useState<
-    { dx: number; dy: number; rot: number; replacement: string }[]
+    { dx: number; dy: number; rot: number; replacement: string; scale: number }[]
   >([]);
   const [displayChars, setDisplayChars] = useState<string[]>(Array.from(children));
 
@@ -27,6 +27,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
         dy: (Math.random() - 0.5) * 60,
         rot: (Math.random() - 0.5) * 120,
         replacement: randomChar(matrixChars),
+        scale: 1.3 + Math.random() * 0.5,
       }))
     );
     setHovered(true);
