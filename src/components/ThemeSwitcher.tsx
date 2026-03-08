@@ -42,15 +42,15 @@ const ThemeSwitcher = () => {
   return (
     <>
       {/* Theme switcher button - top right */}
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed bottom-6 left-6 z-50">
         <AnimatePresence>
           {open && (
             <motion.div
-              initial={{ opacity: 0, y: -10, scale: 0.9 }}
+              initial={{ opacity: 0, y: 10, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.9 }}
+              exit={{ opacity: 0, y: 10, scale: 0.9 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-14 right-0 cyber-border bg-card/95 backdrop-blur-xl p-3 min-w-[180px]"
+              className="absolute bottom-14 left-0 cyber-border bg-card/95 backdrop-blur-xl p-3 min-w-[180px]"
             >
               <p className="font-mono text-[10px] text-muted-foreground tracking-wider mb-2 px-1">
                 {'>'} THEME.SELECT
