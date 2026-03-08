@@ -176,10 +176,10 @@ export const projects = [
 ];
 
 // --- Terminal lines (for hero typing animation) ---
-export const terminalLines = [
+export const getTerminalLines = (isPony: boolean) => [
   "const dev = {",
   `  name: '${personal.name}',`,
-  `  role: '${personal.role}',`,
+  `  role: '${isPony ? personal.rolePony : personal.role}',`,
   `  stack: ['React', 'TS', 'Node'],`,
   `  location: '${personal.locationShort}',`,
 ];
