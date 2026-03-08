@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import PageLoader from "@/components/PageLoader";
 import ScrollToTop from "@/components/ScrollToTop";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import CursorTrail from "@/components/CursorTrail";
 import useKeyboardNav from "@/hooks/useKeyboardNav";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
@@ -62,6 +63,7 @@ const App = () => {
                 transition={{ duration: 0.5 }}
               >
                 <BrowserRouter>
+                  <CursorTrail />
                   <Navbar />
                   <AnimatedRoutes />
                   <ScrollToTop />
