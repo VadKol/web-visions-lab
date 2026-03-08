@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
+import ThemedAvatar from "@/components/ThemedAvatar";
 import { useTheme } from "@/contexts/ThemeContext";
-import avatarCyber from "@/assets/avatar-cyber.jpg";
-import avatar from "@/assets/avatar.jpg";
 
 const skills = [
   { category: "FRONTEND", items: ["React", "TypeScript", "Next.js", "Vue.js", "Tailwind CSS", "SCSS"] },
