@@ -5,10 +5,12 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageLoader from "@/components/PageLoader";
 import ScrollToTop from "@/components/ScrollToTop";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 import useKeyboardNav from "@/hooks/useKeyboardNav";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
@@ -44,31 +46,34 @@ const App = () => {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <AnimatePresence mode="wait">
-          {loading ? (
-            <PageLoader key="loader" />
-          ) : (
-            <motion.div
-              key="app"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <BrowserRouter>
-                <Navbar />
-                <AnimatedRoutes />
-                <ScrollToTop />
-                <Footer />
-              </BrowserRouter>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <AnimatePresence mode="wait">
+            {loading ? (
+              <PageLoader key="loader" />
+            ) : (
+              <motion.div
+                key="app"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <BrowserRouter>
+                  <Navbar />
+                  <AnimatedRoutes />
+                  <ScrollToTop />
+                  <ThemeSwitcher />
+                  <Footer />
+                </BrowserRouter>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 };
 
