@@ -152,11 +152,7 @@ const Home = () => {
           </Parallax>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { title: isPony ? "Frontend Magic ✨" : "FRONTEND_DEV", desc: "React, Redux, Next.js, TypeScript — building responsive, accessible interfaces with modern CSS and component architectures." },
-              { title: isPony ? "Full-Stack Power 🔧" : "FULLSTACK_DEV", desc: "Node.js, Express, Nest.js, PostgreSQL, Prisma — implementing CRUD, REST/GraphQL APIs and database optimization." },
-              { title: isPony ? "Speed Boost 🚀" : "PERF_OPT", desc: "Optimizing load times by 20–30%, implementing automated testing with Cypress & Jest, reducing bugs by 40%." },
-            ].map((item, i) => (
+            {services.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -166,7 +162,7 @@ const Home = () => {
                 className={`${isPony ? "bg-card rounded-2xl border-2 border-primary/20 shadow-lg" : "cyber-border bg-card/50 box-glow"} p-8 hover:bg-card/80 transition-all duration-500 group`}
               >
                 {!isPony && <h3 className="font-mono text-xs text-secondary tracking-wider mb-1">MODULE.0{i + 1}</h3>}
-                <h4 className={`${isPony ? "text-base font-semibold" : "font-display text-sm tracking-wider"} text-primary mb-3`}>{item.title}</h4>
+                <h4 className={`${isPony ? "text-base font-semibold" : "font-display text-sm tracking-wider"} text-primary mb-3`}>{isPony ? item.titlePony : item.titleCyber}</h4>
                 <p className="text-muted-foreground text-sm leading-relaxed font-body">{item.desc}</p>
               </motion.div>
             ))}
