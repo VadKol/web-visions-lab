@@ -29,6 +29,7 @@ const Home = () => {
         </motion.div>
         <div className={`absolute inset-0 ${isPony ? "bg-gradient-to-b from-background/20 via-background/50 to-background" : "bg-gradient-to-b from-background/40 via-background/70 to-background"}`} />
         {!isPony && <div className="absolute inset-0 scanlines pointer-events-none" />}
+        <CyberRain />
 
         <motion.div
           style={{ y: textY, opacity }}
