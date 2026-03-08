@@ -1,0 +1,55 @@
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+
+export type ThemeId = "cyan" | "green" | "orange" | "pony";
+
+export interface ThemeOption {
+  id: ThemeId;
+  label: string;
+  icon: string;
+  color: string;
+}
+
+export const themes: ThemeOption[] = [
+  { id: "cyan", label: "Neon Cyan", icon: "⚡", color: "#00e5ff" },
+  { id: "green", label: "Matrix", icon: "🟢", color: "#22c55e" },
+  { id: "orange", label: "Inferno", icon: "🔥", color: "#ff8c00" },
+  { id: "pony", label: "Pony Mode", icon: "🦄", color: "#e879a8" },
+];
+
+interface ThemeContextType {
+  theme: ThemeId;
+  setTheme: (theme: ThemeId) => void;
+  isPony: boolean;
+}
+
+const ThemeContext = createContext<ThemeContextType>({
+  theme: "cyan",
+  setTheme: () => {},
+  isPony: false,
+});
+
+export const useTheme = () => useContext(ThemeContext);
+
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [theme, setThemeState] = useState<ThemeId>(() => {
+    if (typeof window !== "undefined") {
+      return (localStorage.getItem("vk-theme") as ThemeId) || "cyan";
+    }
+    return "cyan";
+  });
+
+  const setTheme = (t: ThemeId) => {
+    setThemeState(t);
+    localStorage.setItem("vk-theme", t);
+  };
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme, isPony: theme === "pony" }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
