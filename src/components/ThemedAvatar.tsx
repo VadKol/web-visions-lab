@@ -57,17 +57,16 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
         <>
           {/* Main fire glow */}
           <motion.div
-            className={`absolute z-0 ${size === "sm" ? "inset-[-16px]" : "inset-[-24px]"}`}
+            className={`absolute z-0 ${size === "sm" ? "inset-[-16px]" : "inset-[-24px]"} rounded-full`}
             style={{
-              background: `radial-gradient(ellipse 80% 100% at 50% 100%, hsl(var(--neon-primary) / ${isHovered ? 1 : 0.9}) 0%, hsl(var(--neon-secondary) / ${isHovered ? 0.8 : 0.6}) 40%, transparent 70%)`,
-              clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
-              filter: isHovered ? "blur(8px)" : "blur(6px)",
+              background: `radial-gradient(ellipse 100% 120% at 50% 80%, hsl(var(--neon-primary) / ${isHovered ? 1 : 0.9}) 0%, hsl(var(--neon-secondary) / ${isHovered ? 0.8 : 0.6}) 40%, transparent 70%)`,
+              filter: isHovered ? "blur(10px)" : "blur(8px)",
             }}
             animate={{ 
               scaleY: isHovered ? [1.1, 1.3, 1.05, 1.25, 1.15, 1.08, 1.1] : [1, 1.15, 0.95, 1.1, 1.05, 0.98, 1],
               scaleX: isHovered ? [1.05, 1, 1.1, 1.02, 1.08, 1.05] : [1, 0.95, 1.05, 0.98, 1.02, 1],
               opacity: isHovered ? [0.95, 1, 0.9, 1, 0.95] : [0.8, 1, 0.7, 0.9, 1, 0.75, 0.8],
-              y: isHovered ? [0, -6, 2, -4, 0] : [0, -3, 1, -2, 0]
+              y: isHovered ? [0, -8, 2, -5, 0] : [0, -4, 1, -3, 0]
             }}
             transition={{ 
               duration: isHovered ? 0.3 : 0.5,
@@ -77,17 +76,16 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
           />
           {/* Inner flame flicker */}
           <motion.div
-            className={`absolute z-0 ${size === "sm" ? "inset-[-10px]" : "inset-[-16px]"}`}
+            className={`absolute z-0 ${size === "sm" ? "inset-[-10px]" : "inset-[-16px]"} rounded-full`}
             style={{
-              background: `radial-gradient(ellipse 60% 80% at 50% 100%, hsl(40 100% ${isHovered ? '70%' : '60%'} / ${isHovered ? 1 : 0.8}) 0%, hsl(var(--neon-primary) / ${isHovered ? 0.7 : 0.5}) 50%, transparent 70%)`,
-              clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
-              filter: isHovered ? "blur(5px)" : "blur(4px)",
+              background: `radial-gradient(ellipse 80% 100% at 50% 70%, hsl(40 100% ${isHovered ? '70%' : '60%'} / ${isHovered ? 1 : 0.8}) 0%, hsl(var(--neon-primary) / ${isHovered ? 0.7 : 0.5}) 50%, transparent 70%)`,
+              filter: isHovered ? "blur(6px)" : "blur(5px)",
             }}
             animate={{ 
               scaleY: isHovered ? [1.2, 1, 1.3, 1.05, 1.2] : [1.1, 0.9, 1.15, 0.95, 1.1],
               scaleX: isHovered ? [1, 1.1, 0.95, 1.15, 1] : [0.95, 1.05, 0.9, 1.1, 0.95],
               opacity: isHovered ? [0.85, 1, 0.8, 1, 0.85] : [0.6, 0.9, 0.5, 0.85, 0.6],
-              y: isHovered ? [-4, 3, -2, 2, -4] : [-2, 2, -1, 1, -2]
+              y: isHovered ? [-5, 4, -3, 3, -5] : [-3, 2, -2, 1, -3]
             }}
             transition={{ 
               duration: isHovered ? 0.2 : 0.35,
@@ -98,17 +96,16 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
           {/* Extra hot core on hover */}
           {isHovered && (
             <motion.div
-              className={`absolute z-0 ${size === "sm" ? "inset-[-6px]" : "inset-[-10px]"}`}
+              className={`absolute z-0 ${size === "sm" ? "inset-[-4px]" : "inset-[-8px]"} rounded-full`}
               style={{
-                background: `radial-gradient(ellipse 40% 60% at 50% 100%, hsl(50 100% 80% / 0.9) 0%, hsl(40 100% 60% / 0.4) 60%, transparent 80%)`,
-                clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
-                filter: "blur(3px)",
+                background: `radial-gradient(ellipse 60% 80% at 50% 60%, hsl(50 100% 80% / 0.9) 0%, hsl(40 100% 60% / 0.4) 60%, transparent 80%)`,
+                filter: "blur(4px)",
               }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ 
                 opacity: [0.7, 1, 0.8, 1, 0.7],
                 scaleY: [1.15, 0.95, 1.2, 1, 1.15],
-                y: [-3, 2, -2, 1, -3]
+                y: [-4, 3, -3, 2, -4]
               }}
               transition={{ 
                 duration: 0.25,
