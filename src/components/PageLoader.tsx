@@ -3,53 +3,57 @@ import { motion } from "framer-motion";
 const PageLoader = () => {
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-background"
-      exit={{ opacity: 0, scale: 1.05 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-background scanlines"
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
-      <div className="flex flex-col items-center gap-6">
-        {/* Animated logo */}
+      <div className="flex flex-col items-center gap-8">
+        {/* Glitch logo */}
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="relative"
         >
-          <div className="w-16 h-16 border-2 border-primary rounded-lg flex items-center justify-center">
+          <div className="w-20 h-20 cyber-border bg-card flex items-center justify-center box-glow-cyan">
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="font-mono text-2xl font-bold text-primary"
+              className="font-display text-2xl font-bold text-primary text-glow-cyan"
             >
               VK
             </motion.span>
           </div>
           <motion.div
-            className="absolute inset-0 border-2 border-primary/30 rounded-lg"
-            animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
+            className="absolute -inset-2 border border-neon-magenta/30"
+            style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}
+            animate={{ opacity: [0, 0.6, 0], scale: [1, 1.1, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
         </motion.div>
 
         {/* Loading bar */}
-        <div className="w-48 h-0.5 bg-border rounded-full overflow-hidden">
-          <motion.div
-            className="h-full bg-primary rounded-full"
-            initial={{ width: "0%" }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-          />
+        <div className="w-56 relative">
+          <div className="h-[2px] bg-border">
+            <motion.div
+              className="h-full bg-gradient-to-r from-neon-cyan to-neon-magenta"
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+            />
+          </div>
+          <div className="flex justify-between mt-2">
+            <span className="font-mono text-[10px] text-primary/60">SYSTEM.INIT</span>
+            <motion.span
+              className="font-mono text-[10px] text-neon-magenta/60"
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{ duration: 0.8, repeat: Infinity }}
+            >
+              LOADING...
+            </motion.span>
+          </div>
         </div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="font-mono text-xs text-muted-foreground"
-        >
-          Loading experience...
-        </motion.p>
       </div>
     </motion.div>
   );
