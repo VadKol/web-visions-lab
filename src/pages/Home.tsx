@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
+import CyberRain from "@/components/CyberRain";
+import ThemedAvatar from "@/components/ThemedAvatar";
 import { useTheme } from "@/contexts/ThemeContext";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroBgPony from "@/assets/hero-bg-pony.jpg";
-import avatarCyber from "@/assets/avatar-cyber.jpg";
-import avatar from "@/assets/avatar.jpg";
 
 const Home = () => {
   const heroRef = useRef(null);
@@ -29,6 +29,7 @@ const Home = () => {
         </motion.div>
         <div className={`absolute inset-0 ${isPony ? "bg-gradient-to-b from-background/20 via-background/50 to-background" : "bg-gradient-to-b from-background/40 via-background/70 to-background"}`} />
         {!isPony && <div className="absolute inset-0 scanlines pointer-events-none" />}
+        <CyberRain />
 
         <motion.div
           style={{ y: textY, opacity }}
@@ -40,9 +41,7 @@ const Home = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex items-center gap-4 mb-8"
           >
-            <div className={`w-16 h-16 overflow-hidden ${isPony ? "rounded-full border-2 border-primary/40" : "rounded-sm border border-primary/40 cyber-border-sm"} box-glow`}>
-              <img src={isPony ? avatar : avatarCyber} alt="Vadym Kolomiiets" className="w-full h-full object-cover" />
-            </div>
+            <ThemedAvatar size="sm" />
             <div>
               <p className="font-mono text-xs text-secondary tracking-wider">
                 {isPony ? "✨ Hello World! ✨" : "> SYSTEM.IDENTIFY"}
