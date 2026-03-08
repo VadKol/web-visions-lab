@@ -123,15 +123,7 @@ const Home = () => {
                   {isPony ? "✨ pony.js" : "TERMINAL://VK"}
                 </span>
               </div>
-              <div className={`p-5 font-mono text-sm leading-7 ${isPony ? "" : "scanlines"}`}>
-                <p><span className="text-secondary">const</span> <span className="text-foreground">dev</span> = {"{"}</p>
-                <p className="ml-4"><span className="text-muted-foreground">name:</span> <span className="text-primary">'Vadym Kolomiiets'</span>,</p>
-                <p className="ml-4"><span className="text-muted-foreground">role:</span> <span className="text-secondary">'Frontend Dev'</span>,</p>
-                <p className="ml-4"><span className="text-muted-foreground">stack:</span> [<span className="text-primary">'React'</span>, <span className="text-secondary">'TS'</span>],</p>
-                <p className="ml-4"><span className="text-muted-foreground">status:</span> <span className="text-neon-accent">{isPony ? "SPARKLY ✨" : "ONLINE"}</span>,</p>
-                <p>{"}"};</p>
-                <p className="mt-2"><span className="text-primary animate-pulse">█</span></p>
-              </div>
+              <TerminalTyping />
             </div>
           </motion.div>
         </Parallax>
