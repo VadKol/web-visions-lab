@@ -22,7 +22,7 @@ const PageLoader = () => {
               transition={{ delay: 0.4 }}
               className="font-mono text-2xl font-bold text-primary"
             >
-              AK
+              VK
             </motion.span>
           </div>
           <motion.div

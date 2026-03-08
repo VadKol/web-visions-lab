@@ -47,7 +47,7 @@ const Home = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-4"
           >
-            Alex Koval
+            Vadym Kolomiiets
           </motion.h1>
 
           <motion.h2
@@ -106,7 +106,7 @@ const Home = () => {
               </div>
               <div className="p-5 font-mono text-sm leading-7">
                 <p><span className="text-primary">const</span> <span className="text-foreground">developer</span> = {"{"}</p>
-                <p className="ml-4"><span className="text-muted-foreground">name:</span> <span className="text-primary">'Alex Koval'</span>,</p>
+                <p className="ml-4"><span className="text-muted-foreground">name:</span> <span className="text-primary">'Vadym Kolomiiets'</span>,</p>
                 <p className="ml-4"><span className="text-muted-foreground">role:</span> <span className="text-primary">'Frontend Developer'</span>,</p>
                 <p className="ml-4"><span className="text-muted-foreground">skills:</span> [<span className="text-primary">'React'</span>, <span className="text-primary">'TypeScript'</span>],</p>
                 <p className="ml-4"><span className="text-muted-foreground">available:</span> <span className="text-primary">true</span>,</p>

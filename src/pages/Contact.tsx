@@ -36,9 +36,9 @@ const Contact = () => {
                 className="space-y-8"
               >
                 {[
-                  { icon: Mail, label: "Email", value: "hello@alexkoval.dev", href: "mailto:hello@alexkoval.dev" },
-                  { icon: Github, label: "GitHub", value: "github.com/alexkoval", href: "#" },
-                  { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/alexkoval", href: "#" },
+                  { icon: Mail, label: "Email", value: "hello@vadymkolomiiets.dev", href: "mailto:hello@vadymkolomiiets.dev" },
+                  { icon: Github, label: "GitHub", value: "github.com/vadymkolomiiets", href: "#" },
+                  { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/vadymkolomiiets", href: "#" },
                   { icon: MapPin, label: "Location", value: "Kyiv, Ukraine", href: undefined },
                 ].map((item, i) => (
                   <motion.div
