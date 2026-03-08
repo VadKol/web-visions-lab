@@ -33,7 +33,7 @@ const getGreeting = (isPony: boolean): string => {
 };
 
 const Home = () => {
-  const heroRef = useRef(null);
+  const heroRef = useRef<HTMLElement>(null);
   const { isPony } = useTheme();
   const greeting = useMemo(() => getGreeting(isPony), [isPony]);
   const { scrollYProgress } = useScroll({
@@ -44,6 +44,28 @@ const Home = () => {
   const textY = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  // Multi-layer parallax layers
+  const layer1Y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const layer2Y = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const layer3Y = useTransform(scrollYProgress, [0, 1], [0, 50]);
+
+  // Mouse-tracking parallax
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+
+  useEffect(() => {
+    const handleMouse = (e: MouseEvent) => {
+      const cx = (e.clientX / window.innerWidth - 0.5) * 2;
+      const cy = (e.clientY / window.innerHeight - 0.5) * 2;
+      mouseX.set(cx * 20);
+      mouseY.set(cy * 20);
+    };
+    window.addEventListener("mousemove", handleMouse);
+    return () => window.removeEventListener("mousemove", handleMouse);
+  }, [mouseX, mouseY]);
+
   return (
     <PageTransition>
       <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
@@ -52,6 +74,28 @@ const Home = () => {
         </motion.div>
         <div className={`absolute inset-0 ${isPony ? "bg-gradient-to-b from-background/20 via-background/50 to-background" : "bg-gradient-to-b from-background/40 via-background/70 to-background"}`} />
         {!isPony && <div className="absolute inset-0 scanlines pointer-events-none" />}
+
+        {/* Parallax floating layers */}
+        <motion.div style={{ y: layer1Y, x: springX }} className="absolute inset-0 pointer-events-none z-[2]">
+          <div className={`absolute top-[15%] left-[10%] w-32 h-32 rounded-full ${isPony ? "bg-primary/10 blur-3xl" : "bg-primary/5 blur-2xl"}`} />
+          <div className={`absolute top-[60%] right-[15%] w-48 h-48 rounded-full ${isPony ? "bg-secondary/10 blur-3xl" : "bg-secondary/5 blur-2xl"}`} />
+        </motion.div>
+        <motion.div style={{ y: layer2Y, x: springX, scale: useTransform(scrollYProgress, [0, 1], [1, 0.8]) }} className="absolute inset-0 pointer-events-none z-[2]">
+          <div className={`absolute top-[30%] right-[25%] ${isPony ? "w-4 h-4 rounded-full bg-primary/30" : "w-3 h-3 bg-primary/20 rotate-45"}`} />
+          <div className={`absolute top-[70%] left-[20%] ${isPony ? "w-6 h-6 rounded-full bg-secondary/30" : "w-4 h-4 bg-secondary/20 rotate-45"}`} />
+          <div className={`absolute top-[20%] right-[10%] ${isPony ? "w-3 h-3 rounded-full bg-accent/40" : "w-2 h-2 bg-primary/15 rotate-45"}`} />
+          <div className={`absolute top-[50%] left-[5%] ${isPony ? "w-5 h-5 rounded-full bg-primary/25" : "w-3 h-3 bg-secondary/15 rotate-12"}`} />
+        </motion.div>
+        <motion.div style={{ y: layer3Y }} className="absolute inset-0 pointer-events-none z-[2]">
+          {!isPony && (
+            <>
+              <div className="absolute top-[25%] left-[30%] w-px h-32 bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+              <div className="absolute top-[45%] right-[30%] w-px h-48 bg-gradient-to-b from-transparent via-secondary/15 to-transparent" />
+              <div className="absolute top-[10%] left-[60%] w-24 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+            </>
+          )}
+        </motion.div>
+
         <CyberRain />
 
         <motion.div
