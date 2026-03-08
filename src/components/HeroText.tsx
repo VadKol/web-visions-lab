@@ -16,7 +16,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
   const { theme } = useTheme();
   const [hovered, setHovered] = useState(false);
   const [scatter, setScatter] = useState<
-    { dx: number; dy: number; rot: number; replacement: string }[]
+    { dx: number; dy: number; rot: number; replacement: string; scale: number }[]
   >([]);
   const [displayChars, setDisplayChars] = useState<string[]>(Array.from(children));
 
@@ -27,6 +27,7 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
         dy: (Math.random() - 0.5) * 60,
         rot: (Math.random() - 0.5) * 120,
         replacement: randomChar(matrixChars),
+        scale: 1.3 + Math.random() * 0.5,
       }))
     );
     setHovered(true);
@@ -80,18 +81,18 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
 
     switch (theme) {
       case "cyan":
-        // Glitch: horizontal shake + stay in place
+        // Glitch: horizontal shake
         return {
-          x: (Math.random() - 0.5) * 20,
-          y: (Math.random() - 0.5) * 6,
-          rotate: (Math.random() - 0.5) * 8,
-          opacity: 0.8 + Math.random() * 0.2,
+          x: scatter[i].dx * 0.25,
+          y: scatter[i].dy * 0.1,
+          rotate: scatter[i].rot * 0.07,
+          opacity: 0.85,
           scale: 1,
         };
       case "green":
         // Matrix: fall down + fade
         return {
-          x: (Math.random() - 0.5) * 10,
+          x: scatter[i].dx * 0.12,
           y: 40 + i * 3,
           rotate: 0,
           opacity: 0,
@@ -100,11 +101,11 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
       case "orange":
         // Inferno: rise up + scale up + fade (burning)
         return {
-          x: (Math.random() - 0.5) * 15,
-          y: -30 - Math.random() * 40,
-          rotate: (Math.random() - 0.5) * 30,
+          x: scatter[i].dx * 0.2,
+          y: -30 - Math.abs(scatter[i].dy) * 0.7,
+          rotate: scatter[i].rot * 0.25,
           opacity: 0,
-          scale: 1.3 + Math.random() * 0.5,
+          scale: scatter[i].scale,
         };
       case "pony":
       default:
