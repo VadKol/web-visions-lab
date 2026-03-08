@@ -1,8 +1,12 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Download, ExternalLink, FileText, X } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import ThemedAvatar from "@/components/ThemedAvatar";
 import { useTheme } from "@/contexts/ThemeContext";
+
+const RESUME_URL = "/Vadym_Kolomiiets_Resume_FE.pdf";
 
 const skills = [
   { category: "FRONTEND", items: ["TypeScript / JavaScript", "React / Redux / RTK-query", "Next.js / Vue.js", "HTML5 / CSS3 / Sass / BEM", "Tailwind / Material UI / Bootstrap"] },
