@@ -5,6 +5,7 @@ import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
 import { projects } from "@/data/portfolio";
+import TiltCard from "@/components/TiltCard";
 
 const PROJECTS_PER_PAGE = 3;
 
