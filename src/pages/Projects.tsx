@@ -59,6 +59,8 @@ const Projects = () => {
                     <img
                       src={project.image}
                       alt={project.title}
+                      loading="lazy"
+                      decoding="async"
                       className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${isPony ? "" : "grayscale group-hover:grayscale-0"}`}
                     />
                     {!isPony && <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500" />}
