@@ -81,9 +81,7 @@ const Home = () => {
                 {isPony ? "💖 About me" : "> PROFILE.DESC"}
               </p>
               <p className="text-muted-foreground text-base leading-relaxed font-body">
-                Frontend Developer with solid experience in professional and freelance projects.
-                Skilled in JavaScript, TypeScript, React, Node.js, database management, and API integration.
-                Proactive and detail-oriented, delivering clean, maintainable code.
+                {bio.summary}
               </p>
             </div>
           </motion.div>
