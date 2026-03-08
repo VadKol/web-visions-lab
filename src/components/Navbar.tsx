@@ -47,6 +47,8 @@ const Navbar = () => {
   return (
     <>
       <motion.nav
+        role="navigation"
+        aria-label="Main navigation"
         initial={{ y: -80 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
@@ -55,7 +57,7 @@ const Navbar = () => {
         }`}
       >
         <div className="container mx-auto flex items-center justify-between py-4 px-6">
-          <Link to="/" className={`font-display text-sm font-bold text-primary tracking-widest ${isPony ? "" : "text-glow"}`}>
+          <Link to="/" aria-label="Home — Vadym Kolomiiets" className={`font-display text-sm font-bold text-primary tracking-widest ${isPony ? "" : "text-glow"}`}>
             {isPony ? "✨ VK" : "VK://DEV"}
           </Link>
           <div className="hidden md:flex items-center gap-8">
@@ -93,6 +95,8 @@ const Navbar = () => {
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden text-primary p-2"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

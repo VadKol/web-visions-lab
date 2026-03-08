@@ -118,7 +118,7 @@ const Projects = () => {
                       <a href={project.live} className="inline-flex items-center gap-2 font-mono text-[10px] text-muted-foreground hover:text-secondary transition-colors tracking-wider">
                         <ExternalLink size={14} /> {isPony ? "Live" : "LIVE"}
                       </a>
-                      <button onClick={() => setPreviewImage(project.image)} className="inline-flex items-center gap-2 font-mono text-[10px] text-muted-foreground hover:text-primary transition-colors tracking-wider">
+                      <button onClick={() => setPreviewImage(project.image)} aria-label={`Preview ${project.title}`} className="inline-flex items-center gap-2 font-mono text-[10px] text-muted-foreground hover:text-primary transition-colors tracking-wider">
                         <Eye size={14} /> {isPony ? "Preview" : "PREVIEW"}
                       </button>
                     </div>
@@ -194,7 +194,7 @@ const Projects = () => {
               className="relative max-w-5xl w-full"
               onClick={(e) => e.stopPropagation()}
             >
-              <button onClick={() => setPreviewImage(null)} className="absolute -top-12 right-0 text-muted-foreground hover:text-secondary transition-colors">
+              <button onClick={() => setPreviewImage(null)} aria-label="Close preview" className="absolute -top-12 right-0 text-muted-foreground hover:text-secondary transition-colors">
                 <X size={24} />
               </button>
               <div className={`overflow-hidden ${isPony ? "rounded-2xl border-2 border-primary/20 shadow-2xl" : "cyber-border box-glow"}`}>
