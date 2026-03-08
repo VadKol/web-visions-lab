@@ -23,11 +23,11 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
   const onEnter = useCallback(() => {
     setScatter(
       Array.from(children).map(() => ({
-        dx: (Math.random() - 0.5) * 80,
-        dy: (Math.random() - 0.5) * 60,
-        rot: (Math.random() - 0.5) * 120,
+        dx: (Math.random() - 0.5) * 100,
+        dy: (Math.random() - 0.5) * 100,
+        rot: (Math.random() - 0.5) * 180,
         replacement: randomChar(matrixChars),
-        scale: 1.3 + Math.random() * 0.5,
+        scale: 1.3 + Math.random() * 0.7,
       }))
     );
     setHovered(true);
@@ -99,13 +99,13 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
           scale: 1,
         };
       case "orange":
-        // Inferno: rise up + scale up + fade (burning)
+        // Inferno: explosive scatter like an explosion
         return {
-          x: scatter[i].dx * 0.2,
-          y: -30 - Math.abs(scatter[i].dy) * 0.7,
-          rotate: scatter[i].rot * 0.25,
+          x: scatter[i].dx * 1.5,
+          y: scatter[i].dy * 1.8,
+          rotate: scatter[i].rot * 2,
           opacity: 0,
-          scale: scatter[i].scale,
+          scale: scatter[i].scale * 1.4,
         };
       case "pony":
       default:
@@ -136,9 +136,9 @@ const HeroText = ({ children, className = "" }: HeroTextProps) => {
         };
       case "orange":
         return {
-          duration: hovered ? 0.5 : 0.3,
-          delay: hovered ? i * 0.02 : i * 0.01,
-          ease: hovered ? [0.4, 0, 1, 1] as const : "easeOut" as const,
+          duration: hovered ? 0.6 : 0.3,
+          delay: hovered ? i * 0.015 : i * 0.01,
+          ease: hovered ? [0.2, 0, 0.8, 1] as const : "easeOut" as const,
         };
       case "pony":
       default:
