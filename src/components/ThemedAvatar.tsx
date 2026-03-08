@@ -50,24 +50,48 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
     >
       {/* Animated glow ring */}
       {theme === "orange" && (
-        <motion.div
-          className={`absolute z-0 ${size === "sm" ? "inset-[-20px]" : "inset-[-28px]"}`}
-          style={{
-            background: `conic-gradient(from 0deg, hsl(var(--neon-primary) / 0.9), transparent, hsl(var(--neon-secondary) / 0.9), transparent, hsl(var(--neon-primary) / 0.9))`,
-            clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
-            filter: "blur(5px)",
-          }}
-          animate={{ 
-            rotate: [0, 360],
-            scale: [1, 1.15, 0.95, 1.1, 1],
-            opacity: [0.7, 1, 0.8, 1, 0.7]
-          }}
-          transition={{ 
-            rotate: { duration: 3, repeat: Infinity, ease: "linear" },
-            scale: { duration: 0.4, repeat: Infinity, ease: "easeInOut" },
-            opacity: { duration: 0.2, repeat: Infinity, ease: "easeInOut" }
-          }}
-        />
+        <>
+          {/* Main fire glow */}
+          <motion.div
+            className={`absolute z-0 ${size === "sm" ? "inset-[-16px]" : "inset-[-24px]"}`}
+            style={{
+              background: `radial-gradient(ellipse 80% 100% at 50% 100%, hsl(var(--neon-primary) / 0.9) 0%, hsl(var(--neon-secondary) / 0.6) 40%, transparent 70%)`,
+              clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
+              filter: "blur(6px)",
+            }}
+            animate={{ 
+              scaleY: [1, 1.15, 0.95, 1.1, 1.05, 0.98, 1],
+              scaleX: [1, 0.95, 1.05, 0.98, 1.02, 1],
+              opacity: [0.8, 1, 0.7, 0.9, 1, 0.75, 0.8],
+              y: [0, -3, 1, -2, 0]
+            }}
+            transition={{ 
+              duration: 0.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          {/* Inner flame flicker */}
+          <motion.div
+            className={`absolute z-0 ${size === "sm" ? "inset-[-10px]" : "inset-[-16px]"}`}
+            style={{
+              background: `radial-gradient(ellipse 60% 80% at 50% 100%, hsl(40 100% 60% / 0.8) 0%, hsl(var(--neon-primary) / 0.5) 50%, transparent 70%)`,
+              clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
+              filter: "blur(4px)",
+            }}
+            animate={{ 
+              scaleY: [1.1, 0.9, 1.15, 0.95, 1.1],
+              scaleX: [0.95, 1.05, 0.9, 1.1, 0.95],
+              opacity: [0.6, 0.9, 0.5, 0.85, 0.6],
+              y: [-2, 2, -1, 1, -2]
+            }}
+            transition={{ 
+              duration: 0.35,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </>
       )}
 
       {theme === "green" && (
