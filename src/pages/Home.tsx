@@ -1,12 +1,13 @@
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import { useRef, useMemo, useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
+import { Parallax3DScene, Parallax3DLayer } from "@/components/Parallax3DScene";
+import use3DParallax from "@/hooks/use3DParallax";
 import CyberRain from "@/components/CyberRain";
 import ThemedAvatar from "@/components/ThemedAvatar";
-import GlitchText from "@/components/GlitchText";
 import HeroText from "@/components/HeroText";
 import TerminalTyping from "@/components/TerminalTyping";
 import TypingRoles from "@/components/TypingRoles";
