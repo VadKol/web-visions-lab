@@ -77,7 +77,7 @@ const Contact = () => {
         toast.success(isPony ? "Message sent! 💖" : "MESSAGE_TRANSMITTED");
         reset();
       } else {
-        toast.error(isPony ? "Помилка відправки" : "TRANSMISSION_FAILED");
+        toast.error(isPony ? "Failed to send 😢" : "TRANSMISSION_FAILED");
       }
     } catch {
       toast.error(isPony ? "Помилка мережі" : "NETWORK_ERROR");
