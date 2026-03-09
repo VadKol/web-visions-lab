@@ -10,7 +10,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 
-const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Czech+Republic,+Ukraine";
+const GOOGLE_MAPS_URL = personal.googleMapsUrl;
 
 const Contact = () => {
   const { isPony } = useTheme();
