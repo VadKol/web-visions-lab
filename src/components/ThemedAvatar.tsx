@@ -118,16 +118,55 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
       )}
 
       {theme === "green" && (
-        <motion.div
-          className={`absolute inset-[-3px] z-0 ${size === "sm" ? "" : "inset-[-4px]"}`}
-          style={{
-            background: `linear-gradient(180deg, transparent 0%, hsl(var(--neon-primary) / 0.8) 50%, transparent 100%)`,
-            clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
-            filter: "blur(2px)",
-          }}
-          animate={{ y: ["-100%", "100%"] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-        />
+        <>
+          {/* Scanner line */}
+          <motion.div
+            className={`absolute ${size === "sm" ? "inset-[-6px]" : "inset-[-10px]"} z-0 rounded-sm overflow-hidden`}
+          >
+            <motion.div
+              className="absolute inset-x-0 h-8"
+              style={{
+                background: `linear-gradient(180deg, transparent 0%, hsl(var(--neon-primary) / 0.6) 50%, transparent 100%)`,
+                filter: "blur(3px)",
+              }}
+              animate={{ y: ["-100%", "200%"] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            />
+          </motion.div>
+          {/* Matrix numbers */}
+          {[...Array(8)].map((_, i) => (
+            <motion.span
+              key={i}
+              className={`absolute z-0 font-mono text-[10px] text-primary/70`}
+              style={{
+                left: `${10 + (i % 4) * 25}%`,
+                top: `${i < 4 ? -5 : 105}%`,
+              }}
+              animate={{
+                y: i < 4 ? [0, 30, 0] : [0, -30, 0],
+                opacity: [0, 0.8, 0],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                delay: i * 0.2,
+                ease: "easeInOut",
+              }}
+            >
+              {Math.random() > 0.5 ? "1" : "0"}
+            </motion.span>
+          ))}
+          {/* Glow border */}
+          <motion.div
+            className={`absolute ${size === "sm" ? "inset-[-4px]" : "inset-[-6px]"} z-0 rounded-sm`}
+            style={{
+              border: "1px solid hsl(var(--neon-primary) / 0.4)",
+              boxShadow: "0 0 10px hsl(var(--neon-primary) / 0.3), inset 0 0 10px hsl(var(--neon-primary) / 0.1)",
+            }}
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+        </>
       )}
 
       {!isPony && theme !== "orange" && theme !== "green" && (
