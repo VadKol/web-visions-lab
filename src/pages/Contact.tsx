@@ -57,7 +57,7 @@ const Contact = () => {
   const onSubmit = async (data: ContactFormData) => {
     // Honeypot check - if filled, silently reject (likely bot)
     if (data.website) {
-      toast.success(isPony ? "Повідомлення надіслано! 💖" : "MESSAGE_TRANSMITTED");
+      toast.success(isPony ? "Message sent! 💖" : "MESSAGE_TRANSMITTED");
       reset();
       return;
     }
