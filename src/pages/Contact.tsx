@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, MapPin, Send, ExternalLink } from "lucide-react";
+import { Mail, Github, Linkedin, MapPin, Send, ExternalLink, MessageCircle } from "lucide-react";
 import { personal } from "@/data/portfolio";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
