@@ -203,6 +203,15 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
         {!isPony && (
           <div className={`absolute inset-0 ${overlayColor} group-hover:bg-transparent transition-colors duration-500`} />
         )}
+        {/* Edge fade for Inferno and Matrix */}
+        {(theme === "orange" || theme === "green") && (
+          <div 
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `radial-gradient(ellipse 70% 70% at 50% 50%, transparent 50%, hsl(var(--background)) 100%)`,
+            }}
+          />
+        )}
       </div>
     </motion.div>
   );
