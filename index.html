@@ -13,7 +13,14 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#0d1117" />
     <script>
-      try{var t=localStorage.getItem('vk-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}
+      try{
+        var t=localStorage.getItem('vk-theme');
+        if(t){
+          document.documentElement.setAttribute('data-theme',t);
+          var fm={cyan:'/favicon-cyan.png',green:'/favicon-green.png',orange:'/favicon-orange.png',pony:'/favicon-pony.png'};
+          if(fm[t]){var l=document.querySelector("link[rel='icon']");if(l)l.href=fm[t];}
+        }
+      }catch(e){}
     </script>
 
     <meta property="og:title" content="Vadym Kolomiiets | Frontend Developer" />
