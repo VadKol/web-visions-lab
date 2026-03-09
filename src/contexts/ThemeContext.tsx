@@ -57,6 +57,17 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     if (link) {
       link.href = faviconMap[theme];
     }
+    // Update theme-color meta tag
+    const themeColorMap: Record<ThemeId, string> = {
+      cyan: "#0d1117",
+      green: "#0a0f0a",
+      orange: "#1a0f00",
+      pony: "#1a1025",
+    };
+    const meta = document.querySelector<HTMLMetaElement>("meta[name='theme-color']");
+    if (meta) {
+      meta.setAttribute("content", themeColorMap[theme]);
+    }
   }, [theme]);
 
   return (

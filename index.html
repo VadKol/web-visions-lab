@@ -19,6 +19,9 @@
           document.documentElement.setAttribute('data-theme',t);
           var fm={cyan:'/favicon-cyan.png',green:'/favicon-green.png',orange:'/favicon-orange.png',pony:'/favicon-pony.png'};
           if(fm[t]){var l=document.querySelector("link[rel='icon']");if(l)l.href=fm[t];}
+          var cm={cyan:'#0d1117',green:'#0a0f0a',orange:'#1a0f00',pony:'#1a1025'};
+          var mc=document.querySelector("meta[name='theme-color']");
+          if(mc&&cm[t])mc.setAttribute('content',cm[t]);
         }
       }catch(e){}
     </script>
