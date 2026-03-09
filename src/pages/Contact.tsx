@@ -1,24 +1,86 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, MapPin, Send, ExternalLink, MessageCircle } from "lucide-react";
+import { Mail, Github, Linkedin, MapPin, Send, ExternalLink, MessageCircle, Loader2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { personal } from "@/data/portfolio";
 import { ENDPOINTS } from "@/config/endpoints";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
+import { toast } from "sonner";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 
+const contactSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "Ім'я обов'язкове")
+    .max(100, "Ім'я має бути менше 100 символів"),
+  email: z
+    .string()
+    .trim()
+    .min(1, "Email обов'язковий")
+    .email("Невірний формат email")
+    .max(255, "Email має бути менше 255 символів"),
+  message: z
+    .string()
+    .trim()
+    .min(1, "Повідомлення обов'язкове")
+    .max(1000, "Повідомлення має бути менше 1000 символів"),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
 const GOOGLE_MAPS_URL = personal.googleMapsUrl;
 
 const Contact = () => {
   const { isPony } = useTheme();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(ENDPOINTS.contactForm, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        toast.success(isPony ? "Повідомлення надіслано! 💖" : "MESSAGE_TRANSMITTED");
+        reset();
+      } else {
+        toast.error(isPony ? "Помилка відправки" : "TRANSMISSION_FAILED");
+      }
+    } catch {
+      toast.error(isPony ? "Помилка мережі" : "NETWORK_ERROR");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const inputClass = isPony
     ? "w-full bg-card border-2 border-primary/20 rounded-xl px-4 py-3 text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary/50 transition-all font-mono text-sm"
     : "w-full bg-card border border-primary/20 px-4 py-3 text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary/50 transition-all font-mono text-sm";
+
+  const inputErrorClass = "border-destructive/50 focus:border-destructive";
 
   const inputStyle = isPony ? {} : { clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))" };
 
@@ -136,29 +198,63 @@ const Contact = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="space-y-5"
-                action={ENDPOINTS.contactForm}
-                method="POST"
+                onSubmit={handleSubmit(onSubmit)}
               >
                 <div className="font-mono text-[10px] text-secondary tracking-wider mb-2">
                   {isPony ? "✏️ Write to me" : "> MESSAGE.COMPOSE"}
                 </div>
                 <div>
                   <label htmlFor="contact-name" className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">NAME</label>
-                  <input id="contact-name" type="text" placeholder="John Doe" className={inputClass} style={inputStyle} />
+                  <input 
+                    id="contact-name" 
+                    type="text" 
+                    placeholder="John Doe" 
+                    className={`${inputClass} ${errors.name ? inputErrorClass : ""}`} 
+                    style={inputStyle}
+                    {...register("name")}
+                  />
+                  {errors.name && (
+                    <p className="font-mono text-[10px] text-destructive mt-1">{errors.name.message}</p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="contact-email" className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">EMAIL</label>
-                  <input id="contact-email" type="email" placeholder="john@example.com" className={inputClass} style={inputStyle} />
+                  <input 
+                    id="contact-email" 
+                    type="email" 
+                    placeholder="john@example.com" 
+                    className={`${inputClass} ${errors.email ? inputErrorClass : ""}`} 
+                    style={inputStyle}
+                    {...register("email")}
+                  />
+                  {errors.email && (
+                    <p className="font-mono text-[10px] text-destructive mt-1">{errors.email.message}</p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="contact-message" className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">MESSAGE</label>
-                  <textarea id="contact-message" rows={5} placeholder="Tell me about your project..." className={`${inputClass} resize-none`} style={inputStyle} />
+                  <textarea 
+                    id="contact-message" 
+                    rows={5} 
+                    placeholder="Tell me about your project..." 
+                    className={`${inputClass} resize-none ${errors.message ? inputErrorClass : ""}`} 
+                    style={inputStyle}
+                    {...register("message")}
+                  />
+                  {errors.message && (
+                    <p className="font-mono text-[10px] text-destructive mt-1">{errors.message.message}</p>
+                  )}
                 </div>
                 <button
                   type="submit"
-                  className={`inline-flex items-center gap-2 font-mono text-xs tracking-wider px-8 py-3 w-full justify-center transition-all ${isPony ? "bg-primary text-primary-foreground rounded-xl hover:opacity-90" : "cyber-border bg-primary/15 text-primary hover:bg-primary/25 box-glow"}`}
+                  disabled={isSubmitting}
+                  className={`inline-flex items-center gap-2 font-mono text-xs tracking-wider px-8 py-3 w-full justify-center transition-all disabled:opacity-50 disabled:cursor-not-allowed ${isPony ? "bg-primary text-primary-foreground rounded-xl hover:opacity-90" : "cyber-border bg-primary/15 text-primary hover:bg-primary/25 box-glow"}`}
                 >
-                  <Send size={14} /> {isPony ? "Send 💌" : "TRANSMIT"}
+                  {isSubmitting ? (
+                    <><Loader2 size={14} className="animate-spin" /> {isPony ? "Надсилаю..." : "TRANSMITTING..."}</>
+                  ) : (
+                    <><Send size={14} /> {isPony ? "Send 💌" : "TRANSMIT"}</>
+                  )}
                 </button>
               </motion.form>
             </div>
