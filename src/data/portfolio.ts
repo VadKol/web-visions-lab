@@ -25,6 +25,7 @@ export const personal = {
   telegram: "https://t.me/vadymkolomiiets",
   resumeUrl: "/Vadym_Kolomiiets_Resume_FE.pdf",
   resumeFilename: "Vadym_Kolomiiets_Resume_FE.pdf",
+  googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Czech+Republic,+Ukraine",
 };
 
 // --- Bio / Summary ---
