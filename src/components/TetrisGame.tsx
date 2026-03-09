@@ -361,12 +361,14 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
 
           <div className="flex gap-4">
             <div 
-              className={`relative ${isPony ? "rounded-lg" : ""} overflow-hidden border-2 border-primary/30`}
+              className={`relative ${isPony ? "rounded-lg" : ""} overflow-hidden border-2 border-primary/30 touch-none`}
               style={{ 
                 width: BOARD_WIDTH * CELL_SIZE, 
                 height: BOARD_HEIGHT * CELL_SIZE, 
                 background: isPony ? "hsl(var(--muted))" : "#0a0a0a" 
               }}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             >
               {displayBoard.map((row, y) =>
                 row.map((cell, x) => (
