@@ -40,50 +40,49 @@ export const bio = {
   ],
 };
 
-// --- Skills ---
+// --- Skills (with proficiency levels) ---
 export const skills = [
   {
     category: "FRONTEND",
     items: [
-      "TypeScript / JavaScript",
-      "React / Redux / RTK-query",
-      "Next.js / Vue.js",
-      "HTML5 / CSS3 / Sass / BEM",
-      "Tailwind / Material UI / Bootstrap",
+      { name: "TypeScript / JavaScript", level: 95 },
+      { name: "React / Redux / RTK-query", level: 92 },
+      { name: "Next.js / Vue.js", level: 85 },
+      { name: "HTML5 / CSS3 / Sass / BEM", level: 95 },
+      { name: "Tailwind / Material UI / Bootstrap", level: 90 },
     ],
   },
   {
     category: "BACKEND",
     items: [
-      "Node.js / Express / Nest.js",
-      "PostgreSQL / MySQL / Prisma",
-      "REST API / GraphQL",
-      "WebSockets / Axios",
-      "Docker",
+      { name: "Node.js / Express / Nest.js", level: 85 },
+      { name: "PostgreSQL / MySQL / Prisma", level: 80 },
+      { name: "REST API / GraphQL", level: 88 },
+      { name: "WebSockets / Axios", level: 82 },
+      { name: "Docker", level: 70 },
     ],
   },
   {
     category: "TOOLS",
     items: [
-      "Git / GitHub",
-      "Webpack / Vite / NPM",
-      "Figma",
-      "VS Code / WebStorm",
-      "Chrome DevTools / React DevTools",
+      { name: "Git / GitHub", level: 92 },
+      { name: "Webpack / Vite / NPM", level: 88 },
+      { name: "Figma", level: 75 },
+      { name: "VS Code / WebStorm", level: 95 },
+      { name: "Chrome DevTools / React DevTools", level: 90 },
     ],
   },
   {
     category: "TESTING & OTHER",
     items: [
-      "Cypress / Jest",
-      "CI/CD Pipelines",
-      "Agile / Jira / Trello",
-      "OOP",
-      "English B2 / Czech B2 / Ukrainian C2",
+      { name: "Cypress / Jest", level: 78 },
+      { name: "CI/CD Pipelines", level: 75 },
+      { name: "Agile / Jira / Trello", level: 85 },
+      { name: "OOP", level: 88 },
+      { name: "English B2 / Czech B2 / Ukrainian C2", level: 90 },
     ],
   },
 ];
-
 // --- Work Experience ---
 export const experience = [
   {
