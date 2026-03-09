@@ -57,10 +57,10 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
         <>
           {/* Main fire glow */}
           <motion.div
-            className={`absolute z-0 ${size === "sm" ? "inset-[-16px]" : "inset-[-24px]"} rounded-full`}
+            className={`absolute z-0 ${size === "sm" ? "inset-[-24px]" : "inset-[-36px]"} rounded-full`}
             style={{
               background: `radial-gradient(ellipse 100% 120% at 50% 80%, hsl(var(--neon-primary) / ${isHovered ? 1 : 0.9}) 0%, hsl(var(--neon-secondary) / ${isHovered ? 0.8 : 0.6}) 40%, transparent 70%)`,
-              filter: isHovered ? "blur(10px)" : "blur(8px)",
+              filter: isHovered ? "blur(12px)" : "blur(10px)",
             }}
             animate={{ 
               scaleY: isHovered ? [1.1, 1.3, 1.05, 1.25, 1.15, 1.08, 1.1] : [1, 1.15, 0.95, 1.1, 1.05, 0.98, 1],
@@ -76,10 +76,10 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
           />
           {/* Inner flame flicker */}
           <motion.div
-            className={`absolute z-0 ${size === "sm" ? "inset-[-10px]" : "inset-[-16px]"} rounded-full`}
+            className={`absolute z-0 ${size === "sm" ? "inset-[-16px]" : "inset-[-24px]"} rounded-full`}
             style={{
               background: `radial-gradient(ellipse 80% 100% at 50% 70%, hsl(40 100% ${isHovered ? '70%' : '60%'} / ${isHovered ? 1 : 0.8}) 0%, hsl(var(--neon-primary) / ${isHovered ? 0.7 : 0.5}) 50%, transparent 70%)`,
-              filter: isHovered ? "blur(6px)" : "blur(5px)",
+              filter: isHovered ? "blur(8px)" : "blur(6px)",
             }}
             animate={{ 
               scaleY: isHovered ? [1.2, 1, 1.3, 1.05, 1.2] : [1.1, 0.9, 1.15, 0.95, 1.1],
@@ -96,10 +96,10 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
           {/* Extra hot core on hover */}
           {isHovered && (
             <motion.div
-              className={`absolute z-0 ${size === "sm" ? "inset-[-4px]" : "inset-[-8px]"} rounded-full`}
+              className={`absolute z-0 ${size === "sm" ? "inset-[-8px]" : "inset-[-12px]"} rounded-full`}
               style={{
                 background: `radial-gradient(ellipse 60% 80% at 50% 60%, hsl(50 100% 80% / 0.9) 0%, hsl(40 100% 60% / 0.4) 60%, transparent 80%)`,
-                filter: "blur(4px)",
+                filter: "blur(5px)",
               }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ 
@@ -121,13 +121,13 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
         <>
           {/* Scanner line */}
           <motion.div
-            className={`absolute ${size === "sm" ? "inset-[-6px]" : "inset-[-10px]"} z-0 rounded-sm overflow-hidden`}
+            className={`absolute ${size === "sm" ? "inset-[-12px]" : "inset-[-18px]"} z-0 rounded-sm overflow-hidden`}
           >
             <motion.div
-              className="absolute inset-x-0 h-8"
+              className="absolute inset-x-0 h-10"
               style={{
                 background: `linear-gradient(180deg, transparent 0%, hsl(var(--neon-primary) / 0.6) 50%, transparent 100%)`,
-                filter: "blur(3px)",
+                filter: "blur(4px)",
               }}
               animate={{ y: ["-100%", "200%"] }}
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -158,10 +158,10 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
           ))}
           {/* Glow border */}
           <motion.div
-            className={`absolute ${size === "sm" ? "inset-[-4px]" : "inset-[-6px]"} z-0 rounded-sm`}
+            className={`absolute ${size === "sm" ? "inset-[-8px]" : "inset-[-12px]"} z-0 rounded-sm`}
             style={{
               border: "1px solid hsl(var(--neon-primary) / 0.4)",
-              boxShadow: "0 0 10px hsl(var(--neon-primary) / 0.3), inset 0 0 10px hsl(var(--neon-primary) / 0.1)",
+              boxShadow: "0 0 15px hsl(var(--neon-primary) / 0.4), inset 0 0 15px hsl(var(--neon-primary) / 0.15)",
             }}
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
@@ -202,6 +202,15 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
         />
         {!isPony && (
           <div className={`absolute inset-0 ${overlayColor} group-hover:bg-transparent transition-colors duration-500`} />
+        )}
+        {/* Edge fade for Inferno and Matrix */}
+        {(theme === "orange" || theme === "green") && (
+          <div 
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `radial-gradient(ellipse 70% 70% at 50% 50%, transparent 50%, hsl(var(--background)) 100%)`,
+            }}
+          />
         )}
       </div>
     </motion.div>
