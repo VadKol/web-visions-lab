@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Mail, Github, Linkedin, MapPin, Send, ExternalLink, MessageCircle } from "lucide-react";
 import { personal } from "@/data/portfolio";
+import { ENDPOINTS } from "@/config/endpoints";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -135,7 +136,8 @@ const Contact = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="space-y-5"
-                onSubmit={(e) => e.preventDefault()}
+                action={ENDPOINTS.contactForm}
+                method="POST"
               >
                 <div className="font-mono text-[10px] text-secondary tracking-wider mb-2">
                   {isPony ? "✏️ Write to me" : "> MESSAGE.COMPOSE"}
