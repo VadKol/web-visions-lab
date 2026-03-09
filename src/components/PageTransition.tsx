@@ -6,9 +6,55 @@ interface PageTransitionProps {
 }
 
 const pageVariants = {
-  initial: { opacity: 0, y: 20 },
-  enter: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -20 },
+  initial: { 
+    opacity: 0, 
+    scale: 0.96,
+    filter: "blur(8px)",
+    rotateX: 5,
+  },
+  enter: { 
+    opacity: 1, 
+    scale: 1,
+    filter: "blur(0px)",
+    rotateX: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94],
+      staggerChildren: 0.08,
+    },
+  },
+  exit: { 
+    opacity: 0, 
+    scale: 1.04,
+    filter: "blur(12px)",
+    rotateX: -3,
+    transition: {
+      duration: 0.4,
+      ease: [0.55, 0.085, 0.68, 0.53],
+    },
+  },
+};
+
+const childVariants = {
+  initial: { 
+    opacity: 0, 
+    y: 40,
+    scale: 0.95,
+  },
+  enter: { 
+    opacity: 1, 
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+  exit: { 
+    opacity: 0, 
+    y: -30,
+    scale: 0.98,
+  },
 };
 
 const PageTransition = forwardRef<HTMLDivElement, PageTransitionProps>(({ children }, ref) => {
@@ -19,9 +65,15 @@ const PageTransition = forwardRef<HTMLDivElement, PageTransitionProps>(({ childr
       initial="initial"
       animate="enter"
       exit="exit"
-      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      style={{ 
+        perspective: "1200px",
+        transformStyle: "preserve-3d",
+        transformOrigin: "center center",
+      }}
     >
-      {children}
+      <motion.div variants={childVariants}>
+        {children}
+      </motion.div>
     </motion.div>
   );
 });
