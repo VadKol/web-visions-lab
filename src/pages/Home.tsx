@@ -1,12 +1,13 @@
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import { useRef, useMemo, useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
+import { Parallax3DScene, Parallax3DLayer } from "@/components/Parallax3DScene";
+import use3DParallax from "@/hooks/use3DParallax";
 import CyberRain from "@/components/CyberRain";
 import ThemedAvatar from "@/components/ThemedAvatar";
-import GlitchText from "@/components/GlitchText";
 import HeroText from "@/components/HeroText";
 import TerminalTyping from "@/components/TerminalTyping";
 import TypingRoles from "@/components/TypingRoles";
@@ -46,64 +47,99 @@ const Home = () => {
   const textY = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  // 3D Parallax effect
+  const { rotateX, rotateY, mouseX, mouseY } = use3DParallax(1.2);
+
   // Multi-layer parallax layers
   const layer1Y = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const layer2Y = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const layer3Y = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
-  // Mouse-tracking parallax
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-
-  useEffect(() => {
-    const handleMouse = (e: MouseEvent) => {
-      const cx = (e.clientX / window.innerWidth - 0.5) * 2;
-      const cy = (e.clientY / window.innerHeight - 0.5) * 2;
-      mouseX.set(cx * 20);
-      mouseY.set(cy * 20);
-    };
-    window.addEventListener("mousemove", handleMouse);
-    return () => window.removeEventListener("mousemove", handleMouse);
-  }, [mouseX, mouseY]);
-
   return (
     <PageTransition>
-      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
-        <motion.div style={{ y: bgY }} className={`absolute inset-0 ${isPony ? "opacity-60" : "opacity-30"}`}>
-          <img src={isPony ? heroBgPony : heroBg} alt="" className="w-full h-full object-cover" />
-        </motion.div>
-        <div className={`absolute inset-0 ${isPony ? "bg-gradient-to-b from-background/20 via-background/50 to-background" : "bg-gradient-to-b from-background/40 via-background/70 to-background"}`} />
-        {!isPony && <div className="absolute inset-0 scanlines pointer-events-none" />}
+      <Parallax3DScene className="relative min-h-screen" perspective={1200}>
+        <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
+          {/* Background layer - deepest */}
+          <Parallax3DLayer 
+            depth={3} 
+            rotateX={rotateX} 
+            rotateY={rotateY} 
+            mouseX={mouseX} 
+            mouseY={mouseY}
+            className="absolute inset-0"
+          >
+            <motion.div style={{ y: bgY }} className={`absolute inset-0 ${isPony ? "opacity-60" : "opacity-30"}`}>
+              <img src={isPony ? heroBgPony : heroBg} alt="" className="w-full h-full object-cover scale-110" />
+            </motion.div>
+          </Parallax3DLayer>
+          
+          <div className={`absolute inset-0 ${isPony ? "bg-gradient-to-b from-background/20 via-background/50 to-background" : "bg-gradient-to-b from-background/40 via-background/70 to-background"}`} />
+          {!isPony && <div className="absolute inset-0 scanlines pointer-events-none" />}
 
-        {/* Parallax floating layers */}
-        <motion.div style={{ y: layer1Y, x: springX }} className="absolute inset-0 pointer-events-none z-[2]">
-          <div className={`absolute top-[15%] left-[10%] w-32 h-32 rounded-full ${isPony ? "bg-primary/10 blur-3xl" : "bg-primary/5 blur-2xl"}`} />
-          <div className={`absolute top-[60%] right-[15%] w-48 h-48 rounded-full ${isPony ? "bg-secondary/10 blur-3xl" : "bg-secondary/5 blur-2xl"}`} />
-        </motion.div>
-        <motion.div style={{ y: layer2Y, x: springX, scale: useTransform(scrollYProgress, [0, 1], [1, 0.8]) }} className="absolute inset-0 pointer-events-none z-[2]">
-          <div className={`absolute top-[30%] right-[25%] ${isPony ? "w-4 h-4 rounded-full bg-primary/30" : "w-3 h-3 bg-primary/20 rotate-45"}`} />
-          <div className={`absolute top-[70%] left-[20%] ${isPony ? "w-6 h-6 rounded-full bg-secondary/30" : "w-4 h-4 bg-secondary/20 rotate-45"}`} />
-          <div className={`absolute top-[20%] right-[10%] ${isPony ? "w-3 h-3 rounded-full bg-accent/40" : "w-2 h-2 bg-primary/15 rotate-45"}`} />
-          <div className={`absolute top-[50%] left-[5%] ${isPony ? "w-5 h-5 rounded-full bg-primary/25" : "w-3 h-3 bg-secondary/15 rotate-12"}`} />
-        </motion.div>
-        <motion.div style={{ y: layer3Y }} className="absolute inset-0 pointer-events-none z-[2]">
-          {!isPony && (
-            <>
-              <div className="absolute top-[25%] left-[30%] w-px h-32 bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
-              <div className="absolute top-[45%] right-[30%] w-px h-48 bg-gradient-to-b from-transparent via-secondary/15 to-transparent" />
-              <div className="absolute top-[10%] left-[60%] w-24 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
-            </>
-          )}
-        </motion.div>
+          {/* Floating elements - middle layer */}
+          <Parallax3DLayer 
+            depth={2} 
+            rotateX={rotateX} 
+            rotateY={rotateY} 
+            mouseX={mouseX} 
+            mouseY={mouseY}
+            className="absolute inset-0 pointer-events-none z-[2]"
+          >
+            <motion.div style={{ y: layer1Y }} className="absolute inset-0">
+              <div className={`absolute top-[15%] left-[10%] w-32 h-32 rounded-full ${isPony ? "bg-primary/10 blur-3xl" : "bg-primary/5 blur-2xl"}`} />
+              <div className={`absolute top-[60%] right-[15%] w-48 h-48 rounded-full ${isPony ? "bg-secondary/10 blur-3xl" : "bg-secondary/5 blur-2xl"}`} />
+            </motion.div>
+          </Parallax3DLayer>
 
-        <CyberRain />
+          {/* Geometric shapes - mid-front layer */}
+          <Parallax3DLayer 
+            depth={1.5} 
+            rotateX={rotateX} 
+            rotateY={rotateY} 
+            mouseX={mouseX} 
+            mouseY={mouseY}
+            className="absolute inset-0 pointer-events-none z-[2]"
+          >
+            <motion.div style={{ y: layer2Y, scale: useTransform(scrollYProgress, [0, 1], [1, 0.8]) }} className="absolute inset-0">
+              <div className={`absolute top-[30%] right-[25%] ${isPony ? "w-4 h-4 rounded-full bg-primary/30" : "w-3 h-3 bg-primary/20 rotate-45"}`} />
+              <div className={`absolute top-[70%] left-[20%] ${isPony ? "w-6 h-6 rounded-full bg-secondary/30" : "w-4 h-4 bg-secondary/20 rotate-45"}`} />
+              <div className={`absolute top-[20%] right-[10%] ${isPony ? "w-3 h-3 rounded-full bg-accent/40" : "w-2 h-2 bg-primary/15 rotate-45"}`} />
+              <div className={`absolute top-[50%] left-[5%] ${isPony ? "w-5 h-5 rounded-full bg-primary/25" : "w-3 h-3 bg-secondary/15 rotate-12"}`} />
+            </motion.div>
+          </Parallax3DLayer>
 
-        <motion.div
-          style={{ y: textY, opacity, x: useTransform(springX, v => v * -0.5) }}
-          className="container relative z-10 mx-auto px-6 py-32"
-        >
+          {/* Lines layer */}
+          <Parallax3DLayer 
+            depth={1} 
+            rotateX={rotateX} 
+            rotateY={rotateY} 
+            mouseX={mouseX} 
+            mouseY={mouseY}
+            className="absolute inset-0 pointer-events-none z-[2]"
+          >
+            <motion.div style={{ y: layer3Y }} className="absolute inset-0">
+              {!isPony && (
+                <>
+                  <div className="absolute top-[25%] left-[30%] w-px h-32 bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+                  <div className="absolute top-[45%] right-[30%] w-px h-48 bg-gradient-to-b from-transparent via-secondary/15 to-transparent" />
+                  <div className="absolute top-[10%] left-[60%] w-24 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+                </>
+              )}
+            </motion.div>
+          </Parallax3DLayer>
+
+          <CyberRain />
+
+          {/* Main content - front layer */}
+          <Parallax3DLayer 
+            depth={0} 
+            rotateX={rotateX} 
+            rotateY={rotateY} 
+            mouseX={mouseX} 
+            mouseY={mouseY}
+            className="container relative z-10 mx-auto px-6 py-32"
+          >
+            <motion.div style={{ y: textY, opacity }}>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -179,30 +215,32 @@ const Home = () => {
             >
               {isPony ? "Say Hi! 👋" : "JACK_IN"}
             </Link>
-          </motion.div>
-        </motion.div>
+            </motion.div>
+            </motion.div>
+          </Parallax3DLayer>
 
-        {/* Terminal card */}
-        <Parallax speed={-0.3} className="hidden lg:block absolute right-12 xl:right-24 top-1/2 -translate-y-1/2 w-[420px]">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-          >
-            <div className={`${isPony ? "rounded-2xl border-2 border-primary/20 shadow-xl bg-card/90" : "cyber-border bg-card/80"} backdrop-blur-sm overflow-hidden box-glow`}>
-              <div className={`flex items-center gap-2 px-4 py-3 border-b ${isPony ? "border-primary/20" : "border-primary/20"}`}>
-                <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-pink-400" : "bg-destructive"}`} />
-                <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-yellow-300" : "bg-neon-accent"}`} />
-                <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-green-400" : "bg-primary"}`} />
-                <span className="ml-2 font-mono text-[10px] text-muted-foreground tracking-wider">
-                  {isPony ? "✨ pony.js" : "TERMINAL://VAD_KOL"}
-                </span>
+          {/* Terminal card */}
+          <Parallax speed={-0.3} className="hidden lg:block absolute right-12 xl:right-24 top-1/2 -translate-y-1/2 w-[420px] z-20">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+            >
+              <div className={`${isPony ? "rounded-2xl border-2 border-primary/20 shadow-xl bg-card/90" : "cyber-border bg-card/80"} backdrop-blur-sm overflow-hidden box-glow`}>
+                <div className={`flex items-center gap-2 px-4 py-3 border-b ${isPony ? "border-primary/20" : "border-primary/20"}`}>
+                  <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-pink-400" : "bg-destructive"}`} />
+                  <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-yellow-300" : "bg-neon-accent"}`} />
+                  <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-green-400" : "bg-primary"}`} />
+                  <span className="ml-2 font-mono text-[10px] text-muted-foreground tracking-wider">
+                    {isPony ? "✨ pony.js" : "TERMINAL://VAD_KOL"}
+                  </span>
+                </div>
+                <TerminalTyping />
               </div>
-              <TerminalTyping />
-            </div>
-          </motion.div>
-        </Parallax>
-      </section>
+            </motion.div>
+          </Parallax>
+        </section>
+      </Parallax3DScene>
 
       {/* Services */}
       <section className="py-24 relative">
