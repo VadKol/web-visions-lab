@@ -154,7 +154,7 @@ const Contact = () => {
                     </div>
                   </motion.div>
                 ))}
-                
+
                 {/* Location with map hover */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
@@ -169,7 +169,7 @@ const Contact = () => {
                     <p className="font-mono text-[10px] text-muted-foreground tracking-wider">LOCATION</p>
                     <HoverCard openDelay={200}>
                       <HoverCardTrigger asChild>
-                        <a 
+                        <a
                           href={GOOGLE_MAPS_URL}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -180,7 +180,7 @@ const Contact = () => {
                         </a>
                       </HoverCardTrigger>
                       <HoverCardContent className={`w-72 p-0 overflow-hidden ${isPony ? "rounded-xl" : ""}`}>
-                        <img 
+                        <img
                           src="https://maps.googleapis.com/maps/api/staticmap?center=Pardubice,Czech+Republic&zoom=12&size=288x160&scale=2&style=feature:all|element:labels|visibility:on&style=feature:all|element:geometry|color:0x242424&style=feature:water|element:geometry|color:0x17263c&markers=color:cyan|Pardubice,Czech+Republic&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
                           alt="Map showing Pardubice, Czech Republic"
                           className="w-full h-40 object-cover"
@@ -215,11 +215,11 @@ const Contact = () => {
                 </div>
                 <div>
                   <label htmlFor="contact-name" className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">NAME</label>
-                  <input 
-                    id="contact-name" 
-                    type="text" 
-                    placeholder="John Doe" 
-                    className={`${inputClass} ${errors.name ? inputErrorClass : ""}`} 
+                  <input
+                    id="contact-name"
+                    type="text"
+                    placeholder="John Doe"
+                    className={`${inputClass} ${errors.name ? inputErrorClass : ""}`}
                     style={inputStyle}
                     {...register("name")}
                   />
@@ -229,11 +229,11 @@ const Contact = () => {
                 </div>
                 <div>
                   <label htmlFor="contact-email" className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">EMAIL</label>
-                  <input 
-                    id="contact-email" 
-                    type="email" 
-                    placeholder="john@example.com" 
-                    className={`${inputClass} ${errors.email ? inputErrorClass : ""}`} 
+                  <input
+                    id="contact-email"
+                    type="email"
+                    placeholder="john@example.com"
+                    className={`${inputClass} ${errors.email ? inputErrorClass : ""}`}
                     style={inputStyle}
                     {...register("email")}
                   />
@@ -243,11 +243,11 @@ const Contact = () => {
                 </div>
                 <div>
                   <label htmlFor="contact-message" className="font-mono text-[10px] text-muted-foreground mb-2 block tracking-wider">MESSAGE</label>
-                  <textarea 
-                    id="contact-message" 
-                    rows={5} 
-                    placeholder="Tell me about your project..." 
-                    className={`${inputClass} resize-none ${errors.message ? inputErrorClass : ""}`} 
+                  <textarea
+                    id="contact-message"
+                    rows={5}
+                    placeholder="Tell me about your project..."
+                    className={`${inputClass} resize-none ${errors.message ? inputErrorClass : ""}`}
                     style={inputStyle}
                     {...register("message")}
                   />
