@@ -107,12 +107,12 @@ const Contact = () => {
                       </HoverCardTrigger>
                       <HoverCardContent className={`w-72 p-0 overflow-hidden ${isPony ? "rounded-xl" : ""}`}>
                         <img 
-                          src="https://maps.googleapis.com/maps/api/staticmap?center=Czech+Republic&zoom=4&size=288x160&scale=2&style=feature:all|element:labels|visibility:on&style=feature:all|element:geometry|color:0x242424&style=feature:water|element:geometry|color:0x17263c&markers=color:cyan|Czech+Republic&markers=color:cyan|Ukraine&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
-                          alt="Map showing Czech Republic and Ukraine"
+                          src="https://maps.googleapis.com/maps/api/staticmap?center=Pardubice,Czech+Republic&zoom=12&size=288x160&scale=2&style=feature:all|element:labels|visibility:on&style=feature:all|element:geometry|color:0x242424&style=feature:water|element:geometry|color:0x17263c&markers=color:cyan|Pardubice,Czech+Republic&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+                          alt="Map showing Pardubice, Czech Republic"
                           className="w-full h-40 object-cover"
                           onError={(e) => {
-                            // Fallback to OpenStreetMap static image if Google fails
-                            (e.target as HTMLImageElement).src = "https://static-maps.yandex.ru/1.x/?lang=en_US&ll=25,50&z=4&l=map&size=288,160";
+                            // Fallback to Google Maps embed image
+                            (e.target as HTMLImageElement).src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Pardubice,Czech+Republic";
                           }}
                         />
                         <div className={`p-3 ${isPony ? "bg-card" : "bg-card border-t border-primary/20"}`}>
