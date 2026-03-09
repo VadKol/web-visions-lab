@@ -24,6 +24,8 @@ const Home = lazy(() => import("@/pages/Home"));
 const About = lazy(() => import("@/pages/About"));
 const Projects = lazy(() => import("@/pages/Projects"));
 const Contact = lazy(() => import("@/pages/Contact"));
+const Minigames = lazy(() => import("@/pages/Minigames"));
+const Blog = lazy(() => import("@/pages/Blog"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -48,6 +50,8 @@ const AnimatedRoutes = () => {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/minigames" element={<Minigames />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>

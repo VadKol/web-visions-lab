@@ -22,11 +22,11 @@ const Footer = () => {
             </a>
           ))}
         </div>
-        <div className="flex items-center gap-6">
-          {["Home", "About", "Projects", "Contact"].map((label) => (
+        <div className="flex items-center gap-6 flex-wrap">
+          {["Home", "About", "Projects", "Games", "Blog", "Contact"].map((label) => (
             <Link
               key={label}
-              to={`/${label === "Home" ? "" : label.toLowerCase()}`}
+              to={`/${label === "Home" ? "" : label === "Games" ? "minigames" : label.toLowerCase()}`}
               className="font-mono text-[10px] text-muted-foreground hover:text-primary transition-colors tracking-wider uppercase"
             >
               {label}
