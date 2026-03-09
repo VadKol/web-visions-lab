@@ -386,6 +386,7 @@ const Blog = () => {
                   ))
                 )}
               </AnimatePresence>
+              </div>
             </div>
           </div>
         </section>
