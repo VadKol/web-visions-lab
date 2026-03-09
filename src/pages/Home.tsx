@@ -215,30 +215,32 @@ const Home = () => {
             >
               {isPony ? "Say Hi! 👋" : "JACK_IN"}
             </Link>
-          </motion.div>
-        </motion.div>
+            </motion.div>
+            </motion.div>
+          </Parallax3DLayer>
 
-        {/* Terminal card */}
-        <Parallax speed={-0.3} className="hidden lg:block absolute right-12 xl:right-24 top-1/2 -translate-y-1/2 w-[420px]">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-          >
-            <div className={`${isPony ? "rounded-2xl border-2 border-primary/20 shadow-xl bg-card/90" : "cyber-border bg-card/80"} backdrop-blur-sm overflow-hidden box-glow`}>
-              <div className={`flex items-center gap-2 px-4 py-3 border-b ${isPony ? "border-primary/20" : "border-primary/20"}`}>
-                <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-pink-400" : "bg-destructive"}`} />
-                <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-yellow-300" : "bg-neon-accent"}`} />
-                <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-green-400" : "bg-primary"}`} />
-                <span className="ml-2 font-mono text-[10px] text-muted-foreground tracking-wider">
-                  {isPony ? "✨ pony.js" : "TERMINAL://VAD_KOL"}
-                </span>
+          {/* Terminal card */}
+          <Parallax speed={-0.3} className="hidden lg:block absolute right-12 xl:right-24 top-1/2 -translate-y-1/2 w-[420px] z-20">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+            >
+              <div className={`${isPony ? "rounded-2xl border-2 border-primary/20 shadow-xl bg-card/90" : "cyber-border bg-card/80"} backdrop-blur-sm overflow-hidden box-glow`}>
+                <div className={`flex items-center gap-2 px-4 py-3 border-b ${isPony ? "border-primary/20" : "border-primary/20"}`}>
+                  <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-pink-400" : "bg-destructive"}`} />
+                  <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-yellow-300" : "bg-neon-accent"}`} />
+                  <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-green-400" : "bg-primary"}`} />
+                  <span className="ml-2 font-mono text-[10px] text-muted-foreground tracking-wider">
+                    {isPony ? "✨ pony.js" : "TERMINAL://VAD_KOL"}
+                  </span>
+                </div>
+                <TerminalTyping />
               </div>
-              <TerminalTyping />
-            </div>
-          </motion.div>
-        </Parallax>
-      </section>
+            </motion.div>
+          </Parallax>
+        </section>
+      </Parallax3DScene>
 
       {/* Services */}
       <section className="py-24 relative">
