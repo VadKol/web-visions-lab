@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Search, Home, User, FolderOpen, Mail, Palette, ArrowRight } from "lucide-react";
+import { Search, Home, User, FolderOpen, Mail, Palette, ArrowRight, Keyboard } from "lucide-react";
 import { useTheme, themes, ThemeId } from "@/contexts/ThemeContext";
+import TypingGame from "./TypingGame";
 
 interface Command {
   id: string;
@@ -17,14 +18,16 @@ const CommandPalette = () => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [typingGameOpen, setTypingGameOpen] = useState(false);
   const navigate = useNavigate();
-  const { setTheme } = useTheme();
+  const { setTheme, isPony } = useTheme();
 
   const commands: Command[] = [
     { id: "home", label: "Home", sublabel: "Go to homepage", icon: <Home size={16} />, action: () => navigate("/"), category: "Navigation" },
     { id: "about", label: "About", sublabel: "Learn more about me", icon: <User size={16} />, action: () => navigate("/about"), category: "Navigation" },
     { id: "projects", label: "Projects", sublabel: "View my work", icon: <FolderOpen size={16} />, action: () => navigate("/projects"), category: "Navigation" },
     { id: "contact", label: "Contact", sublabel: "Get in touch", icon: <Mail size={16} />, action: () => navigate("/contact"), category: "Navigation" },
+    { id: "typing-game", label: isPony ? "⌨️ Typing Game" : "TYPING_TEST.EXE", sublabel: "Test your typing speed", icon: <Keyboard size={16} />, action: () => setTypingGameOpen(true), category: "Games" },
     ...themes.map((t) => ({
       id: `theme-${t.id}`,
       label: `${t.icon} ${t.label}`,
@@ -158,6 +161,7 @@ const CommandPalette = () => {
           </motion.div>
         </motion.div>
       )}
+      <TypingGame isOpen={typingGameOpen} onClose={() => setTypingGameOpen(false)} />
     </AnimatePresence>
   );
 };
