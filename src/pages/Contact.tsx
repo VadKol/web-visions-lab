@@ -33,6 +33,8 @@ const contactSchema = z.object({
     .trim()
     .min(1, "Повідомлення обов'язкове")
     .max(1000, "Повідомлення має бути менше 1000 символів"),
+  // Honeypot field - should always be empty
+  website: z.string().max(0, "Bot detected").optional(),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
