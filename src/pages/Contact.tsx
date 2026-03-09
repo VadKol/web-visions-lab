@@ -37,7 +37,7 @@ const contactSchema = z.object({
   website: z.string().max(0, "Bot detected").optional(),
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+type ContactFormData = z.infer<typeof contactSchema> & { website?: string };
 
 const GOOGLE_MAPS_URL = personal.googleMapsUrl;
 
