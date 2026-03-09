@@ -87,43 +87,25 @@ const About = () => {
               </motion.div>
             </Parallax>
 
-            <div className="grid sm:grid-cols-2 gap-8">
-              {skills.map((group, groupIndex) => (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {skills.map((group, i) => (
                 <motion.div
                   key={group.category}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.1 * groupIndex }}
-                  className={`${isPony ? "bg-card rounded-2xl border-2 border-primary/20 shadow-lg" : "cyber-border bg-card/50 box-glow"} p-6`}
+                  transition={{ duration: 0.5, delay: 0.1 * i }}
+                  className={`${isPony ? "bg-card rounded-2xl border-2 border-primary/20 shadow-lg" : "cyber-border bg-card/50 box-glow"} p-6 hover:bg-card/80 transition-all duration-500`}
                 >
-                  {!isPony && <h3 className="font-mono text-xs text-secondary tracking-wider mb-1">MODULE.0{groupIndex + 1}</h3>}
-                  <h4 className={`${isPony ? "text-sm font-semibold" : "font-display text-xs tracking-wider"} text-primary mb-5`}>
+                  {!isPony && <h3 className="font-mono text-xs text-secondary tracking-wider mb-1">MODULE.0{i + 1}</h3>}
+                  <h4 className={`${isPony ? "text-sm font-semibold" : "font-display text-xs tracking-wider"} text-primary mb-4`}>
                     {isPony ? group.category.charAt(0) + group.category.slice(1).toLowerCase() : group.category}
                   </h4>
-                  <ul className="space-y-4">
-                    {group.items.map((item, itemIndex) => (
-                      <li key={item.name} className="space-y-1.5">
-                        <div className="flex justify-between items-center">
-                          <span className="text-muted-foreground text-sm font-body">{item.name}</span>
-                          <span className={`font-mono text-[10px] ${isPony ? "text-secondary" : "text-primary"}`}>
-                            {item.level}%
-                          </span>
-                        </div>
-                        <div className={`h-2 w-full ${isPony ? "bg-muted/30 rounded-full" : "bg-muted/20"} overflow-hidden`}>
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${item.level}%` }}
-                            viewport={{ once: true }}
-                            transition={{ 
-                              duration: 1.2, 
-                              delay: 0.3 + (groupIndex * 0.1) + (itemIndex * 0.08),
-                              ease: "easeOut"
-                            }}
-                            className={`h-full ${isPony ? "bg-gradient-to-r from-primary to-secondary rounded-full" : "bg-primary"}`}
-                            style={!isPony ? { boxShadow: "0 0 8px hsl(var(--primary))" } : {}}
-                          />
-                        </div>
+                  <ul className="space-y-2">
+                    {group.items.map((item) => (
+                      <li key={item} className="text-muted-foreground text-sm flex items-center gap-2 font-body">
+                        <span className={`w-1 h-1 ${isPony ? "rounded-full" : ""} bg-primary`} />
+                        {item}
                       </li>
                     ))}
                   </ul>
