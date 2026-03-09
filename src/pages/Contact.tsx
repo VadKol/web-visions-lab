@@ -33,9 +33,11 @@ const contactSchema = z.object({
     .trim()
     .min(1, "Повідомлення обов'язкове")
     .max(1000, "Повідомлення має бути менше 1000 символів"),
+  // Honeypot field - should always be empty
+  website: z.string().max(0, "Bot detected").optional(),
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+type ContactFormData = z.infer<typeof contactSchema> & { website?: string };
 
 const GOOGLE_MAPS_URL = personal.googleMapsUrl;
 
@@ -53,14 +55,22 @@ const Contact = () => {
   });
 
   const onSubmit = async (data: ContactFormData) => {
+    // Honeypot check - if filled, silently reject (likely bot)
+    if (data.website) {
+      toast.success(isPony ? "Повідомлення надіслано! 💖" : "MESSAGE_TRANSMITTED");
+      reset();
+      return;
+    }
+
     setIsSubmitting(true);
     try {
+      const { website, ...formData } = data;
       const response = await fetch(ENDPOINTS.contactForm, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -241,10 +251,19 @@ const Contact = () => {
                     style={inputStyle}
                     {...register("message")}
                   />
-                  {errors.message && (
+                {errors.message && (
                     <p className="font-mono text-[10px] text-destructive mt-1">{errors.message.message}</p>
                   )}
                 </div>
+                {/* Honeypot field - hidden from users, visible to bots */}
+                <input
+                  type="text"
+                  {...register("website")}
+                  className="absolute -left-[9999px] opacity-0 h-0 w-0"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
                 <button
                   type="submit"
                   disabled={isSubmitting}
