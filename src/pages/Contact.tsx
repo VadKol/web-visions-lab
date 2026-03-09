@@ -251,10 +251,19 @@ const Contact = () => {
                     style={inputStyle}
                     {...register("message")}
                   />
-                  {errors.message && (
+                {errors.message && (
                     <p className="font-mono text-[10px] text-destructive mt-1">{errors.message.message}</p>
                   )}
                 </div>
+                {/* Honeypot field - hidden from users, visible to bots */}
+                <input
+                  type="text"
+                  {...register("website")}
+                  className="absolute -left-[9999px] opacity-0 h-0 w-0"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
                 <button
                   type="submit"
                   disabled={isSubmitting}
