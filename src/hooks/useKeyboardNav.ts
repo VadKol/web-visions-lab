@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const routes = ["/", "/about", "/projects", "/contact"];
+const routes = ["/", "/about", "/projects", "/blog", "/minigames", "/contact"];
 
 const useKeyboardNav = () => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const useKeyboardNav = () => {
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
 
       const key = e.key;
-      if (key >= "1" && key <= "4") {
+      if (key >= "1" && key <= "6") {
         e.preventDefault();
         const index = parseInt(key) - 1;
         const route = routes[index];
