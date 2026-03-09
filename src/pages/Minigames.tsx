@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Gamepad2, Keyboard, Brain, Blocks, MousePointer } from "lucide-react";
+import { Gamepad2, Keyboard, Brain, Blocks } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -8,7 +8,6 @@ import TypingGame from "@/components/TypingGame";
 import SnakeGame from "@/components/SnakeGame";
 import MemoryGame from "@/components/MemoryGame";
 import TetrisGame from "@/components/TetrisGame";
-import ClickSpeedGame from "@/components/ClickSpeedGame";
 
 const games = [
   {
@@ -38,13 +37,6 @@ const games = [
     titlePony: "Tetris 🧱",
     description: "Stack blocks and clear lines in this classic",
     icon: Blocks,
-  },
-  {
-    id: "clickspeed",
-    title: "Click Speed",
-    titlePony: "Click Test 🎯",
-    description: "How many clicks can you do in 10 seconds?",
-    icon: MousePointer,
   },
 ];
 
@@ -78,7 +70,7 @@ const Minigames = () => {
               </motion.div>
             </Parallax>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
               {games.map((game, i) => (
                 <motion.button
                   key={game.id}
@@ -120,7 +112,6 @@ const Minigames = () => {
       <SnakeGame isOpen={activeGame === "snake"} onClose={() => setActiveGame(null)} />
       <MemoryGame isOpen={activeGame === "memory"} onClose={() => setActiveGame(null)} />
       <TetrisGame isOpen={activeGame === "tetris"} onClose={() => setActiveGame(null)} />
-      <ClickSpeedGame isOpen={activeGame === "clickspeed"} onClose={() => setActiveGame(null)} />
     </PageTransition>
   );
 };
