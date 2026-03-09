@@ -121,13 +121,13 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
         <>
           {/* Scanner line */}
           <motion.div
-            className={`absolute ${size === "sm" ? "inset-[-6px]" : "inset-[-10px]"} z-0 rounded-sm overflow-hidden`}
+            className={`absolute ${size === "sm" ? "inset-[-12px]" : "inset-[-18px]"} z-0 rounded-sm overflow-hidden`}
           >
             <motion.div
-              className="absolute inset-x-0 h-8"
+              className="absolute inset-x-0 h-10"
               style={{
                 background: `linear-gradient(180deg, transparent 0%, hsl(var(--neon-primary) / 0.6) 50%, transparent 100%)`,
-                filter: "blur(3px)",
+                filter: "blur(4px)",
               }}
               animate={{ y: ["-100%", "200%"] }}
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -158,10 +158,10 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
           ))}
           {/* Glow border */}
           <motion.div
-            className={`absolute ${size === "sm" ? "inset-[-4px]" : "inset-[-6px]"} z-0 rounded-sm`}
+            className={`absolute ${size === "sm" ? "inset-[-8px]" : "inset-[-12px]"} z-0 rounded-sm`}
             style={{
               border: "1px solid hsl(var(--neon-primary) / 0.4)",
-              boxShadow: "0 0 10px hsl(var(--neon-primary) / 0.3), inset 0 0 10px hsl(var(--neon-primary) / 0.1)",
+              boxShadow: "0 0 15px hsl(var(--neon-primary) / 0.4), inset 0 0 15px hsl(var(--neon-primary) / 0.15)",
             }}
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
