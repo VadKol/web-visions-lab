@@ -23,6 +23,7 @@ export const personal = {
   linkedin: "https://linkedin.com/in/vadymkolomiiets",
   linkedinLabel: "linkedin.com/in/vadymkolomiiets",
   telegram: "https://t.me/vadymkolomiiets",
+  telegramLabel: "@vadymkolomiiets",
   resumeUrl: "/Vadym_Kolomiiets_Resume_FE.pdf",
   resumeFilename: "Vadym_Kolomiiets_Resume_FE.pdf",
   googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Czech+Republic,+Ukraine",
