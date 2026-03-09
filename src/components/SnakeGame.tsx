@@ -265,8 +265,10 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
           </div>
 
           <div 
-            className={`relative mx-auto ${isPony ? "rounded-lg" : ""} overflow-hidden border-2 border-primary/30`}
+            className={`relative mx-auto ${isPony ? "rounded-lg" : ""} overflow-hidden border-2 border-primary/30 touch-none`}
             style={{ width: GRID_SIZE * CELL_SIZE, height: GRID_SIZE * CELL_SIZE, background: isPony ? "hsl(var(--muted))" : "#0a0a0a" }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             {!isPony && (
               <div className="absolute inset-0 opacity-10" style={{
