@@ -325,7 +325,7 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
           </div>
 
           <p className="text-center text-muted-foreground text-[10px] mt-3 font-mono">
-            {isPony ? "Arrow keys or WASD 🎮" : "WASD / ARROWS"}
+            {isPony ? "Swipe or arrows 🎮" : "SWIPE / WASD / ARROWS"}
           </p>
         </motion.div>
       </motion.div>
