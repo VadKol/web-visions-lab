@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Search, Home, User, FolderOpen, Mail, Palette, ArrowRight, Keyboard } from "lucide-react";
+import { Search, Home, User, FolderOpen, Mail, Palette, ArrowRight, Keyboard, Gamepad2, Rss } from "lucide-react";
 import { useTheme, themes, ThemeId } from "@/contexts/ThemeContext";
 import TypingGame from "./TypingGame";
 
