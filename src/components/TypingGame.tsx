@@ -36,7 +36,13 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setStats(getGameStats("typing"));
+    if (isOpen) {
+      setStats(getGameStats("typing"));
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   const getRandomSnippet = useCallback(() => {
@@ -96,7 +102,6 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
       setEndTime(now);
       setIsFinished(true);
       
-      // Calculate WPM for stats
       const timeInMinutes = (now - (startTime || now)) / 60000;
       const words = currentSnippet.length / 5;
       const wpm = Math.round(words / timeInMinutes);
@@ -136,90 +141,95 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm p-4 overflow-hidden"
         onClick={(e) => e.target === e.currentTarget && onClose()}
       >
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className={`w-full max-w-2xl p-6 relative ${
+          className={`w-full max-w-lg p-4 relative ${
             isPony
               ? "bg-card rounded-2xl border-2 border-primary/20"
               : "bg-card cyber-border"
           }`}
         >
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Keyboard size={20} className="text-primary" />
+              <Keyboard size={18} className="text-primary" />
               <h2 className="font-mono text-sm tracking-wider text-foreground">
-                {isPony ? "⌨️ Typing Challenge" : "> TYPING_TEST.EXE"}
+                {isPony ? "⌨️ Typing" : "> TYPING.EXE"}
               </h2>
             </div>
             <div className="flex items-center gap-2">
               <button
+                onClick={resetGame}
+                className="text-muted-foreground hover:text-primary transition-colors"
+                title="Restart"
+              >
+                <RotateCcw size={18} />
+              </button>
+              <button
                 onClick={() => setShowStats(!showStats)}
                 className="text-muted-foreground hover:text-primary transition-colors"
-                title="Stats"
               >
-                <BarChart3 size={20} />
+                <BarChart3 size={18} />
               </button>
               <button
                 onClick={onClose}
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
           </div>
 
           {showStats && stats ? (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`mb-6 p-4 ${isPony ? "bg-primary/5 rounded-xl" : "cyber-border-sm bg-background/30"}`}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className={`mb-4 p-3 ${isPony ? "bg-primary/5 rounded-xl" : "cyber-border-sm bg-background/30"}`}
             >
-              <h3 className="font-mono text-xs text-secondary mb-3">📊 YOUR STATS</h3>
-              <div className="grid grid-cols-4 gap-3 text-center">
+              <div className="grid grid-cols-4 gap-2 text-center">
                 <div>
-                  <p className="text-2xl font-bold text-primary">{stats.gamesPlayed}</p>
-                  <p className="text-[10px] text-muted-foreground">Games</p>
+                  <p className="text-lg font-bold text-primary">{stats.gamesPlayed}</p>
+                  <p className="text-[9px] text-muted-foreground">Games</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-secondary">{stats.bestScore}</p>
-                  <p className="text-[10px] text-muted-foreground">Best WPM</p>
+                  <p className="text-lg font-bold text-secondary">{stats.bestScore}</p>
+                  <p className="text-[9px] text-muted-foreground">Best WPM</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-foreground">
+                  <p className="text-lg font-bold text-foreground">
                     {stats.gamesPlayed ? Math.round(stats.totalScore / stats.gamesPlayed) : 0}
                   </p>
-                  <p className="text-[10px] text-muted-foreground">Avg WPM</p>
+                  <p className="text-[9px] text-muted-foreground">Avg WPM</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-foreground">{stats.wins || 0}</p>
-                  <p className="text-[10px] text-muted-foreground">Completed</p>
+                  <p className="text-lg font-bold text-foreground">{stats.wins || 0}</p>
+                  <p className="text-[9px] text-muted-foreground">Done</p>
                 </div>
               </div>
             </motion.div>
           ) : null}
 
-          <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className={`p-3 text-center ${isPony ? "bg-primary/10 rounded-xl" : "cyber-border-sm bg-background/50"}`}>
-              <p className="font-mono text-[10px] text-muted-foreground mb-1">WPM</p>
-              <p className="font-mono text-xl text-primary">{isFinished ? calculateWPM() : "--"}</p>
+          <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className={`p-2 text-center ${isPony ? "bg-primary/10 rounded-lg" : "cyber-border-sm bg-background/50"}`}>
+              <p className="font-mono text-[9px] text-muted-foreground mb-1">WPM</p>
+              <p className="font-mono text-lg text-primary">{isFinished ? calculateWPM() : "--"}</p>
             </div>
-            <div className={`p-3 text-center ${isPony ? "bg-secondary/10 rounded-xl" : "cyber-border-sm bg-background/50"}`}>
-              <p className="font-mono text-[10px] text-muted-foreground mb-1">ACCURACY</p>
-              <p className="font-mono text-xl text-secondary">{calculateAccuracy()}%</p>
+            <div className={`p-2 text-center ${isPony ? "bg-secondary/10 rounded-lg" : "cyber-border-sm bg-background/50"}`}>
+              <p className="font-mono text-[9px] text-muted-foreground mb-1">ACC</p>
+              <p className="font-mono text-lg text-secondary">{calculateAccuracy()}%</p>
             </div>
-            <div className={`p-3 text-center ${isPony ? "bg-destructive/10 rounded-xl" : "cyber-border-sm bg-background/50"}`}>
-              <p className="font-mono text-[10px] text-muted-foreground mb-1">ERRORS</p>
-              <p className="font-mono text-xl text-destructive">{errors}</p>
+            <div className={`p-2 text-center ${isPony ? "bg-destructive/10 rounded-lg" : "cyber-border-sm bg-background/50"}`}>
+              <p className="font-mono text-[9px] text-muted-foreground mb-1">ERR</p>
+              <p className="font-mono text-lg text-destructive">{errors}</p>
             </div>
           </div>
 
-          <div className={`p-4 mb-4 font-mono text-lg leading-relaxed break-all ${
-            isPony ? "bg-background/50 rounded-xl border border-primary/10" : "cyber-border-sm bg-background/30"
+          <div className={`p-3 mb-3 font-mono text-sm leading-relaxed break-all ${
+            isPony ? "bg-background/50 rounded-lg border border-primary/10" : "cyber-border-sm bg-background/30"
           }`}>
             {renderText()}
           </div>
@@ -230,10 +240,10 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
             value={userInput}
             onChange={handleInputChange}
             disabled={isFinished}
-            placeholder={isPony ? "Start typing..." : "> START TYPING..."}
-            className={`w-full p-4 font-mono text-sm bg-transparent border-2 outline-none transition-all ${
+            placeholder={isPony ? "Start typing..." : "> TYPE..."}
+            className={`w-full p-3 font-mono text-sm bg-transparent border-2 outline-none transition-all ${
               isPony
-                ? "border-primary/20 rounded-xl focus:border-primary/50 placeholder:text-muted-foreground/40"
+                ? "border-primary/20 rounded-lg focus:border-primary/50 placeholder:text-muted-foreground/40"
                 : "border-primary/20 focus:border-primary/50 placeholder:text-muted-foreground/40"
             }`}
             autoComplete="off"
@@ -244,34 +254,22 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 text-center"
+              className="mt-4 text-center"
             >
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <Trophy className="text-primary" size={24} />
-                <span className="font-mono text-lg text-primary">
-                  {isPony ? "Great job! 🎉" : "MISSION_COMPLETE"}
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Trophy className="text-primary" size={20} />
+                <span className="font-mono text-base text-primary">
+                  {isPony ? "Great! 🎉" : "DONE"}
                 </span>
               </div>
               <div className="flex items-center justify-center gap-2 text-muted-foreground">
-                <Zap size={16} />
-                <span className="font-mono text-sm">
-                  {calculateWPM()} WPM with {calculateAccuracy()}% accuracy
+                <Zap size={14} />
+                <span className="font-mono text-xs">
+                  {calculateWPM()} WPM | {calculateAccuracy()}%
                 </span>
               </div>
             </motion.div>
           )}
-
-          <button
-            onClick={resetGame}
-            className={`mt-6 w-full flex items-center justify-center gap-2 font-mono text-xs tracking-wider px-4 py-3 transition-all ${
-              isPony
-                ? "bg-primary/10 text-primary rounded-xl hover:bg-primary/20"
-                : "cyber-border bg-primary/10 text-primary hover:bg-primary/20"
-            }`}
-          >
-            <RotateCcw size={14} />
-            {isPony ? "Try Again" : "RESTART"}
-          </button>
         </motion.div>
       </motion.div>
     </AnimatePresence>

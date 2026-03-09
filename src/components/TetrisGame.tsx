@@ -11,8 +11,8 @@ interface TetrisGameProps {
 }
 
 const BOARD_WIDTH = 10;
-const BOARD_HEIGHT = 20;
-const CELL_SIZE = 22;
+const BOARD_HEIGHT = 16;
+const CELL_SIZE = 18;
 
 const TETROMINOES = {
   I: { shape: [[1, 1, 1, 1]], color: "hsl(var(--primary))" },
@@ -48,16 +48,20 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
   const [showStats, setShowStats] = useState(false);
   const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
   const scoreRef = useRef(0);
-  const linesRef = useRef(0);
 
   useEffect(() => {
-    setStats(getGameStats("tetris"));
+    if (isOpen) {
+      setStats(getGameStats("tetris"));
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   useEffect(() => {
     scoreRef.current = score;
-    linesRef.current = lines;
-  }, [score, lines]);
+  }, [score]);
 
   const createEmptyBoard = () => Array(BOARD_HEIGHT).fill(null).map(() => Array(BOARD_WIDTH).fill(null));
 
@@ -185,7 +189,13 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isOpen || !currentPiece || isPaused || gameOver) return;
+      if (!isOpen || !currentPiece || gameOver) return;
+      
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "w", "a", "s", "d", " ", "p"].includes(e.key)) {
+        e.preventDefault();
+      }
+      
+      if (isPaused && e.key !== "p") return;
 
       let newPiece = { ...currentPiece };
 
@@ -237,64 +247,70 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-sm p-4"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm p-4 overflow-hidden"
       >
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className={`relative ${isPony ? "bg-card rounded-3xl border-2 border-primary/30" : "cyber-border bg-card"} p-6`}
+          className={`relative ${isPony ? "bg-card rounded-3xl border-2 border-primary/30" : "cyber-border bg-card"} p-4`}
         >
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold text-primary">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-xl font-bold text-primary">
               {isPony ? "🧱 Tetris" : "TETRIS.EXE"}
             </h2>
             <div className="flex items-center gap-2">
               <button
+                onClick={resetGame}
+                className="text-muted-foreground hover:text-primary transition-colors"
+                title="Restart"
+              >
+                <RotateCcw size={18} />
+              </button>
+              <button
                 onClick={() => setShowStats(!showStats)}
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                <BarChart3 size={20} />
+                <BarChart3 size={18} />
               </button>
               <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
-                <X size={24} />
+                <X size={20} />
               </button>
             </div>
           </div>
 
           {showStats && stats ? (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`mb-4 p-4 ${isPony ? "bg-primary/5 rounded-xl" : "cyber-border-sm bg-background/30"}`}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className={`mb-3 p-3 ${isPony ? "bg-primary/5 rounded-xl" : "cyber-border-sm bg-background/30"}`}
             >
-              <h3 className="font-mono text-xs text-secondary mb-3">📊 YOUR STATS</h3>
-              <div className="grid grid-cols-4 gap-3 text-center">
+              <div className="grid grid-cols-4 gap-2 text-center">
                 <div>
-                  <p className="text-xl font-bold text-primary">{stats.gamesPlayed}</p>
-                  <p className="text-[10px] text-muted-foreground">Games</p>
+                  <p className="text-lg font-bold text-primary">{stats.gamesPlayed}</p>
+                  <p className="text-[9px] text-muted-foreground">Games</p>
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-secondary">{stats.bestScore}</p>
-                  <p className="text-[10px] text-muted-foreground">Best</p>
+                  <p className="text-lg font-bold text-secondary">{stats.bestScore}</p>
+                  <p className="text-[9px] text-muted-foreground">Best</p>
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-foreground">
+                  <p className="text-lg font-bold text-foreground">
                     {stats.gamesPlayed ? Math.round(stats.totalScore / stats.gamesPlayed) : 0}
                   </p>
-                  <p className="text-[10px] text-muted-foreground">Avg</p>
+                  <p className="text-[9px] text-muted-foreground">Avg</p>
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-foreground">{stats.totalScore}</p>
-                  <p className="text-[10px] text-muted-foreground">Total</p>
+                  <p className="text-lg font-bold text-foreground">{stats.totalScore}</p>
+                  <p className="text-[9px] text-muted-foreground">Total</p>
                 </div>
               </div>
             </motion.div>
           ) : null}
 
-          <div className="flex gap-6">
+          <div className="flex gap-4">
             <div 
-              className={`relative ${isPony ? "rounded-xl" : ""} overflow-hidden border-2 border-primary/30`}
+              className={`relative ${isPony ? "rounded-lg" : ""} overflow-hidden border-2 border-primary/30`}
               style={{ 
                 width: BOARD_WIDTH * CELL_SIZE, 
                 height: BOARD_HEIGHT * CELL_SIZE, 
@@ -312,7 +328,7 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
                       width: CELL_SIZE,
                       height: CELL_SIZE,
                       backgroundColor: cell || "transparent",
-                      boxShadow: cell ? `0 0 8px ${cell}` : undefined,
+                      boxShadow: cell ? `0 0 6px ${cell}` : undefined,
                     }}
                   />
                 ))
@@ -321,13 +337,13 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
               {(!isPlaying || gameOver || isPaused) && (
                 <div className="absolute inset-0 bg-background/80 flex flex-col items-center justify-center">
                   {gameOver && (
-                    <div className="text-center mb-4">
-                      <Trophy className="w-10 h-10 text-secondary mx-auto mb-2" />
-                      <p className="text-lg font-bold">Game Over!</p>
-                      <p className="text-sm text-muted-foreground">Score: {score}</p>
+                    <div className="text-center mb-3">
+                      <Trophy className="w-8 h-8 text-secondary mx-auto mb-1" />
+                      <p className="text-base font-bold">Game Over!</p>
+                      <p className="text-xs text-muted-foreground">Score: {score}</p>
                     </div>
                   )}
-                  {isPaused && <p className="text-lg font-bold mb-4">Paused</p>}
+                  {isPaused && <p className="text-base font-bold mb-3">Paused</p>}
                   <Button onClick={gameOver || !isPlaying ? resetGame : () => setIsPaused(false)} size="sm">
                     {gameOver || !isPlaying ? "Start" : "Resume"}
                   </Button>
@@ -335,35 +351,34 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
               )}
             </div>
 
-            <div className="flex flex-col gap-4 w-32">
-              <div className={`p-3 ${isPony ? "bg-muted rounded-xl" : "cyber-border-sm bg-background/50"}`}>
-                <p className="text-xs text-muted-foreground font-mono mb-1">SCORE</p>
-                <p className="text-xl font-bold text-primary">{score}</p>
+            <div className="flex flex-col gap-2 w-20">
+              <div className={`p-2 ${isPony ? "bg-muted rounded-lg" : "cyber-border-sm bg-background/50"}`}>
+                <p className="text-[9px] text-muted-foreground font-mono">SCORE</p>
+                <p className="text-base font-bold text-primary">{score}</p>
               </div>
-              <div className={`p-3 ${isPony ? "bg-muted rounded-xl" : "cyber-border-sm bg-background/50"}`}>
-                <p className="text-xs text-muted-foreground font-mono mb-1">LEVEL</p>
-                <p className="text-xl font-bold text-foreground">{level}</p>
+              <div className={`p-2 ${isPony ? "bg-muted rounded-lg" : "cyber-border-sm bg-background/50"}`}>
+                <p className="text-[9px] text-muted-foreground font-mono">LEVEL</p>
+                <p className="text-base font-bold text-foreground">{level}</p>
               </div>
-              <div className={`p-3 ${isPony ? "bg-muted rounded-xl" : "cyber-border-sm bg-background/50"}`}>
-                <p className="text-xs text-muted-foreground font-mono mb-1">LINES</p>
-                <p className="text-xl font-bold text-foreground">{lines}</p>
+              <div className={`p-2 ${isPony ? "bg-muted rounded-lg" : "cyber-border-sm bg-background/50"}`}>
+                <p className="text-[9px] text-muted-foreground font-mono">LINES</p>
+                <p className="text-base font-bold text-foreground">{lines}</p>
               </div>
-              <div className={`p-3 ${isPony ? "bg-muted rounded-xl" : "cyber-border-sm bg-background/50"}`}>
-                <p className="text-xs text-muted-foreground font-mono mb-1">BEST</p>
-                <p className="text-lg font-bold text-secondary">{stats?.bestScore || 0}</p>
+              <div className={`p-2 ${isPony ? "bg-muted rounded-lg" : "cyber-border-sm bg-background/50"}`}>
+                <p className="text-[9px] text-muted-foreground font-mono">BEST</p>
+                <p className="text-sm font-bold text-secondary">{stats?.bestScore || 0}</p>
               </div>
               
               {isPlaying && !gameOver && (
-                <Button variant="outline" size="sm" onClick={() => setIsPaused(p => !p)} className="gap-2">
-                  {isPaused ? <Play size={14} /> : <Pause size={14} />}
-                  {isPaused ? "Resume" : "Pause"}
+                <Button variant="outline" size="sm" onClick={() => setIsPaused(p => !p)} className="gap-1 text-xs px-2">
+                  {isPaused ? <Play size={12} /> : <Pause size={12} />}
                 </Button>
               )}
             </div>
           </div>
 
-          <p className="text-center text-muted-foreground text-xs mt-4 font-mono">
-            {isPony ? "← → ↓ Move | ↑ Rotate | Space Drop" : "WASD/ARROWS | SPACE=DROP | P=PAUSE"}
+          <p className="text-center text-muted-foreground text-[10px] mt-3 font-mono">
+            {isPony ? "← → ↓ | ↑ Rotate | Space Drop" : "WASD | SPACE=DROP | P=PAUSE"}
           </p>
         </motion.div>
       </motion.div>

@@ -14,7 +14,6 @@ export interface AllGameStats {
   snake: GameStats;
   memory: GameStats;
   tetris: GameStats;
-  clickspeed: GameStats;
 }
 
 const STORAGE_KEY = "minigames-stats";
