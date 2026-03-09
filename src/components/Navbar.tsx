@@ -10,12 +10,16 @@ const routePrefetch: Record<string, () => Promise<unknown>> = {
   "/about": () => import("@/pages/About"),
   "/projects": () => import("@/pages/Projects"),
   "/contact": () => import("@/pages/Contact"),
+  "/minigames": () => import("@/pages/Minigames"),
+  "/blog": () => import("@/pages/Blog"),
 };
 
 const navLinks = [
   { label: "HOME", href: "/" },
   { label: "ABOUT", href: "/about" },
   { label: "PROJECTS", href: "/projects" },
+  { label: "GAMES", href: "/minigames" },
+  { label: "BLOG", href: "/blog" },
   { label: "CONTACT", href: "/contact" },
 ];
 
