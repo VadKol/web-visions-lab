@@ -74,7 +74,7 @@ const Contact = () => {
       });
 
       if (response.ok) {
-        toast.success(isPony ? "Повідомлення надіслано! 💖" : "MESSAGE_TRANSMITTED");
+        toast.success(isPony ? "Message sent! 💖" : "MESSAGE_TRANSMITTED");
         reset();
       } else {
         toast.error(isPony ? "Помилка відправки" : "TRANSMISSION_FAILED");
