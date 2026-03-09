@@ -161,6 +161,7 @@ const CommandPalette = () => {
           </motion.div>
         </motion.div>
       )}
+      <TypingGame isOpen={typingGameOpen} onClose={() => setTypingGameOpen(false)} />
     </AnimatePresence>
   );
 };
