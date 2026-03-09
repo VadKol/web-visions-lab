@@ -9,7 +9,7 @@ const Footer = () => {
     <footer role="contentinfo" aria-label="Site footer" className="py-8 border-t border-primary/10">
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="font-mono text-[10px] text-muted-foreground tracking-wider uppercase">
-          <span className="text-secondary">{isPony ? "💖" : "//"}</span> Built by <span className="text-primary">Vadym Kolomiiets</span> © {new Date().getFullYear()}
+          Created with <span className="text-destructive">❤️</span> by <span className="text-primary">Vadym Kolomiiets</span> © {new Date().getFullYear()}
         </p>
         <div className="flex items-center gap-4">
           {[
