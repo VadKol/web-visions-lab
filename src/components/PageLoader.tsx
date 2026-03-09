@@ -14,14 +14,14 @@ const PageLoader = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="relative"
         >
-          <div className="w-20 h-20 cyber-border bg-card flex items-center justify-center box-glow">
+          <div className="w-28 h-16 cyber-border bg-card flex items-center justify-center box-glow">
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="font-display text-2xl font-bold text-primary text-glow"
+              className="font-display text-lg font-bold text-primary text-glow"
             >
-              VK
+              VAD KOL
             </motion.span>
           </div>
           <motion.div

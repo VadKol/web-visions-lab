@@ -195,7 +195,7 @@ const Home = () => {
                 <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-yellow-300" : "bg-neon-accent"}`} />
                 <div className={`w-2.5 h-2.5 ${isPony ? "rounded-full bg-green-400" : "bg-primary"}`} />
                 <span className="ml-2 font-mono text-[10px] text-muted-foreground tracking-wider">
-                  {isPony ? "✨ pony.js" : "TERMINAL://VK"}
+                  {isPony ? "✨ pony.js" : "TERMINAL://VAD_KOL"}
                 </span>
               </div>
               <TerminalTyping />
