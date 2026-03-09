@@ -19,7 +19,7 @@ const pageVariants = {
     rotateX: 0,
     transition: {
       duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
       staggerChildren: 0.08,
     },
   },
@@ -30,7 +30,7 @@ const pageVariants = {
     rotateX: -3,
     transition: {
       duration: 0.4,
-      ease: [0.55, 0.085, 0.68, 0.53],
+      ease: [0.55, 0.085, 0.68, 0.53] as [number, number, number, number],
     },
   },
 };
@@ -47,7 +47,7 @@ const childVariants = {
     scale: 1,
     transition: {
       duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
     },
   },
   exit: { 
