@@ -20,19 +20,19 @@ const contactSchema = z.object({
   name: z
     .string()
     .trim()
-    .min(1, "Ім'я обов'язкове")
-    .max(100, "Ім'я має бути менше 100 символів"),
+    .min(1, "Name is required")
+    .max(100, "Name must be less than 100 characters"),
   email: z
     .string()
     .trim()
-    .min(1, "Email обов'язковий")
-    .email("Невірний формат email")
-    .max(255, "Email має бути менше 255 символів"),
+    .min(1, "Email is required")
+    .email("Invalid email format")
+    .max(255, "Email must be less than 255 characters"),
   message: z
     .string()
     .trim()
-    .min(1, "Повідомлення обов'язкове")
-    .max(1000, "Повідомлення має бути менше 1000 символів"),
+    .min(1, "Message is required")
+    .max(1000, "Message must be less than 1000 characters"),
   // Honeypot field - should always be empty
   website: z.string().max(0, "Bot detected").optional(),
 });
