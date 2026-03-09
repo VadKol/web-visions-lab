@@ -16,6 +16,7 @@ import CursorTrail from "@/components/CursorTrail";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import KonamiEasterEgg from "@/components/KonamiEasterEgg";
 import CommandPalette from "@/components/CommandPalette";
+import { useTheme } from "@/contexts/ThemeContext";
 
 import useKeyboardNav from "@/hooks/useKeyboardNav";
 
