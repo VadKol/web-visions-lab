@@ -57,7 +57,7 @@ const Contact = () => {
   const onSubmit = async (data: ContactFormData) => {
     // Honeypot check - if filled, silently reject (likely bot)
     if (data.website) {
-      toast.success(isPony ? "Повідомлення надіслано! 💖" : "MESSAGE_TRANSMITTED");
+      toast.success(isPony ? "Message sent! 💖" : "MESSAGE_TRANSMITTED");
       reset();
       return;
     }
@@ -74,13 +74,13 @@ const Contact = () => {
       });
 
       if (response.ok) {
-        toast.success(isPony ? "Повідомлення надіслано! 💖" : "MESSAGE_TRANSMITTED");
+        toast.success(isPony ? "Message sent! 💖" : "MESSAGE_TRANSMITTED");
         reset();
       } else {
-        toast.error(isPony ? "Помилка відправки" : "TRANSMISSION_FAILED");
+        toast.error(isPony ? "Failed to send 😢" : "TRANSMISSION_FAILED");
       }
     } catch {
-      toast.error(isPony ? "Помилка мережі" : "NETWORK_ERROR");
+      toast.error(isPony ? "Network error 😢" : "NETWORK_ERROR");
     } finally {
       setIsSubmitting(false);
     }
@@ -270,7 +270,7 @@ const Contact = () => {
                   className={`inline-flex items-center gap-2 font-mono text-xs tracking-wider px-8 py-3 w-full justify-center transition-all disabled:opacity-50 disabled:cursor-not-allowed ${isPony ? "bg-primary text-primary-foreground rounded-xl hover:opacity-90" : "cyber-border bg-primary/15 text-primary hover:bg-primary/25 box-glow"}`}
                 >
                   {isSubmitting ? (
-                    <><Loader2 size={14} className="animate-spin" /> {isPony ? "Надсилаю..." : "TRANSMITTING..."}</>
+                    <><Loader2 size={14} className="animate-spin" /> {isPony ? "Sending... 💌" : "TRANSMITTING..."}</>
                   ) : (
                     <><Send size={14} /> {isPony ? "Send 💌" : "TRANSMIT"}</>
                   )}
