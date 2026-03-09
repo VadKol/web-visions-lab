@@ -18,15 +18,15 @@ export const personal = {
   locationShort: "Pardubice, CZ",
   email: "kolomiietsvad@gmail.com",
   phone: "+420 776 151 379",
-  github: "https://github.com/vadymkolomiiets",
-  githubLabel: "github.com/vadymkolomiiets",
-  linkedin: "https://linkedin.com/in/vadymkolomiiets",
-  linkedinLabel: "linkedin.com/in/vadymkolomiiets",
-  telegram: "https://t.me/vadymkolomiiets",
-  telegramLabel: "@vadymkolomiiets",
+  github: "https://github.com/VadKol",
+  githubLabel: "github.com/VadKol",
+  linkedin: "https://www.linkedin.com/in/vadym-kolomiiets-ua/",
+  linkedinLabel: "linkedin.com/in/vadym-kolomiiets-ua/",
+  telegram: "https://t.me/vadkolomiiets",
+  telegramLabel: "@vadkolomiiets",
   resumeUrl: "/Vadym_Kolomiiets_Resume_FE.pdf",
   resumeFilename: "Vadym_Kolomiiets_Resume_FE.pdf",
-  googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Czech+Republic,+Ukraine",
+  googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Czech+Republic,+Pardubice",
 };
 
 // --- Bio / Summary ---
