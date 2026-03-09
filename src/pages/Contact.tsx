@@ -80,7 +80,7 @@ const Contact = () => {
         toast.error(isPony ? "Failed to send 😢" : "TRANSMISSION_FAILED");
       }
     } catch {
-      toast.error(isPony ? "Помилка мережі" : "NETWORK_ERROR");
+      toast.error(isPony ? "Network error 😢" : "NETWORK_ERROR");
     } finally {
       setIsSubmitting(false);
     }
