@@ -3,7 +3,7 @@ import { useTheme } from "@/contexts/ThemeContext";
 
 const CursorTrail = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { isPony } = useTheme();
+  const { isPony, theme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -82,7 +82,7 @@ const CursorTrail = () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("resize", resize);
     };
-  }, [isPony]);
+  }, [theme]);
 
   return (
     <canvas
