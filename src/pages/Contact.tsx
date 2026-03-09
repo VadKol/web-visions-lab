@@ -55,14 +55,22 @@ const Contact = () => {
   });
 
   const onSubmit = async (data: ContactFormData) => {
+    // Honeypot check - if filled, silently reject (likely bot)
+    if (data.website) {
+      toast.success(isPony ? "Повідомлення надіслано! 💖" : "MESSAGE_TRANSMITTED");
+      reset();
+      return;
+    }
+
     setIsSubmitting(true);
     try {
+      const { website, ...formData } = data;
       const response = await fetch(ENDPOINTS.contactForm, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
