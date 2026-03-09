@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, RotateCcw, Trophy } from "lucide-react";
+import { X, RotateCcw, Trophy, BarChart3 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
+import { getGameStats, updateGameStats, GameStats } from "@/lib/gameStats";
 
 interface SnakeGameProps {
   isOpen: boolean;
@@ -23,15 +24,15 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
   const [direction, setDirection] = useState<Direction>("RIGHT");
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [stats, setStats] = useState<GameStats | null>(null);
+  const [showStats, setShowStats] = useState(false);
   const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
   const directionRef = useRef<Direction>("RIGHT");
 
   useEffect(() => {
-    const saved = localStorage.getItem("snake-highscore");
-    if (saved) setHighScore(parseInt(saved));
-  }, []);
+    setStats(getGameStats("snake"));
+  }, [isOpen]);
 
   const generateFood = useCallback((snakeBody: Position[]): Position => {
     let newFood: Position;
@@ -52,6 +53,19 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
     setGameOver(false);
     setScore(0);
     setIsPlaying(true);
+    setShowStats(false);
+  }, []);
+
+  const endGame = useCallback((finalScore: number) => {
+    setGameOver(true);
+    setIsPlaying(false);
+    const updated = updateGameStats("snake", {
+      gamesPlayed: 1,
+      bestScore: finalScore,
+      totalScore: finalScore,
+      losses: 1,
+    });
+    setStats(updated);
   }, []);
 
   const gameLoop = useCallback(() => {
@@ -66,32 +80,20 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
         case "RIGHT": head.x += 1; break;
       }
 
-      // Wall collision
       if (head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE) {
-        setGameOver(true);
-        setIsPlaying(false);
+        endGame(score);
         return prevSnake;
       }
 
-      // Self collision
       if (prevSnake.some(seg => seg.x === head.x && seg.y === head.y)) {
-        setGameOver(true);
-        setIsPlaying(false);
+        endGame(score);
         return prevSnake;
       }
 
       const newSnake = [head, ...prevSnake];
 
-      // Food collision
       if (head.x === food.x && head.y === food.y) {
-        setScore(s => {
-          const newScore = s + 10;
-          if (newScore > highScore) {
-            setHighScore(newScore);
-            localStorage.setItem("snake-highscore", newScore.toString());
-          }
-          return newScore;
-        });
+        setScore(s => s + 10);
         setFood(generateFood(newSnake));
       } else {
         newSnake.pop();
@@ -99,7 +101,7 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
 
       return newSnake;
     });
-  }, [food, generateFood, highScore]);
+  }, [food, generateFood, score, endGame]);
 
   useEffect(() => {
     if (isPlaying && !gameOver) {
@@ -152,25 +154,62 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
           exit={{ scale: 0.9, opacity: 0 }}
           className={`relative w-full max-w-lg ${isPony ? "bg-card rounded-3xl border-2 border-primary/30" : "cyber-border bg-card"} p-6`}
         >
-          <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
-            <X size={24} />
-          </button>
-
-          <div className="text-center mb-4">
-            <h2 className="text-2xl font-bold text-primary mb-2">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-primary">
               {isPony ? "🐍 Snake" : "SNAKE.EXE"}
             </h2>
-            <div className="flex justify-center gap-6 font-mono text-sm">
-              <span className="text-foreground">Score: <span className="text-primary">{score}</span></span>
-              <span className="text-muted-foreground">Best: <span className="text-secondary">{highScore}</span></span>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowStats(!showStats)}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <BarChart3 size={20} />
+              </button>
+              <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
+                <X size={24} />
+              </button>
             </div>
+          </div>
+
+          {showStats && stats ? (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`mb-4 p-4 ${isPony ? "bg-primary/5 rounded-xl" : "cyber-border-sm bg-background/30"}`}
+            >
+              <h3 className="font-mono text-xs text-secondary mb-3">📊 YOUR STATS</h3>
+              <div className="grid grid-cols-4 gap-3 text-center">
+                <div>
+                  <p className="text-xl font-bold text-primary">{stats.gamesPlayed}</p>
+                  <p className="text-[10px] text-muted-foreground">Games</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-secondary">{stats.bestScore}</p>
+                  <p className="text-[10px] text-muted-foreground">Best</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground">
+                    {stats.gamesPlayed ? Math.round(stats.totalScore / stats.gamesPlayed) : 0}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground">Avg</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground">{stats.totalScore}</p>
+                  <p className="text-[10px] text-muted-foreground">Total</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : null}
+
+          <div className="flex justify-center gap-6 font-mono text-sm mb-4">
+            <span className="text-foreground">Score: <span className="text-primary">{score}</span></span>
+            <span className="text-muted-foreground">Best: <span className="text-secondary">{stats?.bestScore || 0}</span></span>
           </div>
 
           <div 
             className={`relative mx-auto ${isPony ? "rounded-xl" : ""} overflow-hidden border-2 border-primary/30`}
             style={{ width: GRID_SIZE * CELL_SIZE, height: GRID_SIZE * CELL_SIZE, background: isPony ? "hsl(var(--muted))" : "#0a0a0a" }}
           >
-            {/* Grid */}
             {!isPony && (
               <div className="absolute inset-0 opacity-10" style={{
                 backgroundImage: `linear-gradient(hsl(var(--primary)/0.3) 1px, transparent 1px),
@@ -179,7 +218,6 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
               }} />
             )}
             
-            {/* Snake */}
             {snake.map((segment, i) => (
               <div
                 key={i}
@@ -198,7 +236,6 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
               />
             ))}
 
-            {/* Food */}
             <div
               className={`absolute ${isPony ? "bg-secondary rounded-full" : "bg-secondary"}`}
               style={{
@@ -210,7 +247,6 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
               }}
             />
 
-            {/* Game Over / Start overlay */}
             {(!isPlaying || gameOver) && (
               <div className="absolute inset-0 bg-background/80 flex flex-col items-center justify-center">
                 {gameOver && (

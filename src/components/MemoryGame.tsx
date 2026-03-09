@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, RotateCcw, Trophy, Clock } from "lucide-react";
+import { X, RotateCcw, Trophy, Clock, BarChart3 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
+import { getGameStats, updateGameStats, GameStats, formatTime } from "@/lib/gameStats";
 
 interface MemoryGameProps {
   isOpen: boolean;
@@ -27,12 +28,12 @@ const MemoryGame = ({ isOpen, onClose }: MemoryGameProps) => {
   const [gameWon, setGameWon] = useState(false);
   const [timer, setTimer] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [bestTime, setBestTime] = useState<number | null>(null);
+  const [stats, setStats] = useState<GameStats | null>(null);
+  const [showStats, setShowStats] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("memory-besttime");
-    if (saved) setBestTime(parseInt(saved));
-  }, []);
+    setStats(getGameStats("memory"));
+  }, [isOpen]);
 
   const initGame = useCallback(() => {
     const shuffled = [...ICONS, ...ICONS]
@@ -50,6 +51,7 @@ const MemoryGame = ({ isOpen, onClose }: MemoryGameProps) => {
     setGameWon(false);
     setTimer(0);
     setIsPlaying(true);
+    setShowStats(false);
   }, []);
 
   useEffect(() => {
@@ -63,12 +65,17 @@ const MemoryGame = ({ isOpen, onClose }: MemoryGameProps) => {
     if (matches === ICONS.length && matches > 0) {
       setGameWon(true);
       setIsPlaying(false);
-      if (!bestTime || timer < bestTime) {
-        setBestTime(timer);
-        localStorage.setItem("memory-besttime", timer.toString());
-      }
+      const updated = updateGameStats("memory", {
+        gamesPlayed: 1,
+        bestTime: timer,
+        totalTime: timer,
+        bestScore: moves,
+        totalScore: moves,
+        wins: 1,
+      });
+      setStats(updated);
     }
-  }, [matches, timer, bestTime]);
+  }, [matches, timer, moves]);
 
   const handleCardClick = (id: number) => {
     if (!isPlaying || flippedCards.length >= 2) return;
@@ -107,7 +114,7 @@ const MemoryGame = ({ isOpen, onClose }: MemoryGameProps) => {
     }
   }, [flippedCards, cards]);
 
-  const formatTime = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, "0")}`;
+  const formatTimeDisplay = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, "0")}`;
 
   if (!isOpen) return null;
 
@@ -125,22 +132,62 @@ const MemoryGame = ({ isOpen, onClose }: MemoryGameProps) => {
           exit={{ scale: 0.9, opacity: 0 }}
           className={`relative w-full max-w-md ${isPony ? "bg-card rounded-3xl border-2 border-primary/30" : "cyber-border bg-card"} p-6`}
         >
-          <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
-            <X size={24} />
-          </button>
-
-          <div className="text-center mb-4">
-            <h2 className="text-2xl font-bold text-primary mb-2">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-primary">
               {isPony ? "🃏 Memory Cards" : "MEMORY.EXE"}
             </h2>
-            <div className="flex justify-center gap-4 font-mono text-sm">
-              <span className="flex items-center gap-1">
-                <Clock size={14} className="text-primary" />
-                <span className="text-foreground">{formatTime(timer)}</span>
-              </span>
-              <span className="text-foreground">Moves: <span className="text-primary">{moves}</span></span>
-              {bestTime && <span className="text-muted-foreground">Best: {formatTime(bestTime)}</span>}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowStats(!showStats)}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <BarChart3 size={20} />
+              </button>
+              <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
+                <X size={24} />
+              </button>
             </div>
+          </div>
+
+          {showStats && stats ? (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`mb-4 p-4 ${isPony ? "bg-primary/5 rounded-xl" : "cyber-border-sm bg-background/30"}`}
+            >
+              <h3 className="font-mono text-xs text-secondary mb-3">📊 YOUR STATS</h3>
+              <div className="grid grid-cols-4 gap-3 text-center">
+                <div>
+                  <p className="text-xl font-bold text-primary">{stats.gamesPlayed}</p>
+                  <p className="text-[10px] text-muted-foreground">Games</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-secondary">{stats.wins || 0}</p>
+                  <p className="text-[10px] text-muted-foreground">Wins</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground">
+                    {stats.bestTime ? formatTime(stats.bestTime) : "-"}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground">Best Time</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground">
+                    {stats.gamesPlayed ? Math.round((stats.totalTime || 0) / stats.gamesPlayed) : 0}s
+                  </p>
+                  <p className="text-[10px] text-muted-foreground">Avg Time</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : null}
+
+          <div className="flex justify-center gap-4 font-mono text-sm mb-4">
+            <span className="flex items-center gap-1">
+              <Clock size={14} className="text-primary" />
+              <span className="text-foreground">{formatTimeDisplay(timer)}</span>
+            </span>
+            <span className="text-foreground">Moves: <span className="text-primary">{moves}</span></span>
+            {stats?.bestTime && <span className="text-muted-foreground">Best: {formatTimeDisplay(stats.bestTime)}</span>}
           </div>
 
           {!isPlaying && !gameWon ? (
@@ -188,7 +235,7 @@ const MemoryGame = ({ isOpen, onClose }: MemoryGameProps) => {
                 >
                   <Trophy className="w-12 h-12 text-secondary mx-auto mb-2" />
                   <p className="text-xl font-bold text-foreground mb-1">You Won!</p>
-                  <p className="text-muted-foreground mb-4">Time: {formatTime(timer)} | Moves: {moves}</p>
+                  <p className="text-muted-foreground mb-4">Time: {formatTimeDisplay(timer)} | Moves: {moves}</p>
                   <Button onClick={initGame} className="gap-2">
                     <RotateCcw size={16} /> Play Again
                   </Button>

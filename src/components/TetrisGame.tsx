@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, RotateCcw, Trophy, Pause, Play } from "lucide-react";
+import { X, RotateCcw, Trophy, Pause, Play, BarChart3 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
+import { getGameStats, updateGameStats, GameStats } from "@/lib/gameStats";
 
 interface TetrisGameProps {
   isOpen: boolean;
@@ -43,13 +44,20 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
   const [gameOver, setGameOver] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [highScore, setHighScore] = useState(0);
+  const [stats, setStats] = useState<GameStats | null>(null);
+  const [showStats, setShowStats] = useState(false);
   const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
+  const scoreRef = useRef(0);
+  const linesRef = useRef(0);
 
   useEffect(() => {
-    const saved = localStorage.getItem("tetris-highscore");
-    if (saved) setHighScore(parseInt(saved));
-  }, []);
+    setStats(getGameStats("tetris"));
+  }, [isOpen]);
+
+  useEffect(() => {
+    scoreRef.current = score;
+    linesRef.current = lines;
+  }, [score, lines]);
 
   const createEmptyBoard = () => Array(BOARD_HEIGHT).fill(null).map(() => Array(BOARD_WIDTH).fill(null));
 
@@ -80,7 +88,20 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
     setGameOver(false);
     setIsPaused(false);
     setIsPlaying(true);
+    setShowStats(false);
   }, [spawnPiece]);
+
+  const endGame = useCallback(() => {
+    setGameOver(true);
+    setIsPlaying(false);
+    const updated = updateGameStats("tetris", {
+      gamesPlayed: 1,
+      bestScore: scoreRef.current,
+      totalScore: scoreRef.current,
+      losses: 1,
+    });
+    setStats(updated);
+  }, []);
 
   const isValidMove = useCallback((piece: Piece, boardState: (string | null)[][]) => {
     for (let y = 0; y < piece.shape.length; y++) {
@@ -132,7 +153,6 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
     if (isValidMove(movedPiece, board)) {
       setCurrentPiece(movedPiece);
     } else {
-      // Place piece
       const newBoard = placePiece(currentPiece, board);
       const { board: clearedBoard, cleared } = clearLines(newBoard);
       
@@ -140,26 +160,19 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
       setLines(l => l + cleared);
       setScore(s => {
         const points = [0, 100, 300, 500, 800][cleared] * level;
-        const newScore = s + points;
-        if (newScore > highScore) {
-          setHighScore(newScore);
-          localStorage.setItem("tetris-highscore", newScore.toString());
-        }
-        return newScore;
+        return s + points;
       });
       setLevel(Math.floor(lines / 10) + 1);
 
-      // Spawn next piece
       const newPiece = spawnPiece(nextPiece);
       if (!isValidMove(newPiece, clearedBoard)) {
-        setGameOver(true);
-        setIsPlaying(false);
+        endGame();
       } else {
         setCurrentPiece(newPiece);
         setNextPiece(getRandomPiece());
       }
     }
-  }, [currentPiece, board, isPaused, gameOver, isValidMove, placePiece, clearLines, nextPiece, spawnPiece, level, lines, highScore]);
+  }, [currentPiece, board, isPaused, gameOver, isValidMove, placePiece, clearLines, nextPiece, spawnPiece, level, lines, endGame]);
 
   useEffect(() => {
     if (isPlaying && !isPaused && !gameOver) {
@@ -194,7 +207,6 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
           newPiece = rotatePiece(currentPiece);
           break;
         case " ":
-          // Hard drop
           while (isValidMove({ ...newPiece, y: newPiece.y + 1 }, board)) {
             newPiece.y += 1;
           }
@@ -233,15 +245,52 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
           exit={{ scale: 0.9, opacity: 0 }}
           className={`relative ${isPony ? "bg-card rounded-3xl border-2 border-primary/30" : "cyber-border bg-card"} p-6`}
         >
-          <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
-            <X size={24} />
-          </button>
-
-          <div className="text-center mb-4">
-            <h2 className="text-2xl font-bold text-primary mb-2">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-primary">
               {isPony ? "🧱 Tetris" : "TETRIS.EXE"}
             </h2>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowStats(!showStats)}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <BarChart3 size={20} />
+              </button>
+              <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
+                <X size={24} />
+              </button>
+            </div>
           </div>
+
+          {showStats && stats ? (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`mb-4 p-4 ${isPony ? "bg-primary/5 rounded-xl" : "cyber-border-sm bg-background/30"}`}
+            >
+              <h3 className="font-mono text-xs text-secondary mb-3">📊 YOUR STATS</h3>
+              <div className="grid grid-cols-4 gap-3 text-center">
+                <div>
+                  <p className="text-xl font-bold text-primary">{stats.gamesPlayed}</p>
+                  <p className="text-[10px] text-muted-foreground">Games</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-secondary">{stats.bestScore}</p>
+                  <p className="text-[10px] text-muted-foreground">Best</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground">
+                    {stats.gamesPlayed ? Math.round(stats.totalScore / stats.gamesPlayed) : 0}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground">Avg</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground">{stats.totalScore}</p>
+                  <p className="text-[10px] text-muted-foreground">Total</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : null}
 
           <div className="flex gap-6">
             <div 
@@ -275,6 +324,7 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
                     <div className="text-center mb-4">
                       <Trophy className="w-10 h-10 text-secondary mx-auto mb-2" />
                       <p className="text-lg font-bold">Game Over!</p>
+                      <p className="text-sm text-muted-foreground">Score: {score}</p>
                     </div>
                   )}
                   {isPaused && <p className="text-lg font-bold mb-4">Paused</p>}
@@ -300,7 +350,7 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
               </div>
               <div className={`p-3 ${isPony ? "bg-muted rounded-xl" : "cyber-border-sm bg-background/50"}`}>
                 <p className="text-xs text-muted-foreground font-mono mb-1">BEST</p>
-                <p className="text-lg font-bold text-secondary">{highScore}</p>
+                <p className="text-lg font-bold text-secondary">{stats?.bestScore || 0}</p>
               </div>
               
               {isPlaying && !gameOver && (

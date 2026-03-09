@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, RotateCcw, Trophy, Keyboard, Zap } from "lucide-react";
+import { X, RotateCcw, Trophy, Keyboard, Zap, BarChart3 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+import { getGameStats, updateGameStats, GameStats } from "@/lib/gameStats";
 
 const CODE_SNIPPETS = [
   "const dev = () => createAwesome();",
@@ -30,7 +31,13 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
   const [errors, setErrors] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
+  const [stats, setStats] = useState<GameStats | null>(null);
+  const [showStats, setShowStats] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setStats(getGameStats("typing"));
+  }, [isOpen]);
 
   const getRandomSnippet = useCallback(() => {
     return CODE_SNIPPETS[Math.floor(Math.random() * CODE_SNIPPETS.length)];
@@ -44,6 +51,7 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
     setErrors(0);
     setIsFinished(false);
     setGameStarted(false);
+    setShowStats(false);
     setTimeout(() => inputRef.current?.focus(), 100);
   }, [getRandomSnippet]);
 
@@ -53,6 +61,19 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
     }
   }, [isOpen, resetGame]);
 
+  const calculateWPM = useCallback(() => {
+    if (!startTime || !endTime) return 0;
+    const timeInMinutes = (endTime - startTime) / 60000;
+    const words = currentSnippet.length / 5;
+    return Math.round(words / timeInMinutes);
+  }, [startTime, endTime, currentSnippet]);
+
+  const calculateAccuracy = useCallback(() => {
+    if (userInput.length === 0) return 100;
+    const correctChars = userInput.split("").filter((char, i) => char === currentSnippet[i]).length;
+    return Math.round((correctChars / userInput.length) * 100);
+  }, [userInput, currentSnippet]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     
@@ -61,7 +82,6 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
       setStartTime(Date.now());
     }
 
-    // Count errors
     let errorCount = 0;
     for (let i = 0; i < value.length; i++) {
       if (value[i] !== currentSnippet[i]) {
@@ -71,24 +91,24 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
     setErrors(errorCount);
     setUserInput(value);
 
-    // Check if finished
     if (value === currentSnippet) {
-      setEndTime(Date.now());
+      const now = Date.now();
+      setEndTime(now);
       setIsFinished(true);
+      
+      // Calculate WPM for stats
+      const timeInMinutes = (now - (startTime || now)) / 60000;
+      const words = currentSnippet.length / 5;
+      const wpm = Math.round(words / timeInMinutes);
+      
+      const updated = updateGameStats("typing", {
+        gamesPlayed: 1,
+        bestScore: wpm,
+        totalScore: wpm,
+        wins: 1,
+      });
+      setStats(updated);
     }
-  };
-
-  const calculateWPM = () => {
-    if (!startTime || !endTime) return 0;
-    const timeInMinutes = (endTime - startTime) / 60000;
-    const words = currentSnippet.length / 5;
-    return Math.round(words / timeInMinutes);
-  };
-
-  const calculateAccuracy = () => {
-    if (userInput.length === 0) return 100;
-    const correctChars = userInput.split("").filter((char, i) => char === currentSnippet[i]).length;
-    return Math.round((correctChars / userInput.length) * 100);
   };
 
   const renderText = () => {
@@ -129,7 +149,6 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
               : "bg-card cyber-border"
           }`}
         >
-          {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <Keyboard size={20} className="text-primary" />
@@ -137,15 +156,53 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
                 {isPony ? "⌨️ Typing Challenge" : "> TYPING_TEST.EXE"}
               </h2>
             </div>
-            <button
-              onClick={onClose}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <X size={20} />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowStats(!showStats)}
+                className="text-muted-foreground hover:text-primary transition-colors"
+                title="Stats"
+              >
+                <BarChart3 size={20} />
+              </button>
+              <button
+                onClick={onClose}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
           </div>
 
-          {/* Stats Bar */}
+          {showStats && stats ? (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`mb-6 p-4 ${isPony ? "bg-primary/5 rounded-xl" : "cyber-border-sm bg-background/30"}`}
+            >
+              <h3 className="font-mono text-xs text-secondary mb-3">📊 YOUR STATS</h3>
+              <div className="grid grid-cols-4 gap-3 text-center">
+                <div>
+                  <p className="text-2xl font-bold text-primary">{stats.gamesPlayed}</p>
+                  <p className="text-[10px] text-muted-foreground">Games</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-secondary">{stats.bestScore}</p>
+                  <p className="text-[10px] text-muted-foreground">Best WPM</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-foreground">
+                    {stats.gamesPlayed ? Math.round(stats.totalScore / stats.gamesPlayed) : 0}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground">Avg WPM</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-foreground">{stats.wins || 0}</p>
+                  <p className="text-[10px] text-muted-foreground">Completed</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : null}
+
           <div className="grid grid-cols-3 gap-4 mb-6">
             <div className={`p-3 text-center ${isPony ? "bg-primary/10 rounded-xl" : "cyber-border-sm bg-background/50"}`}>
               <p className="font-mono text-[10px] text-muted-foreground mb-1">WPM</p>
@@ -161,14 +218,12 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
             </div>
           </div>
 
-          {/* Text Display */}
           <div className={`p-4 mb-4 font-mono text-lg leading-relaxed break-all ${
             isPony ? "bg-background/50 rounded-xl border border-primary/10" : "cyber-border-sm bg-background/30"
           }`}>
             {renderText()}
           </div>
 
-          {/* Input */}
           <input
             ref={inputRef}
             type="text"
@@ -185,7 +240,6 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
             spellCheck={false}
           />
 
-          {/* Finished State */}
           {isFinished && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -207,7 +261,6 @@ const TypingGame = ({ isOpen, onClose }: TypingGameProps) => {
             </motion.div>
           )}
 
-          {/* Reset Button */}
           <button
             onClick={resetGame}
             className={`mt-6 w-full flex items-center justify-center gap-2 font-mono text-xs tracking-wider px-4 py-3 transition-all ${

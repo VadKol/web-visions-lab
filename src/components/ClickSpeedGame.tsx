@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, RotateCcw, Trophy, MousePointer } from "lucide-react";
+import { X, RotateCcw, Trophy, MousePointer, BarChart3 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
+import { getGameStats, updateGameStats, GameStats } from "@/lib/gameStats";
 
 interface ClickSpeedGameProps {
   isOpen: boolean;
@@ -17,13 +18,13 @@ const ClickSpeedGame = ({ isOpen, onClose }: ClickSpeedGameProps) => {
   const [timeLeft, setTimeLeft] = useState(GAME_DURATION);
   const [isPlaying, setIsPlaying] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [highScore, setHighScore] = useState(0);
+  const [stats, setStats] = useState<GameStats | null>(null);
+  const [showStats, setShowStats] = useState(false);
   const [ripples, setRipples] = useState<{ id: number; x: number; y: number }[]>([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("clickspeed-highscore");
-    if (saved) setHighScore(parseInt(saved));
-  }, []);
+    setStats(getGameStats("clickspeed"));
+  }, [isOpen]);
 
   useEffect(() => {
     if (isPlaying && timeLeft > 0) {
@@ -32,12 +33,15 @@ const ClickSpeedGame = ({ isOpen, onClose }: ClickSpeedGameProps) => {
     } else if (timeLeft === 0 && isPlaying) {
       setIsPlaying(false);
       setGameOver(true);
-      if (clicks > highScore) {
-        setHighScore(clicks);
-        localStorage.setItem("clickspeed-highscore", clicks.toString());
-      }
+      const updated = updateGameStats("clickspeed", {
+        gamesPlayed: 1,
+        bestScore: clicks,
+        totalScore: clicks,
+        wins: 1,
+      });
+      setStats(updated);
     }
-  }, [isPlaying, timeLeft, clicks, highScore]);
+  }, [isPlaying, timeLeft, clicks]);
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     if (!isPlaying) return;
@@ -60,6 +64,7 @@ const ClickSpeedGame = ({ isOpen, onClose }: ClickSpeedGameProps) => {
     setIsPlaying(true);
     setGameOver(false);
     setRipples([]);
+    setShowStats(false);
   };
 
   const cps = gameOver ? (clicks / GAME_DURATION).toFixed(1) : (timeLeft < GAME_DURATION ? (clicks / (GAME_DURATION - timeLeft)).toFixed(1) : "0.0");
@@ -80,18 +85,54 @@ const ClickSpeedGame = ({ isOpen, onClose }: ClickSpeedGameProps) => {
           exit={{ scale: 0.9, opacity: 0 }}
           className={`relative w-full max-w-md ${isPony ? "bg-card rounded-3xl border-2 border-primary/30" : "cyber-border bg-card"} p-6`}
         >
-          <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground z-10">
-            <X size={24} />
-          </button>
-
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-primary mb-2">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-primary">
               {isPony ? "🎯 Click Speed" : "CLICK_SPEED.EXE"}
             </h2>
-            <p className="text-muted-foreground text-sm">
-              {isPony ? "How fast can you click?" : "MEASURE YOUR CLICK RATE"}
-            </p>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowStats(!showStats)}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <BarChart3 size={20} />
+              </button>
+              <button onClick={onClose} className="text-muted-foreground hover:text-foreground z-10">
+                <X size={24} />
+              </button>
+            </div>
           </div>
+
+          {showStats && stats ? (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`mb-6 p-4 ${isPony ? "bg-primary/5 rounded-xl" : "cyber-border-sm bg-background/30"}`}
+            >
+              <h3 className="font-mono text-xs text-secondary mb-3">📊 YOUR STATS</h3>
+              <div className="grid grid-cols-4 gap-3 text-center">
+                <div>
+                  <p className="text-xl font-bold text-primary">{stats.gamesPlayed}</p>
+                  <p className="text-[10px] text-muted-foreground">Games</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-secondary">{stats.bestScore}</p>
+                  <p className="text-[10px] text-muted-foreground">Best</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground">
+                    {stats.gamesPlayed ? Math.round(stats.totalScore / stats.gamesPlayed) : 0}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground">Avg</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground">
+                    {(stats.bestScore / GAME_DURATION).toFixed(1)}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground">Best CPS</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : null}
 
           <div className="flex justify-center gap-8 mb-6 font-mono">
             <div className="text-center">
@@ -114,9 +155,9 @@ const ClickSpeedGame = ({ isOpen, onClose }: ClickSpeedGameProps) => {
             <div className="flex flex-col items-center py-8">
               <MousePointer size={48} className="text-primary mb-4" />
               <Button onClick={startGame} size="lg">Start Test</Button>
-              {highScore > 0 && (
+              {stats && stats.bestScore > 0 && (
                 <p className="mt-4 text-muted-foreground text-sm font-mono">
-                  Best: <span className="text-secondary">{highScore} clicks</span> ({(highScore / GAME_DURATION).toFixed(1)} CPS)
+                  Best: <span className="text-secondary">{stats.bestScore} clicks</span> ({(stats.bestScore / GAME_DURATION).toFixed(1)} CPS)
                 </p>
               )}
             </div>
@@ -126,14 +167,14 @@ const ClickSpeedGame = ({ isOpen, onClose }: ClickSpeedGameProps) => {
               animate={{ opacity: 1, scale: 1 }}
               className="text-center py-8"
             >
-              <Trophy className={`w-16 h-16 mx-auto mb-4 ${clicks >= highScore ? "text-secondary" : "text-muted-foreground"}`} />
+              <Trophy className={`w-16 h-16 mx-auto mb-4 ${clicks >= (stats?.bestScore || 0) ? "text-secondary" : "text-muted-foreground"}`} />
               <p className="text-2xl font-bold text-foreground mb-2">
                 {clicks} Clicks!
               </p>
               <p className="text-lg text-muted-foreground mb-1">
                 {(clicks / GAME_DURATION).toFixed(1)} clicks per second
               </p>
-              {clicks >= highScore && clicks > 0 && (
+              {clicks >= (stats?.bestScore || 0) && clicks > 0 && (
                 <p className="text-secondary font-mono text-sm mb-4">🎉 New High Score!</p>
               )}
               <div className="flex justify-center gap-3 mt-6">
