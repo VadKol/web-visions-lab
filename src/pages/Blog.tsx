@@ -226,9 +226,32 @@ const Blog = () => {
             </motion.div>
 
             {/* Articles Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="relative">
+              <AnimatePresence>
+                {loading && !showFavorites && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 z-20 flex items-center justify-center bg-background/80 backdrop-blur-sm rounded-lg min-h-[200px]"
+                  >
+                    <div className="flex flex-col items-center gap-4">
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      >
+                        <RefreshCw size={24} className="text-primary" />
+                      </motion.div>
+                      <span className="font-mono text-xs text-muted-foreground">
+                        {isPony ? "Loading articles..." : "FETCHING_DATA..."}
+                      </span>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-6 ${loading && !showFavorites && articles.length === 0 ? "min-h-[300px]" : ""}`}>
               <AnimatePresence mode="wait">
-                {loading && !showFavorites ? (
+                {loading && !showFavorites && articles.length === 0 ? (
                   [...Array(6)].map((_, i) => (
                     <motion.div
                       key={`skeleton-${i}`}
@@ -363,6 +386,7 @@ const Blog = () => {
                   ))
                 )}
               </AnimatePresence>
+              </div>
             </div>
           </div>
         </section>
