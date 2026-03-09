@@ -431,7 +431,7 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
           </div>
 
           <p className="text-center text-muted-foreground text-[10px] mt-3 font-mono">
-            {isPony ? "← → ↓ | ↑ Rotate | Space Drop" : "WASD | SPACE=DROP | P=PAUSE"}
+            {isPony ? "Swipe ←→↓ | Tap=Rotate" : "SWIPE / WASD | TAP=ROTATE"}
           </p>
         </motion.div>
       </motion.div>
