@@ -149,6 +149,47 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
+  // Touch/swipe gesture handling
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartRef.current || !isPlaying || gameOver) return;
+    
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStartRef.current.x;
+    const deltaY = touch.clientY - touchStartRef.current.y;
+    const minSwipe = 30;
+    
+    const currentDir = directionRef.current;
+    
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Horizontal swipe
+      if (deltaX > minSwipe && currentDir !== "LEFT") {
+        directionRef.current = "RIGHT";
+        setDirection("RIGHT");
+      } else if (deltaX < -minSwipe && currentDir !== "RIGHT") {
+        directionRef.current = "LEFT";
+        setDirection("LEFT");
+      }
+    } else {
+      // Vertical swipe
+      if (deltaY > minSwipe && currentDir !== "UP") {
+        directionRef.current = "DOWN";
+        setDirection("DOWN");
+      } else if (deltaY < -minSwipe && currentDir !== "DOWN") {
+        directionRef.current = "UP";
+        setDirection("UP");
+      }
+    }
+    
+    touchStartRef.current = null;
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -224,8 +265,10 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
           </div>
 
           <div 
-            className={`relative mx-auto ${isPony ? "rounded-lg" : ""} overflow-hidden border-2 border-primary/30`}
+            className={`relative mx-auto ${isPony ? "rounded-lg" : ""} overflow-hidden border-2 border-primary/30 touch-none`}
             style={{ width: GRID_SIZE * CELL_SIZE, height: GRID_SIZE * CELL_SIZE, background: isPony ? "hsl(var(--muted))" : "#0a0a0a" }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             {!isPony && (
               <div className="absolute inset-0 opacity-10" style={{
@@ -282,7 +325,7 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
           </div>
 
           <p className="text-center text-muted-foreground text-[10px] mt-3 font-mono">
-            {isPony ? "Arrow keys or WASD 🎮" : "WASD / ARROWS"}
+            {isPony ? "Swipe or arrows 🎮" : "SWIPE / WASD / ARROWS"}
           </p>
         </motion.div>
       </motion.div>

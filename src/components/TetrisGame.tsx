@@ -237,6 +237,57 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, currentPiece, board, isPaused, gameOver, isValidMove, rotatePiece]);
 
+  // Touch/swipe gesture handling
+  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY, time: Date.now() };
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartRef.current || !currentPiece || isPaused || gameOver) return;
+    
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStartRef.current.x;
+    const deltaY = touch.clientY - touchStartRef.current.y;
+    const duration = Date.now() - touchStartRef.current.time;
+    const minSwipe = 30;
+    
+    let newPiece = { ...currentPiece };
+    
+    // Quick tap = rotate
+    if (Math.abs(deltaX) < 15 && Math.abs(deltaY) < 15 && duration < 200) {
+      newPiece = rotatePiece(currentPiece);
+    } else if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Horizontal swipe
+      if (deltaX > minSwipe) {
+        newPiece.x += 1;
+      } else if (deltaX < -minSwipe) {
+        newPiece.x -= 1;
+      }
+    } else {
+      // Vertical swipe
+      if (deltaY > minSwipe) {
+        // Swipe down - drop piece
+        while (isValidMove({ ...newPiece, y: newPiece.y + 1 }, board)) {
+          newPiece.y += 1;
+        }
+      } else if (deltaY < -minSwipe) {
+        // Swipe up - hard drop
+        while (isValidMove({ ...newPiece, y: newPiece.y + 1 }, board)) {
+          newPiece.y += 1;
+        }
+      }
+    }
+    
+    if (isValidMove(newPiece, board)) {
+      setCurrentPiece(newPiece);
+    }
+    
+    touchStartRef.current = null;
+  };
+
   if (!isOpen) return null;
 
   const displayBoard = currentPiece ? placePiece(currentPiece, board) : board;
@@ -310,12 +361,14 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
 
           <div className="flex gap-4">
             <div 
-              className={`relative ${isPony ? "rounded-lg" : ""} overflow-hidden border-2 border-primary/30`}
+              className={`relative ${isPony ? "rounded-lg" : ""} overflow-hidden border-2 border-primary/30 touch-none`}
               style={{ 
                 width: BOARD_WIDTH * CELL_SIZE, 
                 height: BOARD_HEIGHT * CELL_SIZE, 
                 background: isPony ? "hsl(var(--muted))" : "#0a0a0a" 
               }}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             >
               {displayBoard.map((row, y) =>
                 row.map((cell, x) => (
@@ -378,7 +431,7 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
           </div>
 
           <p className="text-center text-muted-foreground text-[10px] mt-3 font-mono">
-            {isPony ? "← → ↓ | ↑ Rotate | Space Drop" : "WASD | SPACE=DROP | P=PAUSE"}
+            {isPony ? "Swipe ←→↓ | Tap=Rotate" : "SWIPE / WASD | TAP=ROTATE"}
           </p>
         </motion.div>
       </motion.div>
