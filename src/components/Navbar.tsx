@@ -62,7 +62,7 @@ const Navbar = () => {
       >
         <div className="container mx-auto flex items-center justify-between py-4 px-6">
           <Link to="/" aria-label="Home — Vadym Kolomiiets" className={`font-display text-sm font-bold text-primary tracking-widest ${isPony ? "" : "text-glow"}`}>
-            {isPony ? "✨ VK" : "VK://DEV"}
+            {isPony ? "✨ VAD KOL" : "VAD_KOL://DEV"}
           </Link>
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link, i) => (

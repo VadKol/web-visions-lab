@@ -21,7 +21,7 @@ const PageLoader = () => {
               transition={{ delay: 0.4 }}
               className="font-display text-2xl font-bold text-primary text-glow"
             >
-              VK
+              VAD KOL
             </motion.span>
           </div>
           <motion.div
