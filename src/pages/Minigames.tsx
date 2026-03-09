@@ -1,30 +1,56 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Gamepad2, Keyboard, Trophy } from "lucide-react";
+import { Gamepad2, Keyboard, Brain, Blocks, MousePointer } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
 import TypingGame from "@/components/TypingGame";
+import SnakeGame from "@/components/SnakeGame";
+import MemoryGame from "@/components/MemoryGame";
+import TetrisGame from "@/components/TetrisGame";
+import ClickSpeedGame from "@/components/ClickSpeedGame";
 
 const games = [
   {
     id: "typing",
-    title: "Typing Speed Test",
+    title: "Typing Speed",
+    titlePony: "Typing Test ⌨️",
     description: "Test your coding speed with real code snippets",
     icon: Keyboard,
-    color: "primary",
+  },
+  {
+    id: "snake",
+    title: "Snake",
+    titlePony: "Snake 🐍",
+    description: "Classic snake game - eat, grow, don't crash!",
+    icon: Gamepad2,
+  },
+  {
+    id: "memory",
+    title: "Memory Cards",
+    titlePony: "Memory 🃏",
+    description: "Find matching pairs and train your memory",
+    icon: Brain,
+  },
+  {
+    id: "tetris",
+    title: "Tetris",
+    titlePony: "Tetris 🧱",
+    description: "Stack blocks and clear lines in this classic",
+    icon: Blocks,
+  },
+  {
+    id: "clickspeed",
+    title: "Click Speed",
+    titlePony: "Click Test 🎯",
+    description: "How many clicks can you do in 10 seconds?",
+    icon: MousePointer,
   },
 ];
 
 const Minigames = () => {
   const { isPony } = useTheme();
-  const [typingGameOpen, setTypingGameOpen] = useState(false);
-
-  const handleGameClick = (gameId: string) => {
-    if (gameId === "typing") {
-      setTypingGameOpen(true);
-    }
-  };
+  const [activeGame, setActiveGame] = useState<string | null>(null);
 
   return (
     <PageTransition>
@@ -52,17 +78,17 @@ const Minigames = () => {
               </motion.div>
             </Parallax>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {games.map((game, i) => (
                 <motion.button
                   key={game.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}
-                  onClick={() => handleGameClick(game.id)}
+                  transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
+                  onClick={() => setActiveGame(game.id)}
                   className={`group p-6 text-left transition-all ${
                     isPony
-                      ? "bg-card rounded-2xl border-2 border-primary/20 hover:border-primary/50 hover:shadow-lg"
+                      ? "bg-card rounded-2xl border-2 border-primary/20 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
                       : "cyber-border bg-card hover:box-glow"
                   }`}
                 >
@@ -74,7 +100,7 @@ const Minigames = () => {
                     <game.icon size={28} className="text-primary" />
                   </div>
                   <h3 className="font-mono text-lg text-foreground mb-2 tracking-wider">
-                    {isPony ? game.title : game.title.toUpperCase()}
+                    {isPony ? game.titlePony : game.title.toUpperCase()}
                   </h3>
                   <p className="text-muted-foreground text-sm font-body">
                     {game.description}
@@ -85,41 +111,16 @@ const Minigames = () => {
                   </div>
                 </motion.button>
               ))}
-
-              {/* Coming Soon Cards */}
-              {["Snake", "Memory Cards"].map((name, i) => (
-                <motion.div
-                  key={name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
-                  className={`p-6 opacity-50 ${
-                    isPony
-                      ? "bg-card/50 rounded-2xl border-2 border-dashed border-muted-foreground/20"
-                      : "cyber-border bg-card/30 border-dashed"
-                  }`}
-                >
-                  <div className={`w-14 h-14 flex items-center justify-center mb-4 ${
-                    isPony 
-                      ? "bg-muted/20 rounded-xl" 
-                      : "cyber-border-sm bg-background/30"
-                  }`}>
-                    <Trophy size={28} className="text-muted-foreground" />
-                  </div>
-                  <h3 className="font-mono text-lg text-muted-foreground mb-2 tracking-wider">
-                    {isPony ? name : name.toUpperCase()}
-                  </h3>
-                  <p className="text-muted-foreground/60 text-sm font-body">
-                    Coming soon...
-                  </p>
-                </motion.div>
-              ))}
             </div>
           </div>
         </section>
       </div>
 
-      <TypingGame isOpen={typingGameOpen} onClose={() => setTypingGameOpen(false)} />
+      <TypingGame isOpen={activeGame === "typing"} onClose={() => setActiveGame(null)} />
+      <SnakeGame isOpen={activeGame === "snake"} onClose={() => setActiveGame(null)} />
+      <MemoryGame isOpen={activeGame === "memory"} onClose={() => setActiveGame(null)} />
+      <TetrisGame isOpen={activeGame === "tetris"} onClose={() => setActiveGame(null)} />
+      <ClickSpeedGame isOpen={activeGame === "clickspeed"} onClose={() => setActiveGame(null)} />
     </PageTransition>
   );
 };
