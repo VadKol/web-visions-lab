@@ -1,9 +1,16 @@
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, MapPin, Send } from "lucide-react";
+import { Mail, Github, Linkedin, MapPin, Send, ExternalLink } from "lucide-react";
 import { personal } from "@/data/portfolio";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+
+const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Czech+Republic,+Ukraine";
 
 const Contact = () => {
   const { isPony } = useTheme();
@@ -13,6 +20,12 @@ const Contact = () => {
     : "w-full bg-card border border-primary/20 px-4 py-3 text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary/50 transition-all font-mono text-sm";
 
   const inputStyle = isPony ? {} : { clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))" };
+
+  const contactItems = [
+    { icon: Mail, label: "EMAIL", value: personal.email, href: `mailto:${personal.email}` },
+    { icon: Github, label: "GITHUB", value: personal.githubLabel, href: personal.github },
+    { icon: Linkedin, label: "LINKEDIN", value: personal.linkedinLabel, href: personal.linkedin },
+  ];
 
   return (
     <PageTransition>
@@ -50,12 +63,7 @@ const Contact = () => {
                 <div className="font-mono text-[10px] text-secondary tracking-wider mb-4">
                   {isPony ? "📬 Find me here" : "> CHANNELS.LIST"}
                 </div>
-                {[
-                  { icon: Mail, label: "EMAIL", value: personal.email, href: `mailto:${personal.email}` },
-                  { icon: Github, label: "GITHUB", value: personal.githubLabel, href: personal.github },
-                  { icon: Linkedin, label: "LINKEDIN", value: personal.linkedinLabel, href: personal.linkedin },
-                  { icon: MapPin, label: "LOCATION", value: personal.location, href: undefined },
-                ].map((item, i) => (
+                {contactItems.map((item, i) => (
                   <motion.div
                     key={item.label}
                     initial={{ opacity: 0, x: -20 }}
@@ -68,14 +76,57 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="font-mono text-[10px] text-muted-foreground tracking-wider">{item.label}</p>
-                      {item.href ? (
-                        <a href={item.href} className="text-foreground hover:text-primary transition-colors font-body text-sm">{item.value}</a>
-                      ) : (
-                        <p className="text-foreground font-body text-sm">{item.value}</p>
-                      )}
+                      <a href={item.href} className="text-foreground hover:text-primary transition-colors font-body text-sm">{item.value}</a>
                     </div>
                   </motion.div>
                 ))}
+                
+                {/* Location with map hover */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.6 }}
+                  className="flex items-center gap-4 group"
+                >
+                  <div className={`w-12 h-12 flex items-center justify-center transition-all duration-300 ${isPony ? "bg-primary/10 rounded-xl border-2 border-primary/20" : "cyber-border-sm bg-card group-hover:box-glow"}`}>
+                    <MapPin size={18} className="text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-mono text-[10px] text-muted-foreground tracking-wider">LOCATION</p>
+                    <HoverCard openDelay={200}>
+                      <HoverCardTrigger asChild>
+                        <a 
+                          href={GOOGLE_MAPS_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-foreground hover:text-primary transition-colors font-body text-sm cursor-pointer inline-flex items-center gap-1"
+                        >
+                          {personal.location}
+                          <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </a>
+                      </HoverCardTrigger>
+                      <HoverCardContent className={`w-72 p-0 overflow-hidden ${isPony ? "rounded-xl" : ""}`}>
+                        <img 
+                          src="https://maps.googleapis.com/maps/api/staticmap?center=Czech+Republic&zoom=4&size=288x160&scale=2&style=feature:all|element:labels|visibility:on&style=feature:all|element:geometry|color:0x242424&style=feature:water|element:geometry|color:0x17263c&markers=color:cyan|Czech+Republic&markers=color:cyan|Ukraine&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+                          alt="Map showing Czech Republic and Ukraine"
+                          className="w-full h-40 object-cover"
+                          onError={(e) => {
+                            // Fallback to OpenStreetMap static image if Google fails
+                            (e.target as HTMLImageElement).src = "https://static-maps.yandex.ru/1.x/?lang=en_US&ll=25,50&z=4&l=map&size=288,160";
+                          }}
+                        />
+                        <div className={`p-3 ${isPony ? "bg-card" : "bg-card border-t border-primary/20"}`}>
+                          <p className="font-mono text-[10px] text-muted-foreground">
+                            {isPony ? "🇨🇿 Czech Republic • 🇺🇦 Ukraine" : "CZ // UA"}
+                          </p>
+                          <p className="font-mono text-[9px] text-primary mt-1">
+                            {isPony ? "Click to open in Google Maps" : "CLICK_TO_OPEN_MAPS"}
+                          </p>
+                        </div>
+                      </HoverCardContent>
+                    </HoverCard>
+                  </div>
+                </motion.div>
               </motion.div>
 
               <motion.form
