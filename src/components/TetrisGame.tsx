@@ -237,6 +237,57 @@ const TetrisGame = ({ isOpen, onClose }: TetrisGameProps) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, currentPiece, board, isPaused, gameOver, isValidMove, rotatePiece]);
 
+  // Touch/swipe gesture handling
+  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY, time: Date.now() };
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartRef.current || !currentPiece || isPaused || gameOver) return;
+    
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStartRef.current.x;
+    const deltaY = touch.clientY - touchStartRef.current.y;
+    const duration = Date.now() - touchStartRef.current.time;
+    const minSwipe = 30;
+    
+    let newPiece = { ...currentPiece };
+    
+    // Quick tap = rotate
+    if (Math.abs(deltaX) < 15 && Math.abs(deltaY) < 15 && duration < 200) {
+      newPiece = rotatePiece(currentPiece);
+    } else if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Horizontal swipe
+      if (deltaX > minSwipe) {
+        newPiece.x += 1;
+      } else if (deltaX < -minSwipe) {
+        newPiece.x -= 1;
+      }
+    } else {
+      // Vertical swipe
+      if (deltaY > minSwipe) {
+        // Swipe down - drop piece
+        while (isValidMove({ ...newPiece, y: newPiece.y + 1 }, board)) {
+          newPiece.y += 1;
+        }
+      } else if (deltaY < -minSwipe) {
+        // Swipe up - hard drop
+        while (isValidMove({ ...newPiece, y: newPiece.y + 1 }, board)) {
+          newPiece.y += 1;
+        }
+      }
+    }
+    
+    if (isValidMove(newPiece, board)) {
+      setCurrentPiece(newPiece);
+    }
+    
+    touchStartRef.current = null;
+  };
+
   if (!isOpen) return null;
 
   const displayBoard = currentPiece ? placePiece(currentPiece, board) : board;

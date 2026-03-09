@@ -149,6 +149,47 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
+  // Touch/swipe gesture handling
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartRef.current || !isPlaying || gameOver) return;
+    
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStartRef.current.x;
+    const deltaY = touch.clientY - touchStartRef.current.y;
+    const minSwipe = 30;
+    
+    const currentDir = directionRef.current;
+    
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Horizontal swipe
+      if (deltaX > minSwipe && currentDir !== "LEFT") {
+        directionRef.current = "RIGHT";
+        setDirection("RIGHT");
+      } else if (deltaX < -minSwipe && currentDir !== "RIGHT") {
+        directionRef.current = "LEFT";
+        setDirection("LEFT");
+      }
+    } else {
+      // Vertical swipe
+      if (deltaY > minSwipe && currentDir !== "UP") {
+        directionRef.current = "DOWN";
+        setDirection("DOWN");
+      } else if (deltaY < -minSwipe && currentDir !== "DOWN") {
+        directionRef.current = "UP";
+        setDirection("UP");
+      }
+    }
+    
+    touchStartRef.current = null;
+  };
+
   if (!isOpen) return null;
 
   return (
