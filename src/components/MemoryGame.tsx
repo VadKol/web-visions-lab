@@ -32,7 +32,13 @@ const MemoryGame = ({ isOpen, onClose }: MemoryGameProps) => {
   const [showStats, setShowStats] = useState(false);
 
   useEffect(() => {
-    setStats(getGameStats("memory"));
+    if (isOpen) {
+      setStats(getGameStats("memory"));
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   const initGame = useCallback(() => {
@@ -124,86 +130,91 @@ const MemoryGame = ({ isOpen, onClose }: MemoryGameProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-sm p-4"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm p-4 overflow-hidden"
       >
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className={`relative w-full max-w-md ${isPony ? "bg-card rounded-3xl border-2 border-primary/30" : "cyber-border bg-card"} p-6`}
+          className={`relative w-full max-w-sm ${isPony ? "bg-card rounded-3xl border-2 border-primary/30" : "cyber-border bg-card"} p-4`}
         >
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold text-primary">
-              {isPony ? "🃏 Memory Cards" : "MEMORY.EXE"}
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-xl font-bold text-primary">
+              {isPony ? "🃏 Memory" : "MEMORY.EXE"}
             </h2>
             <div className="flex items-center gap-2">
+              <button
+                onClick={initGame}
+                className="text-muted-foreground hover:text-primary transition-colors"
+                title="Restart"
+              >
+                <RotateCcw size={18} />
+              </button>
               <button
                 onClick={() => setShowStats(!showStats)}
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                <BarChart3 size={20} />
+                <BarChart3 size={18} />
               </button>
               <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
-                <X size={24} />
+                <X size={20} />
               </button>
             </div>
           </div>
 
           {showStats && stats ? (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`mb-4 p-4 ${isPony ? "bg-primary/5 rounded-xl" : "cyber-border-sm bg-background/30"}`}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className={`mb-3 p-3 ${isPony ? "bg-primary/5 rounded-xl" : "cyber-border-sm bg-background/30"}`}
             >
-              <h3 className="font-mono text-xs text-secondary mb-3">📊 YOUR STATS</h3>
-              <div className="grid grid-cols-4 gap-3 text-center">
+              <div className="grid grid-cols-4 gap-2 text-center">
                 <div>
-                  <p className="text-xl font-bold text-primary">{stats.gamesPlayed}</p>
-                  <p className="text-[10px] text-muted-foreground">Games</p>
+                  <p className="text-lg font-bold text-primary">{stats.gamesPlayed}</p>
+                  <p className="text-[9px] text-muted-foreground">Games</p>
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-secondary">{stats.wins || 0}</p>
-                  <p className="text-[10px] text-muted-foreground">Wins</p>
+                  <p className="text-lg font-bold text-secondary">{stats.wins || 0}</p>
+                  <p className="text-[9px] text-muted-foreground">Wins</p>
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-foreground">
+                  <p className="text-lg font-bold text-foreground">
                     {stats.bestTime ? formatTime(stats.bestTime) : "-"}
                   </p>
-                  <p className="text-[10px] text-muted-foreground">Best Time</p>
+                  <p className="text-[9px] text-muted-foreground">Best</p>
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-foreground">
+                  <p className="text-lg font-bold text-foreground">
                     {stats.gamesPlayed ? Math.round((stats.totalTime || 0) / stats.gamesPlayed) : 0}s
                   </p>
-                  <p className="text-[10px] text-muted-foreground">Avg Time</p>
+                  <p className="text-[9px] text-muted-foreground">Avg</p>
                 </div>
               </div>
             </motion.div>
           ) : null}
 
-          <div className="flex justify-center gap-4 font-mono text-sm mb-4">
+          <div className="flex justify-center gap-4 font-mono text-xs mb-3">
             <span className="flex items-center gap-1">
-              <Clock size={14} className="text-primary" />
+              <Clock size={12} className="text-primary" />
               <span className="text-foreground">{formatTimeDisplay(timer)}</span>
             </span>
-            <span className="text-foreground">Moves: <span className="text-primary">{moves}</span></span>
-            {stats?.bestTime && <span className="text-muted-foreground">Best: {formatTimeDisplay(stats.bestTime)}</span>}
+            <span className="text-foreground">Moves: <span className="text-primary font-bold">{moves}</span></span>
           </div>
 
           {!isPlaying && !gameWon ? (
-            <div className="flex flex-col items-center py-12">
-              <Button onClick={initGame} size="lg">Start Game</Button>
+            <div className="flex flex-col items-center py-8">
+              <Button onClick={initGame} size="sm">Start Game</Button>
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-4 gap-2 mb-4">
+              <div className="grid grid-cols-4 gap-2 mb-3">
                 {cards.map((card) => (
                   <motion.button
                     key={card.id}
                     onClick={() => handleCardClick(card.id)}
-                    className={`aspect-square text-2xl flex items-center justify-center transition-all ${
+                    className={`aspect-square text-xl flex items-center justify-center transition-all ${
                       isPony 
-                        ? "rounded-xl border-2" 
+                        ? "rounded-lg border-2" 
                         : "cyber-border-sm"
                     } ${
                       card.isFlipped || card.isMatched
@@ -229,15 +240,15 @@ const MemoryGame = ({ isOpen, onClose }: MemoryGameProps) => {
 
               {gameWon && (
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-center py-4"
+                  className="text-center py-3"
                 >
-                  <Trophy className="w-12 h-12 text-secondary mx-auto mb-2" />
-                  <p className="text-xl font-bold text-foreground mb-1">You Won!</p>
-                  <p className="text-muted-foreground mb-4">Time: {formatTimeDisplay(timer)} | Moves: {moves}</p>
-                  <Button onClick={initGame} className="gap-2">
-                    <RotateCcw size={16} /> Play Again
+                  <Trophy className="w-8 h-8 text-secondary mx-auto mb-1" />
+                  <p className="text-lg font-bold text-foreground">You Won!</p>
+                  <p className="text-xs text-muted-foreground mb-3">{formatTimeDisplay(timer)} | {moves} moves</p>
+                  <Button onClick={initGame} size="sm" className="gap-2">
+                    <RotateCcw size={14} /> Again
                   </Button>
                 </motion.div>
               )}
