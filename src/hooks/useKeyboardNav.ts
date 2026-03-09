@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const routes = ["/", "/about", "/projects", "/blog", "/minigames", "/contact"];
+const routes = ["/", "/about", "/projects", "/minigames", "/blog", "/contact"];
 
 const useKeyboardNav = () => {
   const navigate = useNavigate();
