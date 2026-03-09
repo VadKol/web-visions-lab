@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, MapPin, Send, ExternalLink } from "lucide-react";
+import { Mail, Github, Linkedin, MapPin, Send, ExternalLink, MessageCircle } from "lucide-react";
 import { personal } from "@/data/portfolio";
 import PageTransition from "@/components/PageTransition";
 import Parallax from "@/components/Parallax";
@@ -25,6 +25,7 @@ const Contact = () => {
     { icon: Mail, label: "EMAIL", value: personal.email, href: `mailto:${personal.email}` },
     { icon: Github, label: "GITHUB", value: personal.githubLabel, href: personal.github },
     { icon: Linkedin, label: "LINKEDIN", value: personal.linkedinLabel, href: personal.linkedin },
+    { icon: MessageCircle, label: "TELEGRAM", value: personal.telegramLabel, href: personal.telegram },
   ];
 
   return (
