@@ -183,15 +183,46 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
       )}
 
       {isPony && (
-        <motion.div
-          className="absolute inset-[-4px] z-0 rounded-full"
-          style={{
-            background: `conic-gradient(from 0deg, hsl(var(--neon-primary) / 0.5), hsl(var(--neon-secondary) / 0.5), hsl(var(--neon-accent) / 0.5), hsl(var(--neon-primary) / 0.5))`,
-            filter: "blur(4px)",
-          }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-        />
+        <>
+          {/* Outer shimmer ring */}
+          <motion.div
+            className="absolute inset-[-8px] z-0 rounded-full"
+            style={{
+              background: `conic-gradient(from 0deg, hsl(var(--neon-primary) / 0.8), hsl(var(--neon-secondary) / 0.8), hsl(var(--neon-accent) / 0.8), hsl(330 90% 70% / 0.8), hsl(var(--neon-primary) / 0.8))`,
+              filter: "blur(6px)",
+            }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+          />
+          {/* Inner rotating border */}
+          <motion.div
+            className="absolute inset-[-4px] z-0 rounded-full"
+            style={{
+              background: `conic-gradient(from 180deg, hsl(var(--neon-primary)), hsl(var(--neon-secondary)), hsl(var(--neon-accent)), hsl(280 80% 70%), hsl(var(--neon-primary)))`,
+              filter: "blur(2px)",
+            }}
+            animate={{ rotate: -360, scale: [1, 1.02, 1] }}
+            transition={{ 
+              rotate: { duration: 4, repeat: Infinity, ease: "linear" },
+              scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+            }}
+          />
+          {/* Sparkle pulse */}
+          <motion.div
+            className="absolute inset-[-6px] z-0 rounded-full"
+            style={{
+              background: `radial-gradient(circle at 30% 30%, hsl(var(--neon-primary) / 0.6) 0%, transparent 50%), radial-gradient(circle at 70% 70%, hsl(var(--neon-secondary) / 0.6) 0%, transparent 50%)`,
+            }}
+            animate={{ 
+              opacity: [0.5, 1, 0.5],
+              rotate: 180 
+            }}
+            transition={{ 
+              opacity: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
+              rotate: { duration: 6, repeat: Infinity, ease: "linear" }
+            }}
+          />
+        </>
       )}
 
       <div className={`${sizeMap[size]} overflow-hidden relative z-10 ${containerClass} box-glow`}>
