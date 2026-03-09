@@ -25,7 +25,7 @@ const Contact = () => {
     { icon: Mail, label: "EMAIL", value: personal.email, href: `mailto:${personal.email}` },
     { icon: Github, label: "GITHUB", value: personal.githubLabel, href: personal.github },
     { icon: Linkedin, label: "LINKEDIN", value: personal.linkedinLabel, href: personal.linkedin },
-    { icon: MessageCircle, label: "TELEGRAM", value: "@vadymkolomiiets", href: personal.telegram },
+    { icon: MessageCircle, label: "TELEGRAM", value: personal.telegramLabel, href: personal.telegram },
   ];
 
   return (
