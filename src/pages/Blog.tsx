@@ -324,11 +324,13 @@ const Blog = () => {
                       >
                         {article.cover_image && (
                           <div className={`mb-4 overflow-hidden ${isPony ? "rounded-xl" : ""}`}>
-                            <img
+                           <img
                               src={article.cover_image}
-                              alt={article.title}
+                              alt={`Cover image for article: ${article.title}`}
                               className="w-full h-32 object-cover transition-transform group-hover:scale-105"
                               loading="lazy"
+                              width={400}
+                              height={128}
                             />
                           </div>
                         )}
