@@ -161,7 +161,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-2 tracking-wider ${isPony ? "text-primary" : "text-primary text-glow"}`}
+            className={`text-6xl md:text-8xl lg:text-9xl font-bold mb-2 tracking-wider ${isPony ? "text-primary" : "text-primary text-glow"}`}
           >
             <HeroText>{isPony ? "Vadym ✨" : "VADYM"}</HeroText>
           </motion.div>
