@@ -50,8 +50,8 @@ const Navbar = () => {
 
   return (
     <>
-      <motion.nav
-        role="navigation"
+      <motion.header
+        role="banner"
         aria-label="Main navigation"
         initial={{ y: -80 }}
         animate={{ y: 0 }}
