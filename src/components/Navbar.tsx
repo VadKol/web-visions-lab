@@ -88,7 +88,7 @@ const Navbar = () => {
                 </Link>
               </motion.div>
             ))}
-          </div>
+          </nav>
           <Link
             to="/contact"
             className={`hidden md:inline-flex font-mono text-xs tracking-wider px-5 py-2 transition-colors ${isPony ? "bg-primary text-primary-foreground rounded-full hover:opacity-90" : "cyber-border-sm bg-primary/5 text-primary hover:bg-primary/15 box-glow"}`}
