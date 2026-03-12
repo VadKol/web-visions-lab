@@ -46,7 +46,7 @@ const Projects = () => {
             <div className="mt-16 space-y-12">
               {currentProjects.map((project, i) => (
                 <TiltCard key={project.title}>
-                  <motion.div
+                  <motion.article
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
