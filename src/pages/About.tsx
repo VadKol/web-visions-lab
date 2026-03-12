@@ -32,6 +32,7 @@ const About = () => {
                   <span className="text-primary text-glow">{isPony ? "About " : "ABOUT "}</span>
                   <span className="text-foreground">{isPony ? "Me 💖" : "ME"}</span>
                 </h1>
+                <p className="sr-only">Learn about Vadym Kolomiiets, a frontend developer specializing in React and TypeScript.</p>
               </motion.div>
             </Parallax>
 

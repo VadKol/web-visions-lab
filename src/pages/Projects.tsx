@@ -35,7 +35,7 @@ const Projects = () => {
                 </p>
                 <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-wider">
                   <span className="text-primary text-glow">{isPony ? "Featured " : "FEATURED "}</span>
-                  <span className="text-foreground">{isPony ? "Projects ✨" : "WORK"}</span>
+                  <span className="text-foreground">{isPony ? "Projects ✨" : "PROJECTS"}</span>
                 </h1>
                 <p className="text-muted-foreground text-lg max-w-2xl font-body">
                   A selection of projects I've built. Each one represents a unique challenge.
@@ -46,7 +46,7 @@ const Projects = () => {
             <div className="mt-16 space-y-12">
               {currentProjects.map((project, i) => (
                 <TiltCard key={project.title}>
-                  <motion.div
+                  <motion.article
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -59,9 +59,12 @@ const Projects = () => {
                   >
                     <img
                       src={project.image}
-                      alt={project.title}
+                      alt={`Screenshot of ${project.title} project`}
+                      title={project.title}
                       loading="lazy"
                       decoding="async"
+                      width={640}
+                      height={360}
                       className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${isPony ? "" : "grayscale group-hover:grayscale-0"}`}
                     />
                     {!isPony && <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500" />}
@@ -124,7 +127,7 @@ const Projects = () => {
                       </button>
                     </div>
                   </div>
-                  </motion.div>
+                  </motion.article>
                 </TiltCard>
               ))}
             </div>

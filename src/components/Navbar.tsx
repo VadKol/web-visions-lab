@@ -50,8 +50,8 @@ const Navbar = () => {
 
   return (
     <>
-      <motion.nav
-        role="navigation"
+      <motion.header
+        role="banner"
         aria-label="Main navigation"
         initial={{ y: -80 }}
         animate={{ y: 0 }}
@@ -64,7 +64,7 @@ const Navbar = () => {
           <Link to="/" aria-label="Home — Vadym Kolomiiets" className={`font-display text-sm font-bold text-primary tracking-widest ${isPony ? "" : "text-glow"}`}>
             {isPony ? "✨ VAD KOL" : "VAD_KOL://DEV"}
           </Link>
-          <div className="hidden md:flex items-center gap-8">
+          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8">
             {navLinks.map((link, i) => (
               <motion.div
                 key={link.href}
@@ -88,7 +88,7 @@ const Navbar = () => {
                 </Link>
               </motion.div>
             ))}
-          </div>
+          </nav>
           <Link
             to="/contact"
             className={`hidden md:inline-flex font-mono text-xs tracking-wider px-5 py-2 transition-colors ${isPony ? "bg-primary text-primary-foreground rounded-full hover:opacity-90" : "cyber-border-sm bg-primary/5 text-primary hover:bg-primary/15 box-glow"}`}
@@ -105,7 +105,7 @@ const Navbar = () => {
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-      </motion.nav>
+      </motion.header>
 
       <AnimatePresence>
         {mobileOpen && (

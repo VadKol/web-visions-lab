@@ -324,11 +324,13 @@ const Blog = () => {
                       >
                         {article.cover_image && (
                           <div className={`mb-4 overflow-hidden ${isPony ? "rounded-xl" : ""}`}>
-                            <img
+                           <img
                               src={article.cover_image}
-                              alt={article.title}
+                              alt={`Cover image for article: ${article.title}`}
                               className="w-full h-32 object-cover transition-transform group-hover:scale-105"
                               loading="lazy"
+                              width={400}
+                              height={128}
                             />
                           </div>
                         )}
@@ -336,8 +338,11 @@ const Blog = () => {
                         <div className="flex items-center gap-2 mb-3">
                           <img
                             src={article.user.profile_image}
-                            alt={article.user.name}
+                            alt={`Profile photo of ${article.user.name}`}
                             className={`w-6 h-6 ${isPony ? "rounded-full" : ""}`}
+                            loading="lazy"
+                            width={24}
+                            height={24}
                           />
                           <span className="font-mono text-[10px] text-muted-foreground truncate">
                             {article.user.name}

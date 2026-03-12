@@ -69,7 +69,7 @@ const Home = () => {
             className="absolute inset-0"
           >
             <motion.div style={{ y: bgY }} className={`absolute inset-0 ${isPony ? "opacity-60" : "opacity-30"}`}>
-              <img src={isPony ? heroBgPony : heroBg} alt="" className="w-full h-full object-cover scale-110" />
+              <img src={isPony ? heroBgPony : heroBg} alt="Cyberpunk themed frontend developer portfolio background" loading="lazy" width={1920} height={1080} className="w-full h-full object-cover scale-110" />
             </motion.div>
           </Parallax3DLayer>
           
@@ -155,22 +155,25 @@ const Home = () => {
             </div>
           </motion.div>
 
-          <motion.h1
+          <h1 className="sr-only">Vadym Kolomiiets – Frontend Developer</h1>
+          <motion.div
+            aria-hidden="true"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-2 tracking-wider ${isPony ? "text-primary" : "text-primary text-glow"}`}
           >
             <HeroText>{isPony ? "Vadym ✨" : "VADYM"}</HeroText>
-          </motion.h1>
-          <motion.h1
+          </motion.div>
+          <motion.div
+            aria-hidden="true"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
             className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-wider ${isPony ? "text-secondary" : "text-secondary text-glow-secondary"}`}
           >
             <HeroText>{isPony ? "Kolomiiets 🦄" : "KOLOMIIETS"}</HeroText>
-          </motion.h1>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -258,8 +261,8 @@ const Home = () => {
                 {isPony ? "✨ What I do" : "> SERVICES.LIST"}
               </p>
               <h2 className="text-3xl md:text-4xl font-bold tracking-wider">
-                <span className="text-primary text-glow">{isPony ? "My " : "DIGITAL "}</span>
-                <span className="text-foreground">{isPony ? "Superpowers 💪" : "ARSENAL"}</span>
+                <span className="text-primary text-glow">{isPony ? "My " : "WHAT I "}</span>
+                <span className="text-foreground">{isPony ? "Superpowers 💪" : "DO"}</span>
               </h2>
             </motion.div>
           </Parallax>
