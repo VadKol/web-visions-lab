@@ -69,7 +69,7 @@ const Home = () => {
             className="absolute inset-0"
           >
             <motion.div style={{ y: bgY }} className={`absolute inset-0 ${isPony ? "opacity-60" : "opacity-30"}`}>
-              <img src={isPony ? heroBgPony : heroBg} alt="" className="w-full h-full object-cover scale-110" />
+              <img src={isPony ? heroBgPony : heroBg} alt="Cyberpunk themed frontend developer portfolio background" loading="lazy" width={1920} height={1080} className="w-full h-full object-cover scale-110" />
             </motion.div>
           </Parallax3DLayer>
           
