@@ -338,8 +338,11 @@ const Blog = () => {
                         <div className="flex items-center gap-2 mb-3">
                           <img
                             src={article.user.profile_image}
-                            alt={article.user.name}
+                            alt={`Profile photo of ${article.user.name}`}
                             className={`w-6 h-6 ${isPony ? "rounded-full" : ""}`}
+                            loading="lazy"
+                            width={24}
+                            height={24}
                           />
                           <span className="font-mono text-[10px] text-muted-foreground truncate">
                             {article.user.name}

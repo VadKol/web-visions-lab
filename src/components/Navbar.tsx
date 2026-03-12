@@ -105,7 +105,7 @@ const Navbar = () => {
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-      </motion.nav>
+      </motion.header>
 
       <AnimatePresence>
         {mobileOpen && (

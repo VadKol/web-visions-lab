@@ -228,7 +228,11 @@ const ThemedAvatar = ({ size = "sm", className = "" }: ThemedAvatarProps) => {
       <div className={`${sizeMap[size]} overflow-hidden relative z-10 ${containerClass} box-glow`}>
         <img
           src={src}
-          alt="Vadym Kolomiiets"
+          alt="Vadym Kolomiiets frontend developer portrait"
+          title="Vadym Kolomiiets"
+          loading="lazy"
+          width={288}
+          height={288}
           className={`w-full h-full object-cover ${!isPony ? "grayscale group-hover:grayscale-0" : ""} transition-all duration-700`}
         />
         {!isPony && (

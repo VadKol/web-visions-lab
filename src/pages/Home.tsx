@@ -261,8 +261,8 @@ const Home = () => {
                 {isPony ? "✨ What I do" : "> SERVICES.LIST"}
               </p>
               <h2 className="text-3xl md:text-4xl font-bold tracking-wider">
-                <span className="text-primary text-glow">{isPony ? "My " : "DIGITAL "}</span>
-                <span className="text-foreground">{isPony ? "Superpowers 💪" : "ARSENAL"}</span>
+                <span className="text-primary text-glow">{isPony ? "My " : "WHAT I "}</span>
+                <span className="text-foreground">{isPony ? "Superpowers 💪" : "DO"}</span>
               </h2>
             </motion.div>
           </Parallax>

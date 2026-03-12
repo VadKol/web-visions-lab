@@ -182,7 +182,10 @@ const Contact = () => {
                       <HoverCardContent className={`w-72 p-0 overflow-hidden ${isPony ? "rounded-xl" : ""}`}>
                         <img
                           src="https://maps.googleapis.com/maps/api/staticmap?center=Pardubice,Czech+Republic&zoom=12&size=288x160&scale=2&style=feature:all|element:labels|visibility:on&style=feature:all|element:geometry|color:0x242424&style=feature:water|element:geometry|color:0x17263c&markers=color:cyan|Pardubice,Czech+Republic&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
-                          alt="Map showing Pardubice, Czech Republic"
+                          alt="Map showing Vadym Kolomiiets location in Pardubice, Czech Republic"
+                          loading="lazy"
+                          width={288}
+                          height={160}
                           className="w-full h-40 object-cover"
                           onError={(e) => {
                             // Fallback to Google Maps embed image
