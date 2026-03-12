@@ -35,7 +35,7 @@ const Projects = () => {
                 </p>
                 <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-wider">
                   <span className="text-primary text-glow">{isPony ? "Featured " : "FEATURED "}</span>
-                  <span className="text-foreground">{isPony ? "Projects ✨" : "WORK"}</span>
+                  <span className="text-foreground">{isPony ? "Projects ✨" : "PROJECTS"}</span>
                 </h1>
                 <p className="text-muted-foreground text-lg max-w-2xl font-body">
                   A selection of projects I've built. Each one represents a unique challenge.
