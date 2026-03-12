@@ -64,7 +64,7 @@ const Navbar = () => {
           <Link to="/" aria-label="Home — Vadym Kolomiiets" className={`font-display text-sm font-bold text-primary tracking-widest ${isPony ? "" : "text-glow"}`}>
             {isPony ? "✨ VAD KOL" : "VAD_KOL://DEV"}
           </Link>
-          <div className="hidden md:flex items-center gap-8">
+          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8">
             {navLinks.map((link, i) => (
               <motion.div
                 key={link.href}
