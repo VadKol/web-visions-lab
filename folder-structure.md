@@ -9,13 +9,20 @@ web-visions-lab
 │   ├── favicon-green.png [10.04 KB]
 │   ├── favicon-orange.png [10.45 KB]
 │   ├── favicon-pony.png [14.32 KB]
-│   ├── favicon.ico [19.90 KB]
 │   ├── favicon.png [27.74 KB]
 │   ├── og-image.png [84.95 KB]
 │   ├── placeholder.svg [3.18 KB]
 │   ├── robots.txt [210 bytes]
 │   └── sitemap.xml [638 bytes]
 ├── src/
+│   ├── app/
+│   │   ├── providers/
+│   │   │   └── LazyLoadProviders.tsx [534 bytes]
+│   │   ├── router/
+│   │   │   └── routes.tsx [557 bytes]
+│   │   ├── App.css [606 bytes]
+│   │   ├── App.tsx [3.91 KB]
+│   │   └── RootLayout.tsx [0 bytes]
 │   ├── assets/
 │   │   ├── avatar-cyber.jpg [1.62 MB]
 │   │   ├── avatar-inferno.jpg [1.57 MB]
@@ -117,6 +124,7 @@ web-visions-lab
 │   │   ├── use-toast.ts [3.84 KB]
 │   │   ├── use3DParallax.ts [2.96 KB]
 │   │   └── useKeyboardNav.ts [978 bytes]
+│   ├── layout/
 │   ├── lib/
 │   │   ├── favorites.ts [1.22 KB]
 │   │   ├── gameStats.ts [2.25 KB]
@@ -133,12 +141,10 @@ web-visions-lab
 │   ├── test/
 │   │   ├── example.test.ts [143 bytes]
 │   │   └── setup.ts [353 bytes]
-│   ├── App.css [606 bytes]
-│   ├── App.tsx [4.08 KB]
 │   ├── index.css [7.23 KB]
-│   ├── main.tsx [161 bytes]
+│   ├── main.tsx [165 bytes]
 │   └── vite-env.d.ts [38 bytes]
-├── README.md [2.05 KB]
+├── README.md [2.64 KB]
 ├── bun.lock [187.46 KB]
 ├── bun.lockb [239.64 KB]
 ├── components.json [414 bytes]
@@ -160,8 +166,8 @@ web-visions-lab
 
 ```plaintext
 Root Folder: web-visions-lab
-Total Folders: 12
-Total Files: 139
+Total Folders: 16
+Total Files: 141
 File Types:
   - .lock Files: 1
   - .lockb Files: 1
@@ -171,17 +177,16 @@ File Types:
   - .md Files: 1
   - .ts Files: 15
   - .png Files: 7
-  - .ico Files: 1
   - .svg Files: 1
   - .txt Files: 1
   - .xml Files: 1
   - .pdf Files: 1
   - .css Files: 2
-  - .tsx Files: 88
+  - .tsx Files: 91
   - .jpg Files: 10
 Largest File: avatar-matrix.jpg [1.73 MB]
-Smallest File: vite-env.d.ts [38 bytes]
-Total Project Size: 8.25 MB
+Smallest File: RootLayout.tsx [0 bytes]
+Total Project Size: 8.23 MB
 Ignored Files and Folders:
-  - None
+  - node_modules
 ```

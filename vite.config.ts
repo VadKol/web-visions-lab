@@ -19,14 +19,14 @@ export default defineConfig(({ mode }) => ({
     react(),
     mode === "development" && componentTagger(),
     // SSG: uncomment below after installing vite-plugin-prerender
-  //   mode === "production" &&
-  //     vitePrerender({
-  //       staticDir: path.resolve(__dirname, "dist"),
-  //       routes: ["/", "/about", "/projects", "/contact"],
-  //       renderer: new (await import("@prerenderer/renderer-puppeteer")).default({
-  //         renderAfterTime: 3000,
-  //       }),
-  //     }),
+    // mode === "production" &&
+    //   vitePrerender({
+    //     staticDir: path.resolve(__dirname, "dist"),
+    //     routes: ["/", "/about", "/projects", "/contact"],
+    //     renderer: new (await import("@prerenderer/renderer-puppeteer")).default({
+    //       renderAfterTime: 3000,
+    //     }),
+    //   }),
   ].filter(Boolean),
   resolve: {
     alias: {
