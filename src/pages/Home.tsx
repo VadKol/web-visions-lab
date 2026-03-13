@@ -12,6 +12,7 @@ import HeroText from "@/components/features/HeroText";
 import TerminalTyping from "@/components/features/TerminalTyping";
 import TypingRoles from "@/components/features/TypingRoles";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { personal, bio, services } from "@/data/portfolio";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroBgPony from "@/assets/hero-bg-pony.jpg";
@@ -38,22 +39,23 @@ const getGreeting = (isPony: boolean): string => {
 const Home = () => {
   const heroRef = useRef<HTMLElement>(null);
   const { isPony } = useTheme();
+  const isMobile = useIsMobile();
   const greeting = useMemo(() => getGreeting(isPony), [isPony]);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const bgY = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : 150]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : -50]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, isMobile ? 1 : 0]);
 
   // 3D Parallax effect
   const { rotateX, rotateY, mouseX, mouseY } = use3DParallax(1.2);
 
   // Multi-layer parallax layers
-  const layer1Y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const layer2Y = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const layer3Y = useTransform(scrollYProgress, [0, 1], [0, 50]);
+  const layer1Y = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : 200]);
+  const layer2Y = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : 100]);
+  const layer3Y = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : 50]);
 
   return (
     <PageTransition>
