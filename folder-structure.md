@@ -9,13 +9,21 @@ web-visions-lab
 │   ├── favicon-green.png [10.04 KB]
 │   ├── favicon-orange.png [10.45 KB]
 │   ├── favicon-pony.png [14.32 KB]
-│   ├── favicon.ico [19.90 KB]
 │   ├── favicon.png [27.74 KB]
 │   ├── og-image.png [84.95 KB]
 │   ├── placeholder.svg [3.18 KB]
 │   ├── robots.txt [210 bytes]
 │   └── sitemap.xml [638 bytes]
 ├── src/
+│   ├── app/
+│   │   ├── providers/
+│   │   │   └── LazyLoadProviders.tsx [534 bytes]
+│   │   ├── router/
+│   │   │   ├── AnimatedRoutes.tsx [575 bytes]
+│   │   │   └── routes.tsx [594 bytes]
+│   │   ├── App.css [606 bytes]
+│   │   ├── App.tsx [1.66 KB]
+│   │   └── RootLayout.tsx [1.22 KB]
 │   ├── assets/
 │   │   ├── avatar-cyber.jpg [1.62 MB]
 │   │   ├── avatar-inferno.jpg [1.57 MB]
@@ -28,6 +36,22 @@ web-visions-lab
 │   │   ├── project-taskapp.jpg [140.16 KB]
 │   │   └── project-weather.jpg [96.86 KB]
 │   ├── components/
+│   │   ├── features/
+│   │   │   ├── CommandPalette.tsx [8.31 KB]
+│   │   │   ├── CursorTrail.tsx [2.46 KB]
+│   │   │   ├── CyberRain.tsx [2.26 KB]
+│   │   │   ├── GlitchText.tsx [1.81 KB]
+│   │   │   ├── HeroText.tsx [5.67 KB]
+│   │   │   └── KonamiEasterEgg.tsx [3.06 KB]
+│   │   ├── games/
+│   │   │   ├── MemoryGame.tsx [9.42 KB]
+│   │   │   ├── SnakeGame.tsx [11.82 KB]
+│   │   │   ├── TetrisGame.tsx [15.71 KB]
+│   │   │   └── TypingGame.tsx [10.22 KB]
+│   │   ├── layouts/
+│   │   │   ├── Footer.tsx [2.04 KB]
+│   │   │   ├── Navbar.tsx [5.64 KB]
+│   │   │   └── PageLoader.tsx [2.16 KB]
 │   │   ├── ui/
 │   │   │   ├── accordion.tsx [1.93 KB]
 │   │   │   ├── alert-dialog.tsx [4.21 KB]
@@ -78,32 +102,19 @@ web-visions-lab
 │   │   │   ├── toggle.tsx [1.38 KB]
 │   │   │   ├── tooltip.tsx [1.13 KB]
 │   │   │   └── use-toast.ts [82 bytes]
-│   │   ├── CommandPalette.tsx [8.31 KB]
-│   │   ├── CursorTrail.tsx [2.46 KB]
-│   │   ├── CyberRain.tsx [2.26 KB]
-│   │   ├── Footer.tsx [2.04 KB]
-│   │   ├── GlitchText.tsx [1.81 KB]
-│   │   ├── HeroText.tsx [5.67 KB]
-│   │   ├── KonamiEasterEgg.tsx [3.06 KB]
-│   │   ├── MemoryGame.tsx [9.42 KB]
 │   │   ├── MorphTransition.tsx [2.67 KB]
 │   │   ├── NavLink.tsx [751 bytes]
-│   │   ├── Navbar.tsx [5.64 KB]
-│   │   ├── PageLoader.tsx [2.16 KB]
 │   │   ├── PageTransition.tsx [1.58 KB]
 │   │   ├── Parallax.tsx [750 bytes]
 │   │   ├── Parallax3DScene.tsx [1.32 KB]
 │   │   ├── PixelText.tsx [1.70 KB]
 │   │   ├── ScrollProgressBar.tsx [700 bytes]
 │   │   ├── ScrollToTop.tsx [1.13 KB]
-│   │   ├── SnakeGame.tsx [11.87 KB]
 │   │   ├── SoundToggle.tsx [717 bytes]
 │   │   ├── TerminalTyping.tsx [2.54 KB]
-│   │   ├── TetrisGame.tsx [15.71 KB]
 │   │   ├── ThemeSwitcher.tsx [5.08 KB]
 │   │   ├── ThemedAvatar.tsx [9.84 KB]
 │   │   ├── TiltCard.tsx [1.63 KB]
-│   │   ├── TypingGame.tsx [10.22 KB]
 │   │   └── TypingRoles.tsx [1.92 KB]
 │   ├── config/
 │   │   └── endpoints.ts [89 bytes]
@@ -125,24 +136,23 @@ web-visions-lab
 │   │   ├── About.tsx [15.34 KB]
 │   │   ├── Blog.tsx [17.10 KB]
 │   │   ├── Contact.tsx [13.31 KB]
-│   │   ├── Home.tsx [14.14 KB]
+│   │   ├── Home.tsx [14.15 KB]
 │   │   ├── Index.tsx [164 bytes]
-│   │   ├── Minigames.tsx [4.74 KB]
+│   │   ├── Minigames.tsx [4.76 KB]
 │   │   ├── NotFound.tsx [6.32 KB]
 │   │   └── Projects.tsx [11.67 KB]
 │   ├── test/
 │   │   ├── example.test.ts [143 bytes]
 │   │   └── setup.ts [353 bytes]
-│   ├── App.css [606 bytes]
-│   ├── App.tsx [4.08 KB]
 │   ├── index.css [7.23 KB]
-│   ├── main.tsx [161 bytes]
+│   ├── main.tsx [165 bytes]
 │   └── vite-env.d.ts [38 bytes]
-├── README.md [2.05 KB]
+├── README.md [2.64 KB]
 ├── bun.lock [187.46 KB]
 ├── bun.lockb [239.64 KB]
 ├── components.json [414 bytes]
 ├── eslint.config.js [765 bytes]
+├── folder-structure.md [7.45 KB]
 ├── index.html [3.65 KB]
 ├── package-lock.json [369.23 KB]
 ├── package.json [2.90 KB]
@@ -160,28 +170,27 @@ web-visions-lab
 
 ```plaintext
 Root Folder: web-visions-lab
-Total Folders: 12
-Total Files: 139
+Total Folders: 18
+Total Files: 143
 File Types:
   - .lock Files: 1
   - .lockb Files: 1
   - .json Files: 6
   - .js Files: 2
+  - .md Files: 2
   - .html Files: 1
-  - .md Files: 1
   - .ts Files: 15
   - .png Files: 7
-  - .ico Files: 1
   - .svg Files: 1
   - .txt Files: 1
   - .xml Files: 1
   - .pdf Files: 1
   - .css Files: 2
-  - .tsx Files: 88
+  - .tsx Files: 92
   - .jpg Files: 10
 Largest File: avatar-matrix.jpg [1.73 MB]
 Smallest File: vite-env.d.ts [38 bytes]
-Total Project Size: 8.25 MB
+Total Project Size: 8.23 MB
 Ignored Files and Folders:
-  - None
+  - node_modules
 ```

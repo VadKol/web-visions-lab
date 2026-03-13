@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Rss, ExternalLink, Clock, RefreshCw, Heart, Bookmark } from "lucide-react";
-import PageTransition from "@/components/PageTransition";
-import Parallax from "@/components/Parallax";
+import PageTransition from "@/components/shared/PageTransition";
+import Parallax from "@/components/features/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
 import { getFavorites, addFavorite, removeFavorite, isFavorite, FavoriteArticle } from "@/lib/favorites";
 

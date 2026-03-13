@@ -6,8 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { personal } from "@/data/portfolio";
 import { ENDPOINTS } from "@/config/endpoints";
-import PageTransition from "@/components/PageTransition";
-import Parallax from "@/components/Parallax";
+import PageTransition from "@/components/shared/PageTransition";
+import Parallax from "@/components/features/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
 import { toast } from "sonner";
 import {

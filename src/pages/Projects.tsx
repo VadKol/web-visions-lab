@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, X, Eye, Lock, ChevronLeft, ChevronRight } from "lucide-react";
-import PageTransition from "@/components/PageTransition";
-import Parallax from "@/components/Parallax";
+import PageTransition from "@/components/shared/PageTransition";
+import Parallax from "@/components/features/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
 import { projects } from "@/data/portfolio";
-import TiltCard from "@/components/TiltCard";
+import TiltCard from "@/components/shared/TiltCard";
 
 const PROJECTS_PER_PAGE = 3;
 

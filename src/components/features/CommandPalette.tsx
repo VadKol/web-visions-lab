@@ -14,7 +14,7 @@ import {
   Rss,
 } from "lucide-react";
 import { useTheme, themes, ThemeId } from "@/contexts/ThemeContext";
-import TypingGame from "./TypingGame";
+import TypingGame from '@/components/games/TypingGame';
 
 interface Command {
   id: string;
