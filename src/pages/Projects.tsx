@@ -182,34 +182,14 @@ const Projects = () => {
         </section>
       </div>
 
-      <AnimatePresence>
-        {previewImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className={`fixed inset-0 z-[60] bg-background/95 backdrop-blur-xl flex items-center justify-center p-6 ${isPony ? "" : "scanlines"}`}
-            onClick={() => setPreviewImage(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="relative max-w-5xl w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button onClick={() => setPreviewImage(null)} aria-label="Close preview" className="absolute -top-12 right-0 text-muted-foreground hover:text-secondary transition-colors">
-                <X size={24} />
-              </button>
-              <div className={`overflow-hidden ${isPony ? "rounded-2xl border-2 border-primary/20 shadow-2xl" : "cyber-border box-glow"}`}>
-                <img src={previewImage} alt="Project preview" className="w-full h-auto" />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Dialog open={!!previewImage} onOpenChange={() => setPreviewImage(null)}>
+        <DialogContent className={`max-w-5xl p-0 border-0 bg-transparent shadow-none [&>button]:text-muted-foreground [&>button]:hover:text-secondary ${isPony ? "" : "scanlines"}`}>
+          <DialogTitle className="sr-only">Project preview</DialogTitle>
+          <div className={`overflow-hidden ${isPony ? "rounded-2xl border-2 border-primary/20 shadow-2xl" : "cyber-border box-glow"}`}>
+            <img src={previewImage || ""} alt="Project preview" className="w-full h-auto" />
+          </div>
+        </DialogContent>
+      </Dialog>
     </PageTransition>
   );
 };
