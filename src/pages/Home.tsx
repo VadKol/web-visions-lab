@@ -12,6 +12,7 @@ import HeroText from "@/components/features/HeroText";
 import TerminalTyping from "@/components/features/TerminalTyping";
 import TypingRoles from "@/components/features/TypingRoles";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { personal, bio, services } from "@/data/portfolio";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroBgPony from "@/assets/hero-bg-pony.jpg";

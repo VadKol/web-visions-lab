@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMotionValue, useSpring } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Parallax3DValues {
   rotateX: ReturnType<typeof useSpring>;
@@ -9,6 +10,7 @@ interface Parallax3DValues {
 }
 
 export const use3DParallax = (intensity: number = 1): Parallax3DValues => {
+  const isMobile = useIsMobile();
   const rotateXValue = useMotionValue(0);
   const rotateYValue = useMotionValue(0);
   const mouseXValue = useMotionValue(0);
@@ -24,11 +26,12 @@ export const use3DParallax = (intensity: number = 1): Parallax3DValues => {
   const [hasDeviceOrientation, setHasDeviceOrientation] = useState(false);
 
   useEffect(() => {
-    // Check if device orientation is available (mobile)
+    // Disable all parallax movement on mobile
+    if (isMobile) return;
+
     const checkOrientation = () => {
       if (typeof DeviceOrientationEvent !== "undefined" && 
           typeof (DeviceOrientationEvent as any).requestPermission === "function") {
-        // iOS 13+ requires permission
         setHasDeviceOrientation(false);
       } else if (window.DeviceOrientationEvent) {
         setHasDeviceOrientation(true);
@@ -39,9 +42,7 @@ export const use3DParallax = (intensity: number = 1): Parallax3DValues => {
 
     const handleOrientation = (e: DeviceOrientationEvent) => {
       if (e.beta !== null && e.gamma !== null) {
-        // beta: front-back tilt (-180 to 180)
-        // gamma: left-right tilt (-90 to 90)
-        const tiltX = Math.max(-30, Math.min(30, e.beta - 45)) / 30; // Normalize to -1 to 1
+        const tiltX = Math.max(-30, Math.min(30, e.beta - 45)) / 30;
         const tiltY = Math.max(-30, Math.min(30, e.gamma)) / 30;
         
         rotateXValue.set(tiltX * 15 * intensity);
@@ -57,8 +58,8 @@ export const use3DParallax = (intensity: number = 1): Parallax3DValues => {
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
       
-      const normalizedX = (e.clientX - centerX) / centerX; // -1 to 1
-      const normalizedY = (e.clientY - centerY) / centerY; // -1 to 1
+      const normalizedX = (e.clientX - centerX) / centerX;
+      const normalizedY = (e.clientY - centerY) / centerY;
       
       rotateXValue.set(-normalizedY * 10 * intensity);
       rotateYValue.set(normalizedX * 10 * intensity);
@@ -75,7 +76,7 @@ export const use3DParallax = (intensity: number = 1): Parallax3DValues => {
       window.removeEventListener("deviceorientation", handleOrientation);
       window.removeEventListener("mousemove", handleMouse);
     };
-  }, [hasDeviceOrientation, intensity, rotateXValue, rotateYValue, mouseXValue, mouseYValue]);
+  }, [isMobile, hasDeviceOrientation, intensity, rotateXValue, rotateYValue, mouseXValue, mouseYValue]);
 
   return { rotateX, rotateY, mouseX, mouseY };
 };
