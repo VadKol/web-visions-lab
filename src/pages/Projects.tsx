@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, X, Eye, Lock, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { ExternalLink, Github, Eye, Lock, ChevronLeft, ChevronRight } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import PageTransition from "@/components/shared/PageTransition";
 import Parallax from "@/components/features/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
