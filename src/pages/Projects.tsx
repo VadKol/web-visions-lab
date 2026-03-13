@@ -196,14 +196,14 @@ const Projects = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="relative max-w-5xl w-full"
+              className="relative max-w-5xl w-full max-h-[85vh] flex flex-col items-center"
               onClick={(e) => e.stopPropagation()}
             >
               <button onClick={() => setPreviewImage(null)} aria-label="Close preview" className="absolute -top-12 right-0 text-muted-foreground hover:text-secondary transition-colors">
                 <X size={24} />
               </button>
               <div className={`overflow-hidden ${isPony ? "rounded-2xl border-2 border-primary/20 shadow-2xl" : "cyber-border box-glow"}`}>
-                <img src={previewImage} alt="Project preview" className="w-full h-auto" />
+                <img src={previewImage} alt="Project preview" className="w-full max-h-[85vh] object-contain" />
               </div>
             </motion.div>
           </motion.div>
