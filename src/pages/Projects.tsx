@@ -183,10 +183,10 @@ const Projects = () => {
       </div>
 
       <Dialog open={!!previewImage} onOpenChange={() => setPreviewImage(null)}>
-        <DialogContent className={`max-w-5xl p-0 border-0 bg-transparent shadow-none [&>button]:text-muted-foreground [&>button]:hover:text-secondary ${isPony ? "" : "scanlines"}`}>
+        <DialogContent className={`max-w-5xl p-0 border-0 bg-transparent shadow-none ${isPony ? "[&>button]:text-primary [&>button]:hover:text-accent-foreground" : "[&>button]:text-muted-foreground [&>button]:hover:text-secondary scanlines"}`}>
           <DialogTitle className="sr-only">Project preview</DialogTitle>
-          <div className={`overflow-hidden ${isPony ? "rounded-2xl border-2 border-primary/20 shadow-2xl" : "cyber-border box-glow"}`}>
-            <img src={previewImage || ""} alt="Project preview" className="w-full h-auto" />
+          <div className={`overflow-hidden ${isPony ? "rounded-2xl border-2 border-primary/30 shadow-[0_0_40px_hsl(var(--primary)/0.2)] bg-card" : "cyber-border box-glow"}`}>
+            <img src={previewImage || ""} alt="Project preview" className={`w-full h-auto ${isPony ? "rounded-2xl" : ""}`} />
           </div>
         </DialogContent>
       </Dialog>
