@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { useLocation, useRoutes } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import useKeyboardNav from "@/hooks/useKeyboardNav";
-import { routes } from "@/router/routes";
+import { routes } from "@/app/router/routes";
 
 export const AnimatedRoutes = () => {
   const location = useLocation();

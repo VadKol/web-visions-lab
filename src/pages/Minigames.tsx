@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Gamepad2, Keyboard, Brain, Blocks } from "lucide-react";
-import PageTransition from "@/components/PageTransition";
-import Parallax from "@/components/Parallax";
+import PageTransition from "@/components/shared/PageTransition";
+import Parallax from "@/components/features/Parallax";
 import { useTheme } from "@/contexts/ThemeContext";
-import TypingGame from "@/components/TypingGame";
-import SnakeGame from "@/components/SnakeGame";
-import MemoryGame from "@/components/MemoryGame";
-import TetrisGame from "@/components/TetrisGame";
+import TypingGame from "@/components/games/TypingGame";
+import SnakeGame from "@/components/games/SnakeGame";
+import MemoryGame from "@/components/games/MemoryGame";
+import TetrisGame from "@/components/games/TetrisGame";
 
 const games = [
   {

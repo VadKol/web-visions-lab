@@ -1,4 +1,4 @@
-import PageTransition from "@/components/PageTransition";
+import PageTransition from "@/components/shared/PageTransition";
 import { Link } from "react-router-dom";
 
 const Index = () => {

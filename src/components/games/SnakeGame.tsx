@@ -121,13 +121,13 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
-      
+
       const key = e.key;
-      
+
       if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "w", "a", "s", "d", " "].includes(key)) {
         e.preventDefault();
       }
-      
+
       const currentDir = directionRef.current;
 
       if ((key === "ArrowUp" || key === "w") && currentDir !== "DOWN") {
@@ -159,14 +159,14 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (!touchStartRef.current || !isPlaying || gameOver) return;
-    
+
     const touch = e.changedTouches[0];
     const deltaX = touch.clientX - touchStartRef.current.x;
     const deltaY = touch.clientY - touchStartRef.current.y;
     const minSwipe = 30;
-    
+
     const currentDir = directionRef.current;
-    
+
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
       // Horizontal swipe
       if (deltaX > minSwipe && currentDir !== "LEFT") {
@@ -186,7 +186,7 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
         setDirection("UP");
       }
     }
-    
+
     touchStartRef.current = null;
   };
 
@@ -264,7 +264,7 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
             <span className="text-muted-foreground">Best: <span className="text-secondary">{stats?.bestScore || 0}</span></span>
           </div>
 
-          <div 
+          <div
             className={`relative mx-auto ${isPony ? "rounded-lg" : ""} overflow-hidden border-2 border-primary/30 touch-none`}
             style={{ width: GRID_SIZE * CELL_SIZE, height: GRID_SIZE * CELL_SIZE, background: isPony ? "hsl(var(--muted))" : "#0a0a0a" }}
             onTouchStart={handleTouchStart}
@@ -277,13 +277,13 @@ const SnakeGame = ({ isOpen, onClose }: SnakeGameProps) => {
                 backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`
               }} />
             )}
-            
+
             {snake.map((segment, i) => (
               <div
                 key={i}
                 className={`absolute transition-all duration-75 ${
-                  i === 0 
-                    ? isPony ? "bg-primary rounded-md" : "bg-primary" 
+                  i === 0
+                    ? isPony ? "bg-primary rounded-md" : "bg-primary"
                     : isPony ? "bg-primary/70 rounded-sm" : "bg-primary/80"
                 }`}
                 style={{

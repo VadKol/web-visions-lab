@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Download, ExternalLink, FileText, X } from "lucide-react";
-import PageTransition from "@/components/PageTransition";
-import Parallax from "@/components/Parallax";
-import ThemedAvatar from "@/components/ThemedAvatar";
+import PageTransition from "@/components/shared/PageTransition";
+import Parallax from "@/components/features/Parallax";
+import ThemedAvatar from "@/components/shared/ThemedAvatar";
 import { useTheme } from "@/contexts/ThemeContext";
 import { personal, bio, skills, experience, education } from "@/data/portfolio";
 

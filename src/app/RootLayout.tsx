@@ -1,13 +1,13 @@
 // src/app/RootLayout.tsx
 import { ReactNode } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import ScrollProgressBar from "@/components/ScrollProgressBar";
-import ScrollToTop from "@/components/ScrollToTop";
-import CursorTrail from "@/components/CursorTrail";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
-import KonamiEasterEgg from "@/components/KonamiEasterEgg";
-import CommandPalette from "@/components/CommandPalette";
+import Navbar from "@/components/layouts/Navbar";
+import Footer from "@/components/layouts/Footer";
+import ScrollProgressBar from "@/components/shared/ScrollProgressBar";
+import ScrollToTop from "@/components/shared/ScrollToTop";
+import CursorTrail from "@/components/features/CursorTrail";
+import ThemeSwitcher from "@/components/shared/ThemeSwitcher";
+import KonamiEasterEgg from "@/components/features/KonamiEasterEgg";
+import CommandPalette from "@/components/features/CommandPalette";
 import { useTheme } from "@/contexts/ThemeContext";
 
 export const RootLayout = ({ children }: { children: ReactNode }) => {

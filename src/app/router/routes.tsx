@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { LazyLoadProviders } from "@/providers/LazyLoadProviders";
+import { LazyLoadProviders } from "@/app/providers/LazyLoadProviders";
 
 // console.log(LazyLoadProviders());
 const { Home, About, Projects, Contact, Minigames, Blog, NotFound } =

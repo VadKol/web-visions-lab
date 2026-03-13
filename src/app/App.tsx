@@ -8,9 +8,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import PageLoader from "@/components/PageLoader";
-import { AnimatedRoutes } from "@/layouts/AnimatedRouters";
-import { RootLayout } from "@/layouts/RootLayout";
+import PageLoader from "@/components/layouts/PageLoader";
+import { AnimatedRoutes } from "@/app/router/AnimatedRoutes";
+import { RootLayout } from "@/app/RootLayout";
 
 const queryClient = new QueryClient();
 
