@@ -3,8 +3,6 @@
 **Web Visions Lab** is my personal portfolio website and interactive Single Page Application (SPA) built with **React + Vite + TypeScript**.
 It showcases modern UI, custom hooks, animations, and mini-games, highlighting my frontend skills.
 
-> Some base UI components were generated with Lovable. All SPA logic, routing, custom hooks, forms, and interactive features were implemented and integrated manually by me.
-
 ---
 
 ## 🛠 Tech Stack
@@ -51,7 +49,7 @@ Organized following the feature/component separation principle, making it scalab
 
 🎯 Live Demo
 
-Visit the live site
+[Visit the live site](https://web-visions-lab.vercel.app/)
 
 All interactive features and mini-games are fully functional in the live demo.
 
