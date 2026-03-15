@@ -16,7 +16,7 @@ export const RootLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      {theme === "pony" && <CursorTrail key={theme} />}
+      {theme === "pony" ? <CursorTrail key={theme} /> : <NeonCursor key={theme} />}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:font-mono focus:text-sm focus:tracking-wider"
