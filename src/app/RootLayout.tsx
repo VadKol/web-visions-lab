@@ -5,6 +5,7 @@ import Footer from "@/components/layouts/Footer";
 import ScrollProgressBar from "@/components/shared/ScrollProgressBar";
 import ScrollToTop from "@/components/shared/ScrollToTop";
 import CursorTrail from "@/components/features/CursorTrail";
+import NeonCursor from "@/components/features/NeonCursor";
 import ThemeSwitcher from "@/components/shared/ThemeSwitcher";
 import KonamiEasterEgg from "@/components/features/KonamiEasterEgg";
 import CommandPalette from "@/components/features/CommandPalette";
